@@ -6,7 +6,9 @@
     }
   },
   "require": {
-    "filament/filament": "^3.0-stable"
+    "filament/filament": "^3.0-stable",
+    "laravel/framework": "^10.10",
+    "kalnoy/nestedset": "^6.0"
   },
   "extra": {
     "laravel": {

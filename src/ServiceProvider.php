@@ -9,7 +9,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
     }
 
@@ -18,7 +18,10 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'green');
+        $this->loadViewsFrom(__DIR__.'/../resources', 'green');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
     }
 }

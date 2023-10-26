@@ -1,0 +1,15 @@
+{
+    "name": "matsuoka/green-admin-base",
+    "autoload": {
+        "psr-4": {
+            "Matsuoka\\GreenAdminBase\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Toshimasa Matsuoka",
+            "email": "matsuoka@entap.co.jp"
+        }
+    ],
+    "require": {}
+}

@@ -1,15 +1,18 @@
 {
-    "name": "matsuoka/green-admin-base",
-    "autoload": {
-        "psr-4": {
-            "Matsuoka\\GreenAdminBase\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Toshimasa Matsuoka",
-            "email": "matsuoka@entap.co.jp"
-        }
-    ],
-    "require": {}
+  "name": "kobesoft/green-admin-base",
+  "autoload": {
+    "psr-4": {
+      "Green\\AdminBase\\": "src/"
+    }
+  },
+  "require": {
+    "filament/filament": "^3.0-stable"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Green\\AdminBase\\ServiceProvider"
+      ]
+    }
+  }
 }

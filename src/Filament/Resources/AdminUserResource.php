@@ -81,14 +81,16 @@ class AdminUserResource extends Resource
                 Forms\Components\Select::make('groups')
                     ->label(__('green::admin_base.admin_user.groups'))
                     ->relationship('groups', 'name')
-                    ->options(self::getGroupOptions(true))->multiple()
+                    ->options(self::getGroupOptions(true))
+                    ->multiple(config('green.admin_base.users_can_belong_to_multiple_groups'))
                     ->allowHtml()->native(false)->placeholder('')
                     ->requiredWithout('roles'),
                 // ロール
                 Forms\Components\Select::make('roles')
                     ->label(__('green::admin_base.admin_user.roles'))
                     ->relationship('roles', 'name')
-                    ->options(AdminRole::getOptions())->multiple()
+                    ->options(AdminRole::getOptions())
+                    ->multiple(config('green.admin_base.multiple_roles_can_be_assigned_to_users'))
                     ->native(false)->placeholder('')
                     ->visible(auth()->user()->hasPermission(\Green\AdminBase\Permissions\EditAdminUserRole::class)),
             ])

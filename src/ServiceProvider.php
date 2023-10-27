@@ -26,6 +26,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function boot(): void
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/green/admin_base.php', 'green.admin_base');
         $this->loadTranslationsFrom(__DIR__.'/../lang', 'green');
         $this->loadViewsFrom(__DIR__.'/../resources', 'green');
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');

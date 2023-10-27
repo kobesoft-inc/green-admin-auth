@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignIdFor(\Green\AdminBase\Models\AdminUser::class)->constrained();
             $table->foreignIdFor(\Green\AdminBase\Models\AdminGroup::class)->constrained();
         });
+
+        // 初期のロールを割当
+        \Green\AdminBase\Models\AdminGroup::find(1)->users()->sync([1]);
     }
 
     /**

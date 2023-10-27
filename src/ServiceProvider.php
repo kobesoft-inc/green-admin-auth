@@ -2,6 +2,11 @@
 
 namespace Green\AdminBase;
 
+use Green\AdminBase\Facades\PermissionManager;
+use Green\AdminBase\Listeners\LogAdminLogin;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Support\Facades\Event;
+
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     /**
@@ -11,6 +16,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(PermissionManager::class);
     }
 
     /**
@@ -23,5 +29,18 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->loadTranslationsFrom(__DIR__.'/../lang', 'green');
         $this->loadViewsFrom(__DIR__.'/../resources', 'green');
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
+        Event::listen(Login::class, LogAdminLogin::class);
+
+        PermissionManager::register([
+            \Green\AdminBase\Permissions\Super::class,
+            \Green\AdminBase\Permissions\ManageAdminUser::class,
+            \Green\AdminBase\Permissions\ManageAdminUserInGroup::class,
+            \Green\AdminBase\Permissions\EditAdminUserRole::class,
+            //\Green\AdminBase\Permissions\ResetAdminUserPassword::class,
+            \Green\AdminBase\Permissions\DeleteAdminUser::class,
+            \Green\AdminBase\Permissions\ManageAdminGroup::class,
+            \Green\AdminBase\Permissions\ManageAdminRole::class,
+        ]);
     }
 }

@@ -3,6 +3,10 @@
 namespace Green\AdminBase;
 
 use Filament\Panel;
+use Green\AdminBase\Filament\Pages\Login;
+use Green\AdminBase\Filament\Resources\AdminGroupResource;
+use Green\AdminBase\Filament\Resources\AdminRoleResource;
+use Green\AdminBase\Filament\Resources\AdminUserResource;
 
 class Plugin implements \Filament\Contracts\Plugin
 {
@@ -24,6 +28,15 @@ class Plugin implements \Filament\Contracts\Plugin
      */
     public function register(Panel $panel): void
     {
+        $panel
+            ->resources([
+                AdminUserResource::class,
+                AdminGroupResource::class,
+                AdminRoleResource::class,
+            ])
+            ->pages([
+            ])
+            ->login(Login::class);
     }
 
     /**

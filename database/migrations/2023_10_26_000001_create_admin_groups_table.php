@@ -17,6 +17,11 @@ return new class extends Migration
             $table->nestedSet();
             $table->timestamps();
         });
+
+        // 初期のグループを作成
+        \Green\AdminBase\Models\AdminGroup::create([
+            'name' => __('green::admin_base.admin_group.initial_group'),
+        ]);
     }
 
     /**

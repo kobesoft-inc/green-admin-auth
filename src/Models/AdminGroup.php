@@ -2,16 +2,26 @@
 
 namespace Green\AdminBase\Models;
 
+use Green\AdminBase\Traits\HasNodeOptions;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Carbon;
 use Kalnoy\Nestedset\NodeTrait;
 
 /**
  * 管理グループ
+ *
+ * @property string $name
+ * @property \Illuminate\Database\Eloquent\Collection $users
+ * @property \Illuminate\Database\Eloquent\Collection $roles
+ * @property \Illuminate\Support\Collection $permissions
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class AdminGroup extends Model
 {
-    use NodeTrait;
+    use NodeTrait, HasNodeOptions;
 
     /**
      * 一括代入できる属性
@@ -22,6 +32,22 @@ class AdminGroup extends Model
         'name',
         'parent_id',
     ];
+
+    /**
+     * 起動時の処理
+     *
+     * @return void
+     */
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        // 削除時
+        static::deleting(function (AdminGroup $adminGroup) {
+            // ロールの関連を削除
+            $adminGroup->roles()->detach();
+        });
+    }
 
     /**
      * このグループに所属する管理ユーザー
@@ -51,5 +77,23 @@ class AdminGroup extends Model
             'admin_group_id',
             'admin_role_id'
         );
+    }
+
+    /**
+     * パーミッションを取得する
+     *
+     * @return Attribute
+     */
+    public function permissions(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $permissions = $this->parent ? $this->parent->permissions : collect();
+                foreach ($this->roles as $role) {
+                    $permissions = $permissions->concat($role->permissions);
+                }
+                return $permissions->unique();
+            }
+        )->shouldCache();
     }
 }

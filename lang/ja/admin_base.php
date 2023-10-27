@@ -3,16 +3,23 @@
 declare(strict_types=1);
 
 return [
+    // 管理メニューの名前
     'navigation_group' => '管理',
+
+    // バリデーションのエラーメッセージ
     'validations' => [
         'node_parent' => ':attribute の指定が不正です',
     ],
+
+    // ページ
     'pages' => [
         'login' => [
             'title' => 'ログイン',
             'username_or_email' => 'ユーザー名またはメールアドレス',
         ],
     ],
+
+    // パーミッション
     'permissions' => [
         'admin' => [
             'group' => '管理',
@@ -26,6 +33,8 @@ return [
             'manage_admin_role' => 'ロールを管理',
         ],
     ],
+
+    // 管理ユーザー
     'admin_user' => [
         'model' => 'ユーザー',
         'name' => '表示名',
@@ -48,6 +57,8 @@ return [
             'reset_password' => 'パスワードをリセット',
         ]
     ],
+
+    // 管理グループ
     'admin_group' => [
         'model' => 'グループ',
         'name' => '名前',
@@ -58,6 +69,8 @@ return [
         'roles' => 'ロール',
         'initial_group' => 'デフォルトのグループ',
     ],
+
+    // 管理ロール
     'admin_role' => [
         'model' => 'ロール',
         'name' => '名前',

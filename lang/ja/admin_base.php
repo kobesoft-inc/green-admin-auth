@@ -14,7 +14,9 @@ return [
     // ページ
     'pages' => [
         'login' => [
-            'title' => 'ログイン',
+            'heading' => 'ログイン',
+            'username' => 'ユーザー名',
+            'email' => 'メールアドレス',
             'username_or_email' => 'ユーザー名またはメールアドレス',
         ],
     ],

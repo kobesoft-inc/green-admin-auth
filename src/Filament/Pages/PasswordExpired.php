@@ -11,6 +11,7 @@ use Green\AdminBase\Models\AdminUser;
 use Green\AdminBase\Plugin;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -42,6 +43,9 @@ class PasswordExpired extends SimplePage
      * フォーム送信時の処理
      *
      * @return mixed
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws ValidationException
      */
     public function changePassword(): mixed
     {
@@ -66,6 +70,12 @@ class PasswordExpired extends SimplePage
         // パスワードの有効期限切れのセッションを開放
         session()->forget(self::PASSWORD_EXPIRED_USER_ID);
         session()->regenerate();
+
+        // 通知を表示
+        Notification::make()
+            ->title('UNKO')
+            ->danger()
+            ->send();
 
         // ログイン画面に遷移する
         return $this->redirectToLogin();

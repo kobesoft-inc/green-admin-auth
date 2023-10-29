@@ -9,6 +9,7 @@ return [
     // バリデーションのエラーメッセージ
     'validations' => [
         'node_parent' => ':attribute の指定が不正です',
+        'email_is_not_set' => '送信先メールアドレスが設定されていません',
     ],
 
     // ページ

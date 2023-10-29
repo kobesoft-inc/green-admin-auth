@@ -10,6 +10,7 @@ use Filament\Resources\Pages\PageRegistration;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Green\AdminBase\Filament\Resources\AdminUserResource\Forms\PasswordForm;
 use Green\AdminBase\Filament\Resources\AdminUserResource\Pages\ListAdminUsers;
 use Green\AdminBase\Mail\PasswordReset;
 use Green\AdminBase\Models\AdminGroup;
@@ -79,7 +80,7 @@ class AdminUserResource extends Resource
                     ->ascii()->alphaDash()
                     ->unique('admin_users', 'username', fn(?AdminUser $record) => $record),
                 // パスワード
-                self::passwordResetForm()
+                PasswordForm::form()
                     ->visibleOn('create'),
                 // グループ
                 Forms\Components\Select::make('groups')
@@ -228,75 +229,5 @@ class AdminUserResource extends Resource
         } else {
             return AdminGroup::getOptions($html);
         }
-    }
-
-    /**
-     * パスワードのリセットフォームを返す
-     *
-     * @return Forms\Components\Group
-     */
-    public static function passwordResetForm(): Forms\Components\Group
-    {
-        return Forms\Components\Group::make([
-            // パスワードを生成するか？
-            Forms\Components\Checkbox::make('generate_password')
-                ->label(__('green::admin_base.admin_user.generate_password'))
-                ->default(true)
-                ->live()
-                ->afterStateUpdated(function (?int $state, Set $set) {
-                    if ($state) {
-                        $set('send_password', true);
-                    }
-                }),
-            // パスワード
-            \Phpsa\FilamentPasswordReveal\Password::make('password')
-                ->label(__('green::admin_base.admin_user.password'))
-                ->password()
-                ->showIcon('bi-eye')->hideIcon('bi-eye-slash')
-                ->visible(fn(Get $get): bool => !$get('generate_password'))
-                ->required()->ascii()->minLength(Plugin::get()->getPasswordMinLength()),
-            // パスワードの変更を要求するか？
-            Forms\Components\Checkbox::make('require_change_password')
-                ->label(__('green::admin_base.admin_user.require_change_password'))
-                ->default(true),
-            // パスワードをメールで送信するか？
-            Forms\Components\Checkbox::make('send_password')
-                ->label(__('green::admin_base.admin_user.send_password'))
-                ->default(true)
-                ->live()
-                ->disabled(fn(Get $get): bool => $get('generate_password')),
-        ]);
-    }
-
-    /**
-     * パスワードの生成・有効期限設定・メール送信の処理を行う
-     *
-     * 管理ユーザーの作成と、パスワードのリセットフォームから参照されています。
-     *
-     * @param  array  $data  入力データ
-     * @param  AdminUser|null  $adminUser
-     * @return array
-     */
-    static public function processPasswordForm(array $data, ?AdminUser $adminUser): array
-    {
-        // パスワードを生成する
-        if ($data['generate_password']) {
-            $data['password'] = Str::password(Plugin::get()->getGeneratedPasswordLength());
-        }
-        if ($data['require_change_password']) {
-            $data['password_expire_at'] = Carbon::now();
-        }
-        if ($data['generate_password'] || $data['send_password']) {
-            $email = $adminUser?->email ?? $data['email'];
-            $username = $adminUser?->username ?? $data['username'];
-            $login = filament()->getCurrentPanel()->getLoginUrl();
-            Mail::to($email)->send(new PasswordReset(
-                email: $email,
-                username: $username,
-                password: $data['password'],
-                login: $login
-            ));
-        }
-        return $data;
     }
 }

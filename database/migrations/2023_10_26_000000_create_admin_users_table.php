@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->nullable()->unique();
             $table->string('username')->nullable()->unique();
             $table->string('password')->nullable();
+            $table->dateTime('password_expire_at')->nullable();
             $table->boolean('is_active')->default(true);
             $table->string('avatar')->nullable();
             $table->rememberToken();

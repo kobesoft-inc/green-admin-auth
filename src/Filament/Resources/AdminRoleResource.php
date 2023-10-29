@@ -89,7 +89,7 @@ class AdminRoleResource extends Resource
                 Tables\Actions\ActionGroup::make([
                     // 編集
                     Tables\Actions\EditAction::make()
-                        ->modalWidth('lg')->slideOver(),
+                        ->modalWidth('xl')->slideOver(),
                     // 削除
                     Tables\Actions\DeleteAction::make(),
                 ])

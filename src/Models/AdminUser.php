@@ -2,12 +2,12 @@
 
 namespace Green\AdminBase\Models;
 
+use Green\AdminBase\Plugin;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
  * @property string $email
  * @property string $username
  * @property string $password
+ * @property Carbon $password_expire_at
  * @property bool $is_active
  * @property string $avatar
  * @property string $avatar_url
@@ -39,6 +40,7 @@ class AdminUser extends \Illuminate\Foundation\Auth\User
         'email',
         'username',
         'password',
+        'password_expire_at',
         'is_active',
         'avatar',
     ];
@@ -69,6 +71,7 @@ class AdminUser extends \Illuminate\Foundation\Auth\User
      */
     protected $casts = [
         'password' => 'hashed',
+        'password_expire_at' => 'datetime'
     ];
 
     /**
@@ -79,6 +82,17 @@ class AdminUser extends \Illuminate\Foundation\Auth\User
     protected static function boot(): void
     {
         parent::boot();
+
+        // 保存時
+        static::saving(function (AdminUser $adminUser) {
+            if ($adminUser->isDirty('password') && !$adminUser->isDirty('password_expire_at')) {
+                // パスワードを変更し、有効期限を設定していない場合には、自動的に有効期限を設定する
+                $passwordDays = Plugin::get()->getPasswordDays();
+                $adminUser->password_expire_at = $passwordDays
+                    ? \Carbon\Carbon::now()->addDays($passwordDays) // 有効期限を設定
+                    : null; // 有効期限無し
+            }
+        });
 
         // 削除時
         static::deleting(function (AdminUser $adminUser) {
@@ -203,5 +217,16 @@ class AdminUser extends \Illuminate\Foundation\Auth\User
     {
         return $this->permissions->contains($permission)
             || $this->permissions->contains(\Green\AdminBase\Permissions\Super::class);
+    }
+
+    /**
+     * パスワードが有効期限切れか？
+     *
+     * @return bool
+     */
+    public function isPasswordExpired(): bool
+    {
+        return $this->password_expire_at !== null
+            && $this->password_expire_at->isPast();
     }
 }

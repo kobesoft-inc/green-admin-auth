@@ -2,13 +2,49 @@
 
 namespace Green\AdminBase\Filament\Pages;
 
+use Filament\Facades\Filament;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
+use Green\AdminBase\Models\AdminUser;
+use Green\AdminBase\Plugin;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 
 class Login extends \Filament\Pages\Auth\Login
 {
+    protected static string $view = 'green::filament.pages.login';
+
+    /**
+     * ログイン処理を行う
+     *
+     * @return mixed
+     */
+    public function login(): mixed
+    {
+        // 通常のログイン処理
+        $loginResponse = parent::authenticate();
+        if ($loginResponse === null) {
+            return null;
+        }
+
+        // パスワードの有効期限が切れている場合の処理
+        /** @var AdminUser $user */
+        $user = Filament::auth()->user();
+        if ($user->isPasswordExpired()) {
+            // セッションに、ログインしようとしたユーザーIDを設定する
+            session()->put(PasswordExpired::PASSWORD_EXPIRED_USER_ID, $user->id);
+
+            // ログアウト処理をする
+            Filament::auth()->logout();
+
+            // パスワード有効期限切れのページにリダイレクトする
+            return redirect('/admin/password-expired');
+        }
+
+        // ログインOK
+        return $loginResponse;
+    }
+
     /**
      * ログインの見出し
      *
@@ -29,7 +65,7 @@ class Login extends \Filament\Pages\Auth\Login
         return TextInput::make('email')
             ->label($this->getEmailFormLabel())
             ->required()
-            ->email(!config('green.admin_base.users_can_login_with_username'))
+            ->email(!Plugin::get()->canLoginWithUsername())
             ->autocomplete()
             ->autofocus()
             ->extraInputAttributes(['tabindex' => 1]);
@@ -42,13 +78,13 @@ class Login extends \Filament\Pages\Auth\Login
      */
     protected function getEmailFormLabel(): string
     {
-        $email = config('green.admin_base.users_can_login_with_email');
-        $username = config('green.admin_base.users_can_login_with_username');
-        if ($email && $username) {
+        $canLoginWithEmail = Plugin::get()->canLoginWithEmail();
+        $canLoginWithUsername = Plugin::get()->canLoginWithUsername();
+        if ($canLoginWithEmail && $canLoginWithUsername) {
             return __('green::admin_base.pages.login.username_or_email');
-        } elseif ($username) {
+        } elseif ($canLoginWithUsername) {
             return __('green::admin_base.pages.login.username');
-        } elseif ($email) {
+        } elseif ($canLoginWithEmail) {
             return __('green::admin_base.pages.login.email');
         } else {
             throw new \RuntimeException('Please enable users_can_login_with_(username or email)');
@@ -65,10 +101,10 @@ class Login extends \Filament\Pages\Auth\Login
     {
         return [
             'email' => function (Builder $query) use ($data) {
-                if (config('green.admin_base.users_can_login_with_email')) {
+                if (Plugin::get()->canLoginWithEmail()) {
                     $query->orWhere('email', $data['email']);
                 }
-                if (config('green.admin_base.users_can_login_with_username')) {
+                if (Plugin::get()->canLoginWithUsername()) {
                     $query->orWhere('username', $data['email']);
                 }
             },

@@ -19,6 +19,25 @@ return [
             'email' => 'メールアドレス',
             'username_or_email' => 'ユーザー名またはメールアドレス',
         ],
+        'password_expired' => [
+            'heading' => 'パスワード変更',
+            'subheading' => 'パスワードの有効期限が切れました',
+            'current_password' => '現在のパスワード',
+            'new_password' => '新しいパスワード',
+            'change_password' => 'パスワードを変更',
+            'invalid_password' => 'パスワードが違います',
+        ]
+    ],
+
+    // メール
+    'emails' => [
+        'password_reset' => [
+            'subject' => ':app のパスワードを発行しました',
+            'email' => 'メールアドレス',
+            'username' => 'ユーザー名',
+            'password' => 'パスワード',
+            'login' => ':app にログイン',
+        ],
     ],
 
     // パーミッション
@@ -26,11 +45,11 @@ return [
         'admin' => [
             'group' => '管理',
             'super' => '全ての操作',
-            'manage_admin_user' => '全てのユーザーを管理',
-            'manage_admin_user_in_group' => '所属グループのユーザーを管理',
-            'edit_admin_user_role' => 'ユーザーにロールを割当',
+            'manage_admin_user' => '全ての管理ユーザーを管理',
+            'manage_admin_user_in_group' => '所属グループの管理ユーザーを管理',
+            'edit_admin_user_role' => '管理ユーザーにロールを割当',
             'reset_admin_user_password' => 'パスワードをリセット',
-            'delete_admin_user' => 'ユーザーを削除',
+            'delete_admin_user' => '管理ユーザーを削除',
             'manage_admin_group' => 'グループを管理',
             'manage_admin_role' => 'ロールを管理',
         ],
@@ -38,11 +57,14 @@ return [
 
     // 管理ユーザー
     'admin_user' => [
-        'model' => 'ユーザー',
+        'model' => '管理ユーザー',
         'name' => '表示名',
         'email' => 'メールアドレス',
         'username' => 'ユーザー名',
         'password' => 'パスワード',
+        'generate_password' => 'パスワードを自動生成する',
+        'require_change_password' => '初回ログイン時にパスワードの変更を要求する',
+        'send_password' => '完了時にパスワードをメールで送信',
         'is_active' => '状態',
         'avatar' => 'アバター',
         'created_at' => '登録日',
@@ -57,6 +79,7 @@ return [
             'resume' => 'ログインを再開',
             'resume_succeed' => 'ログインを再開しました',
             'reset_password' => 'パスワードをリセット',
+            'reset_password_succeed' => 'パスワードをリセットしました',
         ]
     ],
 
@@ -66,8 +89,8 @@ return [
         'name' => '名前',
         'created_at' => '登録日',
         'updated_at' => '更新日',
-        'parent_id' => '親の管理グループ',
-        'users' => '所属ユーザー',
+        'parent_id' => '親のグループ',
+        'users' => '所属管理ユーザー',
         'roles' => 'ロール',
         'initial_group' => 'デフォルトのグループ',
     ],
@@ -78,7 +101,7 @@ return [
         'name' => '名前',
         'created_at' => '登録日',
         'updated_at' => '更新日',
-        'users' => 'ユーザー',
+        'users' => '管理ユーザー',
         'groups' => 'グループ',
         'initial_role' => '特権',
     ],

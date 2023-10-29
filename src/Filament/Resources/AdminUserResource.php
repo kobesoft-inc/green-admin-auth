@@ -4,18 +4,24 @@ namespace Green\AdminBase\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Pages\PageRegistration;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Green\AdminBase\Filament\Resources\AdminUserResource\Pages\ListAdminUsers;
+use Green\AdminBase\Mail\PasswordReset;
 use Green\AdminBase\Models\AdminGroup;
 use Green\AdminBase\Models\AdminRole;
 use Green\AdminBase\Models\AdminUser;
 use Green\AdminBase\Permissions\ManageAdminUser;
 use Green\AdminBase\Permissions\ManageAdminUserInGroup;
+use Green\AdminBase\Plugin;
 use Illuminate\Database\Eloquent\Builder;
-use Phpsa\FilamentPasswordReveal\Password;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class AdminUserResource extends Resource
 {
@@ -69,20 +75,18 @@ class AdminUserResource extends Resource
                 // ユーザー名
                 Forms\Components\TextInput::make('username')
                     ->label(__('green::admin_base.admin_user.username'))
-                    ->requiredWithout('email')->ascii()->alphaDash()
+                    ->requiredWithout('email')
+                    ->ascii()->alphaDash()
                     ->unique('admin_users', 'username', fn(?AdminUser $record) => $record),
                 // パスワード
-                \Phpsa\FilamentPasswordReveal\Password::make('password')
-                    ->label(__('green::admin_base.admin_user.password'))
-                    ->showIcon('bi-eye')->hideIcon('bi-eye-slash')
-                    ->password()->ascii()
+                self::passwordResetForm()
                     ->visibleOn('create'),
                 // グループ
                 Forms\Components\Select::make('groups')
                     ->label(__('green::admin_base.admin_user.groups'))
                     ->relationship('groups', 'name')
                     ->options(self::getGroupOptions(true))
-                    ->multiple(config('green.admin_base.users_can_belong_to_multiple_groups'))
+                    ->multiple(Plugin::get()->isMultipleGroups())
                     ->allowHtml()->native(false)->placeholder('')
                     ->requiredWithout('roles'),
                 // ロール
@@ -90,7 +94,7 @@ class AdminUserResource extends Resource
                     ->label(__('green::admin_base.admin_user.roles'))
                     ->relationship('roles', 'name')
                     ->options(AdminRole::getOptions())
-                    ->multiple(config('green.admin_base.multiple_roles_can_be_assigned_to_users'))
+                    ->multiple(Plugin::get()->isMultipleRoles())
                     ->native(false)->placeholder('')
                     ->visible(auth()->user()->hasPermission(\Green\AdminBase\Permissions\EditAdminUserRole::class)),
             ])
@@ -155,6 +159,9 @@ class AdminUserResource extends Resource
                     // 編集
                     Tables\Actions\EditAction::make()
                         ->modalWidth('md')->slideOver(),
+                    // パスワードをリセット
+                    AdminUserResource\Actions\ResetPasswordAction::make()
+                        ->modalWidth('sm'),
                     // ログインを停止
                     AdminUserResource\Actions\SuspendAction::make()
                         ->visible(fn($record) => $record->is_active && auth()->user()->can('suspend', $record)),
@@ -220,5 +227,75 @@ class AdminUserResource extends Resource
         } else {
             return AdminGroup::getOptions($html);
         }
+    }
+
+    /**
+     * パスワードのリセットフォームを返す
+     *
+     * @return Forms\Components\Group
+     */
+    public static function passwordResetForm(): Forms\Components\Group
+    {
+        return Forms\Components\Group::make([
+            // パスワードを生成するか？
+            Forms\Components\Checkbox::make('generate_password')
+                ->label(__('green::admin_base.admin_user.generate_password'))
+                ->default(true)
+                ->live()
+                ->afterStateUpdated(function (?int $state, Set $set) {
+                    if ($state) {
+                        $set('send_password', true);
+                    }
+                }),
+            // パスワード
+            \Phpsa\FilamentPasswordReveal\Password::make('password')
+                ->label(__('green::admin_base.admin_user.password'))
+                ->password()
+                ->showIcon('bi-eye')->hideIcon('bi-eye-slash')
+                ->visible(fn(Get $get): bool => !$get('generate_password'))
+                ->required()->ascii()->minLength(Plugin::get()->getPasswordMinLength()),
+            // パスワードの変更を要求するか？
+            Forms\Components\Checkbox::make('require_change_password')
+                ->label(__('green::admin_base.admin_user.require_change_password'))
+                ->default(true),
+            // パスワードをメールで送信するか？
+            Forms\Components\Checkbox::make('send_password')
+                ->label(__('green::admin_base.admin_user.send_password'))
+                ->default(true)
+                ->live()
+                ->disabled(fn(Get $get): bool => $get('generate_password')),
+        ]);
+    }
+
+    /**
+     * パスワードの生成・有効期限設定・メール送信の処理を行う
+     *
+     * 管理ユーザーの作成と、パスワードのリセットフォームから参照されています。
+     *
+     * @param  array  $data  入力データ
+     * @param  AdminUser|null  $adminUser
+     * @return array
+     */
+    static public function processPasswordForm(array $data, ?AdminUser $adminUser): array
+    {
+        // パスワードを生成する
+        if ($data['generate_password']) {
+            $data['password'] = Str::password(Plugin::get()->getGeneratedPasswordLength());
+        }
+        if ($data['require_change_password']) {
+            $data['password_expire_at'] = Carbon::now();
+        }
+        if ($data['generate_password'] || $data['send_password']) {
+            $email = $adminUser?->email ?? $data['email'];
+            $username = $adminUser?->username ?? $data['username'];
+            $login = filament()->getCurrentPanel()->getLoginUrl();
+            Mail::to($email)->send(new PasswordReset(
+                email: $email,
+                username: $username,
+                password: $data['password'],
+                login: $login
+            ));
+        }
+        return $data;
     }
 }

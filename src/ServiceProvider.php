@@ -3,9 +3,11 @@
 namespace Green\AdminBase;
 
 use Green\AdminBase\Facades\PermissionManager;
+use Green\AdminBase\Filament\Pages\PasswordExpired;
 use Green\AdminBase\Listeners\LogAdminLogin;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Event;
+use Livewire\Livewire;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -26,9 +28,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function boot(): void
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/green/admin_base.php', 'green.admin_base');
         $this->loadTranslationsFrom(__DIR__.'/../lang', 'green');
-        $this->loadViewsFrom(__DIR__.'/../resources', 'green');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'green');
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         Event::listen(Login::class, LogAdminLogin::class);
@@ -43,5 +44,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             \Green\AdminBase\Permissions\ManageAdminGroup::class,
             \Green\AdminBase\Permissions\ManageAdminRole::class,
         ]);
+
+        Livewire::component('green.admin-base.filament.pages.password-expired', PasswordExpired::class);
     }
 }

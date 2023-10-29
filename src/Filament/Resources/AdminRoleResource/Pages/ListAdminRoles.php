@@ -14,7 +14,7 @@ class ListAdminRoles extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->modalWidth('md')->slideOver()
+                ->modalWidth('xl')->slideOver()
                 ->createAnother(false),
         ];
     }

@@ -161,13 +161,14 @@ class AdminUserResource extends Resource
                         ->modalWidth('md')->slideOver(),
                     // パスワードをリセット
                     AdminUserResource\Actions\ResetPasswordAction::make()
-                        ->modalWidth('sm'),
+                        ->modalWidth('sm')
+                        ->visible(fn($record) => auth()->user()->can('resetPassword', $record)),
                     // ログインを停止
                     AdminUserResource\Actions\SuspendAction::make()
                         ->visible(fn($record) => $record->is_active && auth()->user()->can('suspend', $record)),
                     // ログインを再開
                     AdminUserResource\Actions\ResumeAction::make()
-                        ->visible(fn($record) => !$record->is_active),
+                        ->visible(fn($record) => !$record->is_active && auth()->user()->can('suspend', $record)),
                     // 削除
                     Tables\Actions\DeleteAction::make(),
                 ]),

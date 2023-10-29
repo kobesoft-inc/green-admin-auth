@@ -39,7 +39,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             \Green\AdminBase\Permissions\ManageAdminUser::class,
             \Green\AdminBase\Permissions\ManageAdminUserInGroup::class,
             \Green\AdminBase\Permissions\EditAdminUserRole::class,
-            //\Green\AdminBase\Permissions\ResetAdminUserPassword::class,
+            \Green\AdminBase\Permissions\ResetAdminUserPassword::class,
             \Green\AdminBase\Permissions\DeleteAdminUser::class,
             \Green\AdminBase\Permissions\ManageAdminGroup::class,
             \Green\AdminBase\Permissions\ManageAdminRole::class,

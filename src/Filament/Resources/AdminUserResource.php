@@ -4,15 +4,12 @@ namespace Green\AdminBase\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Filament\Resources\Pages\PageRegistration;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Green\AdminBase\Filament\Resources\AdminUserResource\Forms\PasswordForm;
 use Green\AdminBase\Filament\Resources\AdminUserResource\Pages\ListAdminUsers;
-use Green\AdminBase\Mail\PasswordReset;
 use Green\AdminBase\Models\AdminGroup;
 use Green\AdminBase\Models\AdminRole;
 use Green\AdminBase\Models\AdminUser;
@@ -20,9 +17,6 @@ use Green\AdminBase\Permissions\ManageAdminUser;
 use Green\AdminBase\Permissions\ManageAdminUserInGroup;
 use Green\AdminBase\Plugin;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 class AdminUserResource extends Resource
 {

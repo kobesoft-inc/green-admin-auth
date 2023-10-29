@@ -38,6 +38,7 @@ class Plugin implements \Filament\Contracts\Plugin
      */
     public function register(Panel $panel): void
     {
+        $routes = $panel->getRoutes();
         $panel
             ->resources([
                 AdminUserResource::class,
@@ -46,7 +47,10 @@ class Plugin implements \Filament\Contracts\Plugin
             ])
             ->pages([
             ])
-            ->routes(function ($panel) {
+            ->routes(function ($panel) use ($routes) {
+                if ($routes) {
+                    $routes($panel);
+                }
                 Route::get('/password-expired', PasswordExpired::class)->name('password-expired');
             })
             ->login(Login::class);

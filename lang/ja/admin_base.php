@@ -27,6 +27,7 @@ return [
             'new_password' => '新しいパスワード',
             'change_password' => 'パスワードを変更',
             'invalid_password' => 'パスワードが違います',
+            'password_changed' => 'パスワードを変更しました',
         ]
     ],
 

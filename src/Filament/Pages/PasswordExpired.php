@@ -6,12 +6,12 @@ use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Pages\SimplePage;
 use Green\AdminBase\Models\AdminUser;
 use Green\AdminBase\Plugin;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -73,8 +73,8 @@ class PasswordExpired extends SimplePage
 
         // 通知を表示
         Notification::make()
-            ->title('UNKO')
-            ->danger()
+            ->title(__('green::admin_base.pages.password_expired.password_changed'))
+            ->success()
             ->send();
 
         // ログイン画面に遷移する

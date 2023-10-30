@@ -1,4 +1,5 @@
 @php
+    /** @noinspection PhpUndefinedVariableInspection */
     $avatar = $getAvatar();
 @endphp
 <div class="fi-ta-text gap-y-1 px-3 py-4">

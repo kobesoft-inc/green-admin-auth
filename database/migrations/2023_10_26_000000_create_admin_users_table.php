@@ -29,6 +29,7 @@ return new class extends Migration
             'name' => __('green::admin_base.admin_user.initial_user'),
             'username' => 'admin',
             'password' => 'admin',
+            'password_expire_at' => \Illuminate\Support\Carbon::createFromTimestamp(0),
         ]);
     }
 

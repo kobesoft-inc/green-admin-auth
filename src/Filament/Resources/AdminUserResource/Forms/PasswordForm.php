@@ -2,7 +2,6 @@
 
 namespace Green\AdminBase\Filament\Resources\AdminUserResource\Forms;
 
-
 use Closure;
 use Filament\Forms;
 use Filament\Forms\Get;
@@ -14,6 +13,11 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
+/**
+ * パスワードの入力・生成フォーム
+ *
+ * 管理ユーザー作成、パスワードのリセットフォームから参照されている
+ */
 class PasswordForm
 {
     /**
@@ -62,10 +66,8 @@ class PasswordForm
     /**
      * パスワードの生成・有効期限設定・メール送信の処理を行う
      *
-     * 管理ユーザーの作成と、パスワードのリセットフォームから参照されています。
-     *
      * @param  array  $data  入力データ
-     * @param  AdminUser|null  $adminUser  モデル
+     * @param  AdminUser|null  $adminUser  モデル（作成済みの場合）
      * @return array
      */
     static public function process(array $data, ?AdminUser $adminUser): array

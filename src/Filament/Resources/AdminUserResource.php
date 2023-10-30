@@ -107,8 +107,9 @@ class AdminUserResource extends Resource
         return $table
             ->columns([
                 // 名前
-                Tables\Columns\TextColumn::make('name')
+                \Green\AdminBase\Tables\Columns\AvatarColumn::make('name')
                     ->label(__('green::admin_base.admin_user.name'))
+                    ->avatar(fn($record) => $record->avatar_url)
                     ->sortable()->searchable()->toggleable(),
                 // メール
                 Tables\Columns\TextColumn::make('email')

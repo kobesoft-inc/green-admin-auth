@@ -54,12 +54,14 @@ class AdminGroupResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->label(__('green::admin_base.admin_group.name'))
                     ->required()->maxLength(20),
+
                 // 親のグループ
                 Forms\Components\Select::make('parent_id')
                     ->label(__('green::admin_base.admin_group.parent_id'))
                     ->options(AdminGroup::getOptions())
                     ->native(false)->allowHtml(true)
                     ->rules([fn($record) => new NodeParent(record: $record)]),
+
                 // ロール
                 Forms\Components\Select::make('roles')
                     ->label(__('green::admin_base.admin_user.roles'))
@@ -86,11 +88,13 @@ class AdminGroupResource extends Resource
                     ->label(__('green::admin_base.admin_group.name'))
                     ->extraAttributes(fn($record) => ['style' => 'text-indent:'.$record->depth.'em'])
                     ->sortable()->searchable()->toggleable(),
+
                 // 割り当てられたユーザー
                 Tables\Columns\ImageColumn::make('users.avatar_url')
                     ->label(__('green::admin_base.admin_group.users'))
                     ->circular()->overlap(5)->limit(5)->limitedRemainingText()
                     ->toggleable(),
+                
                 // 割り当てられたロール
                 Tables\Columns\TextColumn::make('roles.name')
                     ->label(__('green::admin_base.admin_group.roles'))

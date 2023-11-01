@@ -4,10 +4,8 @@ namespace Green\AdminBase\Filament\Resources\AdminUserResource\Actions;
 
 use Filament\Forms;
 use Filament\Tables\Actions\Action;
-use Filament\Tables\Table;
 use Green\AdminBase\Filament\Resources\AdminUserResource\Forms\PasswordForm;
 use Green\AdminBase\Models\AdminUser;
-use Illuminate\Database\Eloquent\Model;
 
 class ResetPasswordAction extends Action
 {
@@ -42,7 +40,7 @@ class ResetPasswordAction extends Action
             Forms\Components\TextInput::make('email')
                 ->hidden()
                 ->default(fn(AdminUser $record) => $record->email),
-            PasswordForm::form(),
+            \Green\AdminBase\Forms\Components\PasswordForm::make(),
         ]);
 
         $this->action(function (array $data, AdminUser $record) {

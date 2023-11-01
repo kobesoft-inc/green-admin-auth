@@ -73,11 +73,13 @@ class AdminRoleResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->label(__('green::admin_base.admin_role.name'))
                     ->sortable()->searchable()->toggleable(),
+
                 // 割り当てられたユーザー
                 Tables\Columns\ImageColumn::make('users.avatar_url')
                     ->label(__('green::admin_base.admin_role.users'))
                     ->circular()->overlap(5)->limit(5)->limitedRemainingText()
                     ->toggleable(),
+
                 // 割り当てられたグループ
                 Tables\Columns\TextColumn::make('groups.name')
                     ->label(__('green::admin_base.admin_role.groups'))

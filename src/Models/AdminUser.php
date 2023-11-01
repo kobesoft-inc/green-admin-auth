@@ -106,10 +106,10 @@ class AdminUser extends \Illuminate\Foundation\Auth\User
      * 指定されたグループ以下に所属するユーザーだけのスコープ
      *
      * @param  Builder  $query
-     * @param  Collection  $groups
+     * @param  \Illuminate\Support\Collection  $groups
      * @return void
      */
-    public function scopeInGroups(Builder $query, Collection $groups): void
+    public function scopeInGroups(Builder $query, \Illuminate\Support\Collection $groups): void
     {
         $query->whereHas('groups', function (Builder $query) use ($groups) {
             $query->whereIn('admin_groups.id', $groups->pluck('id'));
@@ -149,9 +149,9 @@ class AdminUser extends \Illuminate\Foundation\Auth\User
     /**
      * この管理ユーザーが所属するグループ・子グループ
      *
-     * @return Collection
+     * @return \Illuminate\Support\Collection
      */
-    public function groupsWithDescendants(): Collection
+    public function groupsWithDescendants(): \Illuminate\Support\Collection
     {
         $groups = collect();
         foreach ($this->groups()->with('descendants')->get() as $group) {

@@ -19,14 +19,17 @@ trait HasSortOrder
      */
     static public function bootHasSortOrder(): void
     {
-        // デフォルトの並び順
-        self::addGlobalScope('defaultOrder', function (Builder $builder) {
-            $builder->orderBy(self::SORT_ORDER);
-        });
-
         // 作成時にソート順をIDで初期化する
         self::created(function (Model $model) {
             $model->update([self::SORT_ORDER => $model->id]);
         });
+    }
+
+    /**
+     * デフォルトの並び順のスコープ
+     */
+    public function scopeDefaultOrder(Builder $builder): Builder
+    {
+        return $builder->orderBy(self::SORT_ORDER);
     }
 }

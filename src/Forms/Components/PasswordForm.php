@@ -39,14 +39,15 @@ class PasswordForm extends Forms\Components\Group
                         if ($state) {
                             $set('send_password', true);
                         }
-                    }),
+                    })
+                    ->hidden(Plugin::get()->isEmailDisabled()),
 
                 // パスワード
                 \Phpsa\FilamentPasswordReveal\Password::make('password')
                     ->label(__('green::admin_base.admin_user.password'))
                     ->password()
                     ->showIcon('bi-eye')->hideIcon('bi-eye-slash')
-                    ->visible(fn(Get $get): bool => !$get('generate_password'))
+                    ->visible(fn(Get $get): bool => !$get('generate_password') || Plugin::get()->isEmailDisabled())
                     ->required()->ascii()->minLength(Plugin::get()->getPasswordMinLength()),
 
                 // パスワードの変更を要求するか？
@@ -64,7 +65,8 @@ class PasswordForm extends Forms\Components\Group
                         if (blank($get('email'))) {
                             $fail(__('green::admin_base.validations.email_is_not_set'));
                         }
-                    }),
+                    })
+                    ->hidden(Plugin::get()->isEmailDisabled()),
             ]);
     }
 
@@ -78,6 +80,17 @@ class PasswordForm extends Forms\Components\Group
      */
     static public function process(array $data, ?AdminUser $adminUser): array
     {
+        // 配列にキーがない場合の処理
+        if (!isset($data['generate_password'])) {
+            $data['generate_password'] = false;
+        }
+        if (!isset($data['require_change_password'])) {
+            $data['require_change_password'] = false;
+        }
+        if (!isset($data['send_password'])) {
+            $data['send_password'] = false;
+        }
+
         // パスワードを生成する
         if ($data['generate_password']) {
             $data['password'] = Str::password(Plugin::get()->getGeneratedPasswordLength());

@@ -11,13 +11,13 @@ use Filament\Tables\Table;
 use Green\AdminBase\Filament\Resources\AdminGroupResource\Pages\ListAdminGroups;
 use Green\AdminBase\Models\AdminGroup;
 use Green\AdminBase\Models\AdminRole;
+use Green\AdminBase\Plugin;
 use Green\AdminBase\Rules\NodeParent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class AdminGroupResource extends Resource
 {
-    protected static ?string $model = AdminGroup::class;
     protected static ?string $navigationIcon = 'bi-people';
 
     /**
@@ -31,13 +31,21 @@ class AdminGroupResource extends Resource
     }
 
     /**
+     * モデルのクラス
+     */
+    public static function getModel(): string
+    {
+        return Plugin::get()->getGroupModel();
+    }
+
+    /**
      * モデルの名前
      *
      * @return string
      */
     public static function getModelLabel(): string
     {
-        return __('green::admin_base.admin_group.model');
+        return Plugin::get()->getGroupModelLabel();
     }
 
     /**
@@ -91,7 +99,7 @@ class AdminGroupResource extends Resource
 
                 // 割り当てられたユーザー
                 Tables\Columns\ImageColumn::make('users.avatar_url')
-                    ->label(__('green::admin_base.admin_group.users'))
+                    ->label(Plugin::get()->getUserModelLabel())
                     ->circular()->overlap(5)->limit(5)->limitedRemainingText()
                     ->toggleable(),
                 

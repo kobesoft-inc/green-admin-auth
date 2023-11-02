@@ -8,7 +8,6 @@ use Filament\Resources\Pages\PageRegistration;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Green\AdminBase\Filament\Resources\AdminUserResource\Forms\PasswordForm;
 use Green\AdminBase\Filament\Resources\AdminUserResource\Pages\ListAdminUsers;
 use Green\AdminBase\Models\AdminGroup;
 use Green\AdminBase\Models\AdminRole;
@@ -20,7 +19,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class AdminUserResource extends Resource
 {
-    protected static ?string $model = AdminUser::class;
     protected static ?string $navigationIcon = 'bi-person';
 
     /**
@@ -34,13 +32,21 @@ class AdminUserResource extends Resource
     }
 
     /**
+     * モデルのクラス
+     */
+    public static function getModel(): string
+    {
+        return Plugin::get()->getUserModel();
+    }
+
+    /**
      * モデルの名前
      *
      * @return string
      */
     public static function getModelLabel(): string
     {
-        return __('green::admin_base.admin_user.model');
+        return Plugin::get()->getUserModelLabel();
     }
 
     /**
@@ -68,14 +74,18 @@ class AdminUserResource extends Resource
                 // メール
                 Forms\Components\TextInput::make('email')
                     ->label(__('green::admin_base.admin_user.email'))
-                    ->email()->maxLength(100),
+                    ->required(Plugin::get()->isUsernameDisabled())
+                    ->email()->maxLength(100)
+                    ->hidden(Plugin::get()->isEmailDisabled()),
 
                 // ユーザー名
                 Forms\Components\TextInput::make('username')
                     ->label(__('green::admin_base.admin_user.username'))
                     ->requiredWithout('email')
+                    ->required(Plugin::get()->isEmailDisabled())
                     ->ascii()->alphaDash()
-                    ->unique('admin_users', 'username', fn(?AdminUser $record) => $record),
+                    ->unique('admin_users', 'username', fn(?AdminUser $record) => $record)
+                    ->hidden(Plugin::get()->isUsernameDisabled()),
 
                 // パスワード
                 \Green\AdminBase\Forms\Components\PasswordForm::make()
@@ -83,12 +93,13 @@ class AdminUserResource extends Resource
 
                 // グループ
                 Forms\Components\Select::make('groups')
-                    ->label(__('green::admin_base.admin_user.groups'))
+                    ->label(Plugin::get()->getGroupModelLabel())
                     ->relationship('groups', 'name')
                     ->options(self::getGroupOptions(true))
                     ->multiple(Plugin::get()->isMultipleGroups())
                     ->allowHtml()->native(false)->placeholder('')
-                    ->requiredWithout('roles'),
+                    ->requiredWithout('roles')
+                    ->hidden(Plugin::get()->isGroupDisabled()),
 
                 // ロール
                 Forms\Components\Select::make('roles')
@@ -97,6 +108,7 @@ class AdminUserResource extends Resource
                     ->options(AdminRole::getOptions())
                     ->multiple(Plugin::get()->isMultipleRoles())
                     ->native(false)->placeholder('')
+                    ->required(Plugin::get()->isGroupDisabled())
                     ->visible(auth()->user()->hasPermission(\Green\AdminBase\Permissions\EditAdminUserRole::class)),
             ])
             ->columns(1);
@@ -121,12 +133,14 @@ class AdminUserResource extends Resource
                 // メール
                 Tables\Columns\TextColumn::make('email')
                     ->label(__('green::admin_base.admin_user.email'))
-                    ->sortable()->searchable()->toggleable(),
+                    ->sortable()->searchable()->toggleable()
+                    ->hidden(fn() => Plugin::get()->isEmailDisabled()),
 
                 // ユーザー名
                 Tables\Columns\TextColumn::make('username')
                     ->label(__('green::admin_base.admin_user.username'))
-                    ->sortable()->searchable()->toggleable(),
+                    ->sortable()->searchable()->toggleable()
+                    ->hidden(fn() => Plugin::get()->isUsernameDisabled()),
 
                 // 状態
                 Tables\Columns\IconColumn::make('is_active')
@@ -136,8 +150,9 @@ class AdminUserResource extends Resource
 
                 // 管理グループ
                 Tables\Columns\TextColumn::make('groups.name')
-                    ->label(__('green::admin_base.admin_user.groups'))
-                    ->sortable()->toggleable(),
+                    ->label(Plugin::get()->getGroupModelLabel())
+                    ->sortable()->toggleable()
+                    ->hidden(Plugin::get()->isGroupDisabled()),
 
                 // 管理ロール
                 Tables\Columns\TextColumn::make('roles.name')

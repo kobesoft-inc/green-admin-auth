@@ -5,10 +5,8 @@ namespace Green\AdminBase\Filament\Resources\AdminUserResource\Pages;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Green\AdminBase\Filament\Resources\AdminUserResource;
-use Green\AdminBase\Filament\Resources\AdminUserResource\Forms\PasswordForm;
+use Green\AdminBase\Forms\Components\PasswordForm;
 use Green\AdminBase\Models\AdminUser;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
 
 class ListAdminUsers extends ListRecords
 {

@@ -79,13 +79,13 @@ class AdminPanelProvider extends PanelProvider
 
 ```php
 \Green\AdminBase\Plugin::make()
-    // #1 管理ユーザーは一つのグループにのみ所属できる
-    // リテラシーが低いユーザー向け。少しわかりやすくなる。 
-    ->multipleGroups(false)
+    // #1 管理ユーザーは複数のグループに所属できる
+    // 複雑な構成が必要な場合に有効化する。 
+    ->multipleGroups()
 
-    // #2 管理ユーザーは一つのロールにのみ所属できる
-    // リテラシーが低いユーザー向け。少しわかりやすくなる。 
-    ->multipleRoles(false)
+    // #2 管理ユーザーは複数のロールを割当できる
+    // 複雑な構成が必要な場合に有効化する。 
+    ->multipleRoles()
 
     // #3 メールアドレスのログインを無効化する
     // メールアドレスでログインすることがない場合。
@@ -94,6 +94,30 @@ class AdminPanelProvider extends PanelProvider
     // #4 ユーザー名のログインを無効化する
     // ユーザー名でログインすることがない場合。
     ->loginWithUsername(false)
+
+    // #5 管理ユーザーのメールアドレスを無効化
+    // ユーザー名だけで管理画面を運用する場合。
+    ->emailDisabled()
+
+    // #6 管理ユーザーのユーザー名を無効化
+    // メールアドレスだけで管理画面を運用する場合。
+    ->usernameDisabled()
+
+    // #7 管理ユーザーのモデルを指定
+    // 管理ユーザーに追加の情報や機能を加える場合。\Green\AdminBase\Models\AdminUserを継承すること。
+    ->userModel(MyAdminUserModel::class)
+
+    // #8 管理グループのモデルを指定
+    // 管理グループに追加の情報や機能を加える場合。\Green\AdminBase\Models\AdminGroupを継承すること。
+    ->userModel(MyAdminGroupModel::class)
+
+    // #9 管理ユーザーの呼び方を指定
+    // 運用の実情に合わせて指定
+    ->userModelLabel('社員')
+
+    // #10 管理グループの呼び方を指定
+    // 運用の実情に合わせて指定
+    ->groupModelLabel('部署')
 ```
 
 

@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 trait HasSortOrder
 {
-    const SORT_ORDER = 'sort_order';
-
     /**
      * 起動時の処理
      *
@@ -21,7 +19,7 @@ trait HasSortOrder
     {
         // 作成時にソート順をIDで初期化する
         self::created(function (Model $model) {
-            $model->update([self::SORT_ORDER => $model->id]);
+            $model->update([static::getSortOrder() => $model->id]);
         });
     }
 
@@ -30,6 +28,16 @@ trait HasSortOrder
      */
     public function scopeDefaultOrder(Builder $builder): Builder
     {
-        return $builder->orderBy(self::SORT_ORDER);
+        return $builder->orderBy(static::getSortOrder());
+    }
+
+    /**
+     * 並び順のカラムを取得する
+     *
+     * @return string
+     */
+    static private function getSortOrder(): string
+    {
+        return defined(static::class.'::SORT_ORDER') ? static::SORT_ORDER : 'sort_order';
     }
 }

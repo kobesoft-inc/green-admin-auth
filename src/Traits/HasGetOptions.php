@@ -31,8 +31,28 @@ trait HasGetOptions
             $query = $closure($query);
         }
         return $query
-            ->orderBy(self::SORT_ORDER)
-            ->pluck(static::TITLE, $primaryKey)
+            ->orderBy(static::getSortOrder())
+            ->pluck(static::getTitle(), $primaryKey)
             ->toArray();
+    }
+
+    /**
+     * 並び順のカラムを取得する
+     *
+     * @return string
+     */
+    static private function getSortOrder(): string
+    {
+        return defined(static::class.'::SORT_ORDER') ? static::SORT_ORDER : 'sort_order';
+    }
+
+    /**
+     * 選択肢の表示名のカラムを取得する
+     *
+     * @return string
+     */
+    static private function getTitle(): string
+    {
+        return defined(static::class.'::TITLE') ? static::SORT_ORDER : 'name';
     }
 }

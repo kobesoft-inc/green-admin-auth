@@ -18,6 +18,7 @@ class AdminRoleResource extends Resource
 {
     protected static ?string $model = AdminRole::class;
     protected static ?string $navigationIcon = 'bi-person-lock';
+    protected static ?int $navigationSort = 1300;
 
     /**
      * ナビゲーションのグループ

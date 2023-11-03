@@ -22,6 +22,7 @@ class AdminUserResource extends Resource
 {
     protected static ?string $model = AdminUser::class;
     protected static ?string $navigationIcon = 'bi-person';
+    protected static ?int $navigationSort = 1100;
 
     /**
      * ナビゲーションのグループ

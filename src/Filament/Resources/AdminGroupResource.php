@@ -19,6 +19,7 @@ class AdminGroupResource extends Resource
 {
     protected static ?string $model = AdminGroup::class;
     protected static ?string $navigationIcon = 'bi-people';
+    protected static ?int $navigationSort = 1200;
 
     /**
      * ナビゲーションのグループ

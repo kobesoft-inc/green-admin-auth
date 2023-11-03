@@ -11,13 +11,13 @@ use Filament\Tables\Table;
 use Green\AdminBase\Filament\Resources\AdminGroupResource\Pages\ListAdminGroups;
 use Green\AdminBase\Models\AdminGroup;
 use Green\AdminBase\Models\AdminRole;
+use Green\AdminBase\Plugin;
 use Green\AdminBase\Rules\NodeParent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class AdminGroupResource extends Resource
 {
-    protected static ?string $model = AdminGroup::class;
     protected static ?string $navigationIcon = 'bi-people';
     protected static ?int $navigationSort = 1200;
 
@@ -32,13 +32,21 @@ class AdminGroupResource extends Resource
     }
 
     /**
+     * モデルのクラス
+     */
+    public static function getModel(): string
+    {
+        return Plugin::get()->getGroupModel();
+    }
+
+    /**
      * モデルの名前
      *
      * @return string
      */
     public static function getModelLabel(): string
     {
-        return __('green::admin_base.admin_group.model');
+        return Plugin::get()->getGroupModelLabel();
     }
 
     /**
@@ -55,12 +63,14 @@ class AdminGroupResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->label(__('green::admin_base.admin_group.name'))
                     ->required()->maxLength(20),
+
                 // 親のグループ
                 Forms\Components\Select::make('parent_id')
                     ->label(__('green::admin_base.admin_group.parent_id'))
                     ->options(AdminGroup::getOptions())
                     ->native(false)->allowHtml(true)
                     ->rules([fn($record) => new NodeParent(record: $record)]),
+
                 // ロール
                 Forms\Components\Select::make('roles')
                     ->label(__('green::admin_base.admin_user.roles'))
@@ -87,11 +97,13 @@ class AdminGroupResource extends Resource
                     ->label(__('green::admin_base.admin_group.name'))
                     ->extraAttributes(fn($record) => ['style' => 'text-indent:'.$record->depth.'em'])
                     ->sortable()->searchable()->toggleable(),
+
                 // 割り当てられたユーザー
                 Tables\Columns\ImageColumn::make('users.avatar_url')
-                    ->label(__('green::admin_base.admin_group.users'))
+                    ->label(Plugin::get()->getUserModelLabel())
                     ->circular()->overlap(5)->limit(5)->limitedRemainingText()
                     ->toggleable(),
+                
                 // 割り当てられたロール
                 Tables\Columns\TextColumn::make('roles.name')
                     ->label(__('green::admin_base.admin_group.roles'))

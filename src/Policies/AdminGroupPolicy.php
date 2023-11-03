@@ -4,6 +4,7 @@ namespace Green\AdminBase\Policies;
 
 use Green\AdminBase\Models\AdminUser;
 use Green\AdminBase\Permissions\ManageAdminGroup;
+use Green\AdminBase\Plugin;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AdminGroupPolicy
@@ -18,6 +19,7 @@ class AdminGroupPolicy
      */
     public function viewAny(AdminUser $user): bool
     {
-        return $user->hasPermission(ManageAdminGroup::class);
+        return $user->hasPermission(ManageAdminGroup::class)
+            && !Plugin::get()->isGroupDisabled();
     }
 }

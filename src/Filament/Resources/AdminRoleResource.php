@@ -12,6 +12,7 @@ use Filament\Tables\Table;
 use Green\AdminBase\Facades\PermissionManager;
 use Green\AdminBase\Filament\Resources\AdminRoleResource\Pages\ListAdminRoles;
 use Green\AdminBase\Models\AdminRole;
+use Green\AdminBase\Plugin;
 use Illuminate\Database\Eloquent\Model;
 
 class AdminRoleResource extends Resource
@@ -74,15 +75,18 @@ class AdminRoleResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->label(__('green::admin_base.admin_role.name'))
                     ->sortable()->searchable()->toggleable(),
+
                 // 割り当てられたユーザー
                 Tables\Columns\ImageColumn::make('users.avatar_url')
-                    ->label(__('green::admin_base.admin_role.users'))
+                    ->label(Plugin::get()->getUserModelLabel())
                     ->circular()->overlap(5)->limit(5)->limitedRemainingText()
                     ->toggleable(),
+
                 // 割り当てられたグループ
                 Tables\Columns\TextColumn::make('groups.name')
-                    ->label(__('green::admin_base.admin_role.groups'))
-                    ->toggleable(),
+                    ->label(Plugin::get()->getGroupModelLabel())
+                    ->toggleable()
+                    ->hidden(Plugin::get()->isGroupDisabled()),
             ])
             ->filters([
             ])

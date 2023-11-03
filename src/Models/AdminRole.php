@@ -2,6 +2,7 @@
 
 namespace Green\AdminBase\Models;
 
+use Green\AdminBase\Traits\HasSortOrder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -15,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class AdminRole extends Model
 {
+    use HasSortOrder;
+
     /**
      * 一括代入できる属性
      *
@@ -71,6 +74,6 @@ class AdminRole extends Model
      */
     static public function getOptions(): array
     {
-        return static::orderBy('sort_order')->get()->pluck('name', 'id')->toArray();
+        return static::defaultOrder()->get()->pluck('name', 'id')->toArray();
     }
 }

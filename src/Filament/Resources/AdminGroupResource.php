@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 class AdminGroupResource extends Resource
 {
     protected static ?string $navigationIcon = 'bi-people';
+    protected static ?int $navigationSort = 1200;
 
     /**
      * ナビゲーションのグループ

@@ -25,34 +25,23 @@ trait HasGetOptions
      */
     static public function getOptions(Closure $closure = null): array
     {
-        $primaryKey = (new static())->primaryKey;
+        // IDのカラム
+        $idColumn = (new static())->primaryKey;
+
+        // 選択肢のタイトルのカラム
+        $titleColumn = defined(static::class.'::TITLE') ? static::TITLE : 'name';
+
+        // 並び順のカラム
+        $orderColumn = defined(static::class.'::SORT_ORDER') ? static::SORT_ORDER : $idColumn;
+
+        // 選択肢を取得
         $query = static::query();
         if ($closure) {
             $query = $closure($query);
         }
         return $query
-            ->orderBy(static::getSortOrder())
-            ->pluck(static::getTitle(), $primaryKey)
+            ->orderBy($orderColumn)
+            ->pluck($titleColumn, $idColumn)
             ->toArray();
-    }
-
-    /**
-     * 並び順のカラムを取得する
-     *
-     * @return string
-     */
-    static private function getSortOrder(): string
-    {
-        return defined(static::class.'::SORT_ORDER') ? static::SORT_ORDER : 'sort_order';
-    }
-
-    /**
-     * 選択肢の表示名のカラムを取得する
-     *
-     * @return string
-     */
-    static private function getTitle(): string
-    {
-        return defined(static::class.'::TITLE') ? static::SORT_ORDER : 'name';
     }
 }

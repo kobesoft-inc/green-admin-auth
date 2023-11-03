@@ -36,7 +36,7 @@ trait HasSortOrder
      *
      * @return string
      */
-    static private function getSortOrder(): string
+    static public function getSortOrder(): string
     {
         return defined(static::class.'::SORT_ORDER') ? static::SORT_ORDER : 'sort_order';
     }

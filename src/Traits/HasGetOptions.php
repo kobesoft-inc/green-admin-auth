@@ -5,7 +5,7 @@ namespace Green\AdminBase\Traits;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 
-class HasGetOptions
+trait HasGetOptions
 {
     /**
      * 並び順のカラム

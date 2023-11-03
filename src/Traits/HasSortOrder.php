@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 並び順カラムがある
+ * 並び順のカラムがある
  */
 trait HasSortOrder
 {

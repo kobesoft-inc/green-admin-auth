@@ -3,20 +3,14 @@
 namespace Green\AdminBase\Traits;
 
 use Closure;
-use Illuminate\Database\Eloquent\Model;
 
+/**
+ * 選択肢を取得するgetOptionsの実装のtrait
+ * TITLE定数を定義すると、選択肢のラベルのカラムを設定できる。
+ * SORT_ORDER定数を定義すると、選択肢の並び順のカラムを設定できる。
+ */
 trait HasGetOptions
 {
-    /**
-     * 並び順のカラム
-     */
-    const SORT_ORDER = 'sort_order';
-
-    /**
-     * 選択肢のラベルのカラム
-     */
-    const TITLE = 'name';
-
     /**
      *  このモデルの選択肢を取得する
      *

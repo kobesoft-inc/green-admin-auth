@@ -2,7 +2,8 @@
 
 namespace Green\AdminBase\Models;
 
-use Green\AdminBase\Plugin;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -28,7 +29,7 @@ use Illuminate\Support\Facades\Storage;
  * @property \Illuminate\Database\Eloquent\Collection $loginLogs
  * @property \Illuminate\Support\Collection $permissions
  */
-class AdminUser extends \Illuminate\Foundation\Auth\User
+class AdminUser extends \Illuminate\Foundation\Auth\User implements FilamentUser
 {
     /**
      * 一括代入できる属性
@@ -228,5 +229,16 @@ class AdminUser extends \Illuminate\Foundation\Auth\User
     {
         return $this->password_expire_at !== null
             && $this->password_expire_at->isPast();
+    }
+
+    /**
+     * パネルにアクセスできるか？
+     *
+     * @param Panel $panel
+     * @return bool
+     */
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true;
     }
 }

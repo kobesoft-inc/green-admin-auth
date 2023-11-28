@@ -1,10 +1,10 @@
 <?php
 
-namespace Green\AdminBase\Filament\Resources\AdminRoleResource\Pages;
+namespace Green\AdminAuth\Filament\Resources\AdminRoleResource\Pages;
 
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
-use Green\AdminBase\Filament\Resources\AdminRoleResource;
+use Green\AdminAuth\Filament\Resources\AdminRoleResource;
 
 class ListAdminRoles extends ListRecords
 {

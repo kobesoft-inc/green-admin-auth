@@ -1,6 +1,6 @@
 <?php
 
-namespace Green\AdminBase\Mail;
+namespace Green\AdminAuth\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

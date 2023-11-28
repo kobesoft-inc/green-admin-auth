@@ -1,8 +1,8 @@
 <?php
 
-namespace Green\AdminBase\Models;
+namespace Green\AdminAuth\Models;
 
-use Green\AdminBase\Traits\HasSortOrder;
+use Green\AdminAuth\Traits\HasSortOrder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 

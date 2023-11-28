@@ -1,8 +1,8 @@
 <?php
 
-namespace Green\AdminBase\Permissions;
+namespace Green\AdminAuth\Permissions;
 
-use Green\AdminBase\Permissions\Permission;
+use Green\AdminAuth\Permissions\Permission;
 
 class DeleteAdminUser extends Permission
 {

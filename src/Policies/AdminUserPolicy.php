@@ -1,12 +1,12 @@
 <?php
 
-namespace Green\AdminBase\Policies;
+namespace Green\AdminAuth\Policies;
 
-use Green\AdminBase\Models\AdminUser;
-use Green\AdminBase\Permissions\DeleteAdminUser;
-use Green\AdminBase\Permissions\ManageAdminUser;
-use Green\AdminBase\Permissions\ManageAdminUserInGroup;
-use Green\AdminBase\Permissions\ResetAdminUserPassword;
+use Green\AdminAuth\Models\AdminUser;
+use Green\AdminAuth\Permissions\DeleteAdminUser;
+use Green\AdminAuth\Permissions\ManageAdminUser;
+use Green\AdminAuth\Permissions\ManageAdminUserInGroup;
+use Green\AdminAuth\Permissions\ResetAdminUserPassword;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AdminUserPolicy

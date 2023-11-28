@@ -1,6 +1,6 @@
 <?php
 
-namespace Green\AdminBase\Rules;
+namespace Green\AdminAuth\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;

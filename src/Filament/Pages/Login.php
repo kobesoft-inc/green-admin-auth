@@ -1,12 +1,12 @@
 <?php
 
-namespace Green\AdminBase\Filament\Pages;
+namespace Green\AdminAuth\Filament\Pages;
 
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
-use Green\AdminBase\Models\AdminUser;
-use Green\AdminBase\Plugin;
+use Green\AdminAuth\Models\AdminUser;
+use Green\AdminAuth\Plugin;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 

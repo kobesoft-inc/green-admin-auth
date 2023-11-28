@@ -1,11 +1,11 @@
 <?php
 
-namespace Green\AdminBase\Filament\Resources\AdminUserResource\Actions;
+namespace Green\AdminAuth\Filament\Resources\AdminUserResource\Actions;
 
 use Filament\Forms;
 use Filament\Tables\Actions\Action;
-use Green\AdminBase\Forms\Components\PasswordForm;
-use Green\AdminBase\Models\AdminUser;
+use Green\AdminAuth\Forms\Components\PasswordForm;
+use Green\AdminAuth\Models\AdminUser;
 
 class ResetPasswordAction extends Action
 {

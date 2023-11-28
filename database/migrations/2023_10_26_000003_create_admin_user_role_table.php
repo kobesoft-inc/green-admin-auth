@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('admin_user_role', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\Green\AdminBase\Models\AdminUser::class)->constrained();
-            $table->foreignIdFor(\Green\AdminBase\Models\AdminRole::class)->constrained();
+            $table->foreignIdFor(\Green\AdminAuth\Models\AdminUser::class)->constrained();
+            $table->foreignIdFor(\Green\AdminAuth\Models\AdminRole::class)->constrained();
         });
 
         // 初期のロールを割当
-        \Green\AdminBase\Models\AdminUser::find(1)->roles()->sync([1]);
+        \Green\AdminAuth\Models\AdminUser::find(1)->roles()->sync([1]);
     }
 
     /**

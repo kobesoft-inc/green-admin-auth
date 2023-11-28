@@ -1,6 +1,6 @@
 <?php
 
-namespace Green\AdminBase\Models;
+namespace Green\AdminAuth\Models;
 
 use Green\AdminBase\Plugin;
 use Illuminate\Database\Eloquent\Builder;
@@ -216,7 +216,7 @@ class AdminUser extends \Illuminate\Foundation\Auth\User
     public function hasPermission(string $permission): bool
     {
         return $this->permissions->contains($permission)
-            || $this->permissions->contains(\Green\AdminBase\Permissions\Super::class);
+            || $this->permissions->contains(\Green\AdminAuth\Permissions\Super::class);
     }
 
     /**

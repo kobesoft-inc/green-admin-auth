@@ -1,6 +1,6 @@
 <?php
 
-namespace Green\AdminBase\Facades;
+namespace Green\AdminAuth\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -20,6 +20,6 @@ class PermissionManager extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return \Green\AdminBase\Permissions\PermissionManager::class;
+        return \Green\AdminAuth\Permissions\PermissionManager::class;
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Green\AdminBase;
+namespace Green\AdminAuth;
 
-use Green\AdminBase\Facades\PermissionManager;
-use Green\AdminBase\Filament\Pages\PasswordExpired;
-use Green\AdminBase\Listeners\LogAdminLogin;
+use Green\AdminAuth\Facades\PermissionManager;
+use Green\AdminAuth\Filament\Pages\PasswordExpired;
+use Green\AdminAuth\Listeners\LogAdminLogin;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Event;
 use Livewire\Livewire;
@@ -35,14 +35,14 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         Event::listen(Login::class, LogAdminLogin::class);
 
         PermissionManager::register([
-            \Green\AdminBase\Permissions\Super::class,
-            \Green\AdminBase\Permissions\ManageAdminUser::class,
-            \Green\AdminBase\Permissions\ManageAdminUserInGroup::class,
-            \Green\AdminBase\Permissions\EditAdminUserRole::class,
-            \Green\AdminBase\Permissions\ResetAdminUserPassword::class,
-            \Green\AdminBase\Permissions\DeleteAdminUser::class,
-            \Green\AdminBase\Permissions\ManageAdminGroup::class,
-            \Green\AdminBase\Permissions\ManageAdminRole::class,
+            \Green\AdminAuth\Permissions\Super::class,
+            \Green\AdminAuth\Permissions\ManageAdminUser::class,
+            \Green\AdminAuth\Permissions\ManageAdminUserInGroup::class,
+            \Green\AdminAuth\Permissions\EditAdminUserRole::class,
+            \Green\AdminAuth\Permissions\ResetAdminUserPassword::class,
+            \Green\AdminAuth\Permissions\DeleteAdminUser::class,
+            \Green\AdminAuth\Permissions\ManageAdminGroup::class,
+            \Green\AdminAuth\Permissions\ManageAdminRole::class,
         ]);
 
         Livewire::component('green.admin-base.filament.pages.password-expired', PasswordExpired::class);

@@ -20,9 +20,9 @@ return new class extends Migration
         });
 
         // 初期のロールを作成
-        \Green\AdminBase\Models\AdminRole::create([
+        \Green\AdminAuth\Models\AdminRole::create([
             'name' => __('green::admin_base.admin_role.initial_role'),
-            'permissions' => [\Green\AdminBase\Permissions\Super::class],
+            'permissions' => [\Green\AdminAuth\Permissions\Super::class],
             'sort_order' => 1,
         ]);
     }

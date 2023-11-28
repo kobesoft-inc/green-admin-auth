@@ -9,6 +9,7 @@
         <Configuration>
           <option name="path" value="$PROJECT_DIR$/tests" />
         </Configuration>
+<<<<<<< Updated upstream
         <Configuration>
           <option name="path" value="$PROJECT_DIR$/tests" />
         </Configuration>
@@ -24,6 +25,8 @@
         <Configuration>
           <option name="path" value="$PROJECT_DIR$/tests" />
         </Configuration>
+=======
+>>>>>>> Stashed changes
       </list>
     </option>
   </component>

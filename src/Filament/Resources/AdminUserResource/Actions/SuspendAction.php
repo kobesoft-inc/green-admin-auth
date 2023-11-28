@@ -1,6 +1,6 @@
 <?php
 
-namespace Green\AdminBase\Filament\Resources\AdminUserResource\Actions;
+namespace Green\AdminAuth\Filament\Resources\AdminUserResource\Actions;
 
 use Filament\Tables\Actions\Action;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Green\AdminBase\Filament\Resources;
+namespace Green\AdminAuth\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -8,13 +8,13 @@ use Filament\Resources\Pages\PageRegistration;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Green\AdminBase\Filament\Resources\AdminUserResource\Pages\ListAdminUsers;
-use Green\AdminBase\Models\AdminGroup;
-use Green\AdminBase\Models\AdminRole;
-use Green\AdminBase\Models\AdminUser;
-use Green\AdminBase\Permissions\ManageAdminUser;
-use Green\AdminBase\Permissions\ManageAdminUserInGroup;
-use Green\AdminBase\Plugin;
+use Green\AdminAuth\Filament\Resources\AdminUserResource\Pages\ListAdminUsers;
+use Green\AdminAuth\Models\AdminGroup;
+use Green\AdminAuth\Models\AdminRole;
+use Green\AdminAuth\Models\AdminUser;
+use Green\AdminAuth\Permissions\ManageAdminUser;
+use Green\AdminAuth\Permissions\ManageAdminUserInGroup;
+use Green\AdminAuth\Plugin;
 use Illuminate\Database\Eloquent\Builder;
 
 class AdminUserResource extends Resource
@@ -89,7 +89,7 @@ class AdminUserResource extends Resource
                     ->hidden(Plugin::get()->isUsernameDisabled()),
 
                 // パスワード
-                \Green\AdminBase\Forms\Components\PasswordForm::make()
+                \Green\AdminAuth\Forms\Components\PasswordForm::make()
                     ->visibleOn('create'),
 
                 // グループ
@@ -110,7 +110,7 @@ class AdminUserResource extends Resource
                     ->multiple(Plugin::get()->isMultipleRoles())
                     ->native(false)->placeholder('')
                     ->required(Plugin::get()->isGroupDisabled())
-                    ->visible(auth()->user()->hasPermission(\Green\AdminBase\Permissions\EditAdminUserRole::class)),
+                    ->visible(auth()->user()->hasPermission(\Green\AdminAuth\Permissions\EditAdminUserRole::class)),
             ])
             ->columns(1);
     }
@@ -126,7 +126,7 @@ class AdminUserResource extends Resource
         return $table
             ->columns([
                 // 名前
-                \Green\AdminBase\Tables\Columns\AvatarColumn::make('name')
+                \Green\AdminAuth\Tables\Columns\AvatarColumn::make('name')
                     ->label(__('green::admin_base.admin_user.name'))
                     ->avatar(fn($record) => $record->avatar_url)
                     ->sortable()->searchable()->toggleable(),

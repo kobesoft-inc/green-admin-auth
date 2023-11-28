@@ -1,6 +1,6 @@
 <?php
 
-namespace Green\AdminBase\Traits;
+namespace Green\AdminAuth\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +12,7 @@ trait HasNodeOptions
     /**
      * このモデルの選択肢を取得する
      *
-     * @param  bool  $html  選択肢をHTML文字列で表現するか？
+     * @param bool $html 選択肢をHTML文字列で表現するか？
      * @return array<string, string>
      */
     static public function getOptions(bool $html = true): array
@@ -31,8 +31,8 @@ trait HasNodeOptions
     {
         return
             ($this->parent_id
-                ? '<span class="text-gray-500">'.e($this->ancestors->pluck('name')->join(' > ').' > ').'</span>'
+                ? '<span class="text-gray-500">' . e($this->ancestors->pluck('name')->join(' > ') . ' > ') . '</span>'
                 : ''
-            ).'<span class="text-gray-950">'.e($this->name).'</span>';
+            ) . e($this->name);
     }
 }

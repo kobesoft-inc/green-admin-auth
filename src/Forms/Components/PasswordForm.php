@@ -1,14 +1,14 @@
 <?php
 
-namespace Green\AdminBase\Forms\Components;
+namespace Green\AdminAuth\Forms\Components;
 
 use Closure;
 use Filament\Forms;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use Green\AdminBase\Mail\PasswordReset;
-use Green\AdminBase\Models\AdminUser;
-use Green\AdminBase\Plugin;
+use Green\AdminAuth\Mail\PasswordReset;
+use Green\AdminAuth\Models\AdminUser;
+use Green\AdminAuth\Plugin;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;

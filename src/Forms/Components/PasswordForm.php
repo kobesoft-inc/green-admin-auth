@@ -9,6 +9,7 @@ use Filament\Forms\Set;
 use Green\AdminAuth\Mail\PasswordReset;
 use Green\AdminAuth\Models\AdminUser;
 use Green\AdminAuth\Plugin;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -23,7 +24,7 @@ class PasswordForm extends Forms\Components\Group
     /**
      * パスワードのリセットフォームを返す
      *
-     * @param  array|Closure  $schema
+     * @param array|Closure $schema
      * @return PasswordForm
      */
     public static function make(array|Closure $schema = []): static
@@ -32,7 +33,7 @@ class PasswordForm extends Forms\Components\Group
             ->schema([
                 // パスワードを生成するか？
                 Forms\Components\Checkbox::make('generate_password')
-                    ->label(__('green::admin_base.admin_user.generate_password'))
+                    ->label(__('green::admin-auth.admin-user.generate-password'))
                     ->default(true)
                     ->live()
                     ->afterStateUpdated(function (?int $state, Set $set) {
@@ -44,26 +45,26 @@ class PasswordForm extends Forms\Components\Group
 
                 // パスワード
                 \Phpsa\FilamentPasswordReveal\Password::make('password')
-                    ->label(__('green::admin_base.admin_user.password'))
+                    ->label(__('green::admin-auth.admin-user.password'))
                     ->password()
                     ->showIcon('bi-eye')->hideIcon('bi-eye-slash')
                     ->visible(fn(Get $get): bool => !$get('generate_password') || Plugin::get()->isEmailDisabled())
                     ->required()->ascii()->minLength(Plugin::get()->getPasswordMinLength()),
 
                 // パスワードの変更を要求するか？
-                Forms\Components\Checkbox::make('require_change_password')
-                    ->label(__('green::admin_base.admin_user.require_change_password'))
+                Forms\Components\Checkbox::make('force_password_change')
+                    ->label(__('green::admin-auth.admin-user.force-change-password'))
                     ->default(true),
 
                 // パスワードをメールで送信するか？
                 Forms\Components\Checkbox::make('send_password')
-                    ->label(__('green::admin_base.admin_user.send_password'))
+                    ->label(__('green::admin-auth.admin-user.send-password'))
                     ->default(true)
                     ->live()
                     ->disabled(fn(Get $get): bool => $get('generate_password'))
                     ->rule(fn(Get $get) => function (string $attribute, $value, Closure $fail) use ($get) {
-                        if (blank($get('email'))) {
-                            $fail(__('green::admin_base.validations.email_is_not_set'));
+                        if ($get('send_password') && blank($get('email'))) {
+                            $fail(__('green::admin-auth.validations.email-required'));
                         }
                     })
                     ->hidden(Plugin::get()->isEmailDisabled()),
@@ -74,43 +75,31 @@ class PasswordForm extends Forms\Components\Group
     /**
      * パスワードの生成・有効期限設定・メール送信の処理を行う
      *
-     * @param  array  $data  入力データ
-     * @param  AdminUser|null  $adminUser  モデル（作成済みの場合）
+     * @param array $data 入力データ
+     * @param AdminUser|null $adminUser モデル（作成済みの場合）
      * @return array
      */
     static public function process(array $data, ?AdminUser $adminUser): array
     {
-        // 配列にキーがない場合の処理
-        if (!isset($data['generate_password'])) {
-            $data['generate_password'] = false;
-        }
-        if (!isset($data['require_change_password'])) {
-            $data['require_change_password'] = false;
-        }
-        if (!isset($data['send_password'])) {
-            $data['send_password'] = false;
-        }
-
         // パスワードを生成する
-        if ($data['generate_password']) {
+        if (Arr::get($data, 'generate_password', false)) {
             $data['password'] = Str::password(Plugin::get()->getGeneratedPasswordLength());
+            $data['send_password'] = true;
         }
 
         // 次回ログイン時にパスワード変更を要求する
-        if ($data['require_change_password']) {
+        if (Arr::get($data, 'force_password_change', false)) {
             $data['password_expire_at'] = Carbon::now();
         }
 
         // パスワードをユーザーのメールに送信する
-        if ($data['generate_password'] || $data['send_password']) {
+        if (Arr::get($data, 'send_password', false)) {
             $email = $adminUser?->email ?? $data['email'];
-            $username = $adminUser?->username ?? $data['username'];
-            $login = filament()->getCurrentPanel()->getLoginUrl();
             Mail::to($email)->send(new PasswordReset(
                 email: $email,
-                username: $username,
+                username: $adminUser?->username ?? $data['username'],
                 password: $data['password'],
-                login: $login
+                login: filament()->getCurrentPanel()->getLoginUrl()
             ));
         }
 

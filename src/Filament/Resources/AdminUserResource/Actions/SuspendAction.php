@@ -25,10 +25,10 @@ class SuspendAction extends Action
     {
         parent::setUp();
 
-        $this->label(__('green::admin_base.admin_user.actions.suspend'));
+        $this->label(__('green::admin-auth.admin-user.actions.suspend'));
         $this->icon('heroicon-o-x-circle');
         $this->requiresConfirmation();
-        $this->successNotificationTitle(__('green::admin_base.admin_user.actions.suspend_succeed'));
+        $this->successNotificationTitle(__('green::admin-auth.admin-user.actions.suspend-succeed'));
 
         $this->action(function ($record) {
             $record->is_active = false;

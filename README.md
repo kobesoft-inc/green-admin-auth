@@ -97,11 +97,11 @@ class AdminPanelProvider extends PanelProvider
 
     // #5 管理ユーザーのメールアドレスを無効化
     // ユーザー名だけで管理画面を運用する場合。
-    ->emailDisabled()
+    ->disableEmail()
 
     // #6 管理ユーザーのユーザー名を無効化
     // メールアドレスだけで管理画面を運用する場合。
-    ->usernameDisabled()
+    ->disableUsername()
 
     // #7 管理ユーザーのモデルを指定
     // 管理ユーザーに追加の情報や機能を加える場合。\Green\AdminAuth\Models\AdminUserを継承すること。

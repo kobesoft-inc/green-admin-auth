@@ -59,7 +59,7 @@ class PasswordExpired extends SimplePage
         $user = AdminUser::findOrFail($userId);
         if (!Hash::check($data['current_password'], $user->password)) {
             throw ValidationException::withMessages([
-                'data.current_password' => __('green::admin_base.pages.password_expired.invalid_password'),
+                'data.current_password' => __('green::admin-auth.pages.password-expired.incorrect-password'),
             ]);
         }
 
@@ -73,7 +73,7 @@ class PasswordExpired extends SimplePage
 
         // 通知を表示
         Notification::make()
-            ->title(__('green::admin_base.pages.password_expired.password_changed'))
+            ->title(__('green::admin-auth.pages.password-expired.password-changed'))
             ->success()
             ->send();
 
@@ -84,7 +84,7 @@ class PasswordExpired extends SimplePage
     /**
      * フォームを構築
      *
-     * @param  Form  $form
+     * @param Form $form
      * @return Form
      */
     public function form(Form $form): Form
@@ -93,11 +93,12 @@ class PasswordExpired extends SimplePage
             ->schema([
                 // 古いパスワード
                 TextInput::make('current_password')
-                    ->label(__('green::admin_base.pages.password_expired.current_password'))
+                    ->label(__('green::admin-auth.pages.password-expired.current-password'))
                     ->password()->required(),
+
                 // 新しいパスワード
                 \Phpsa\FilamentPasswordReveal\Password::make('new_password')
-                    ->label(__('green::admin_base.pages.password_expired.new_password'))
+                    ->label(__('green::admin-auth.pages.password-expired.new-password'))
                     ->password()
                     ->different('current_password')
                     ->required()->ascii()->minLength(Plugin::get()->getPasswordMinLength()),
@@ -112,7 +113,7 @@ class PasswordExpired extends SimplePage
      */
     public function getHeading(): string|Htmlable
     {
-        return __('green::admin_base.pages.password_expired.heading');
+        return __('green::admin-auth.pages.password-expired.heading');
     }
 
     /**
@@ -122,7 +123,7 @@ class PasswordExpired extends SimplePage
      */
     public function getSubheading(): string|Htmlable
     {
-        return __('green::admin_base.pages.password_expired.subheading');
+        return __('green::admin-auth.pages.password-expired.subheading');
     }
 
     /**
@@ -134,7 +135,7 @@ class PasswordExpired extends SimplePage
     {
         return [
             Action::make('password-expired')
-                ->label(__('green::admin_base.pages.password_expired.change_password'))
+                ->label(__('green::admin-auth.pages.password-expired.change-password'))
                 ->submit('password-expired'),
         ];
     }

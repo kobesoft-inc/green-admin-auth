@@ -13,25 +13,21 @@ class PasswordReset extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public ?string $email;
-    public ?string $username;
-    public string $password;
-    public string $login;
-
     /**
      * インスタンスを初期化する
      *
-     * @param  string|null  $email
-     * @param  string|null  $username
-     * @param  string  $password
-     * @param  string  $login
+     * @param string|null $email
+     * @param string|null $username
+     * @param string $password
+     * @param string $login
      */
-    public function __construct(?string $email, ?string $username, string $password, string $login)
+    public function __construct(
+        public ?string $email,
+        public ?string $username,
+        public string $password,
+        public string $login
+    )
     {
-        $this->email = $email;
-        $this->username = $username;
-        $this->password = $password;
-        $this->login = $login;
     }
 
     /**
@@ -42,7 +38,7 @@ class PasswordReset extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('green::admin_base.emails.password_reset.subject', ['app' => config('app.name')]),
+            subject: __('green::admin-auth.emails.password-reset.subject', ['app' => config('app.name')]),
         );
     }
 

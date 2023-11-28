@@ -28,7 +28,7 @@ class AdminRoleResource extends Resource
      */
     public static function getNavigationGroup(): ?string
     {
-        return __('green::admin_base.navigation_group');
+        return __('green::admin-auth.navigation-group');
     }
 
     /**
@@ -38,7 +38,7 @@ class AdminRoleResource extends Resource
      */
     public static function getModelLabel(): string
     {
-        return __('green::admin_base.admin_role.model');
+        return __('green::admin-auth.admin-role.model');
     }
 
     /**
@@ -53,7 +53,7 @@ class AdminRoleResource extends Resource
             ->schema([
                 // 名前
                 Forms\Components\TextInput::make('name')
-                    ->label(__('green::admin_base.admin_group.name'))
+                    ->label(__('green::admin-auth.admin-group.name'))
                     ->required()->maxLength(20),
                 // 権限
                 self::makePermissionsComponent('permissions'),
@@ -73,7 +73,7 @@ class AdminRoleResource extends Resource
             ->columns([
                 // 名前
                 Tables\Columns\TextColumn::make('name')
-                    ->label(__('green::admin_base.admin_role.name'))
+                    ->label(__('green::admin-auth.admin-role.name'))
                     ->sortable()->searchable()->toggleable(),
 
                 // 割り当てられたユーザー

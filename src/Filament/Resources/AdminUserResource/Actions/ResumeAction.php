@@ -25,10 +25,10 @@ class ResumeAction extends Action
     {
         parent::setUp();
 
-        $this->label(__('green::admin_base.admin_user.actions.resume'));
+        $this->label(__('green::admin-auth.admin-user.actions.resume'));
         $this->icon('heroicon-o-check-circle');
         $this->requiresConfirmation();
-        $this->successNotificationTitle(__('green::admin_base.admin_user.actions.resume_succeed'));
+        $this->successNotificationTitle(__('green::admin-auth.admin-user.actions.resume-succeed'));
 
         $this->action(function ($record) {
             $record->is_active = true;

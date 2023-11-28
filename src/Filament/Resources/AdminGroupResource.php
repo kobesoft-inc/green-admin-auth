@@ -28,7 +28,7 @@ class AdminGroupResource extends Resource
      */
     public static function getNavigationGroup(): ?string
     {
-        return __('green::admin_base.navigation_group');
+        return __('green::admin-auth.navigation-group');
     }
 
     /**
@@ -61,19 +61,19 @@ class AdminGroupResource extends Resource
             ->schema([
                 // 名前
                 Forms\Components\TextInput::make('name')
-                    ->label(__('green::admin_base.admin_group.name'))
+                    ->label(__('green::admin-auth.admin-group.name'))
                     ->required()->maxLength(20),
 
                 // 親のグループ
                 Forms\Components\Select::make('parent_id')
-                    ->label(__('green::admin_base.admin_group.parent_id'))
+                    ->label(__('green::admin-auth.admin-group.parent-id'))
                     ->options(AdminGroup::getOptions())
                     ->native(false)->allowHtml(true)
                     ->rules([fn($record) => new NodeParent(record: $record)]),
 
                 // ロール
                 Forms\Components\Select::make('roles')
-                    ->label(__('green::admin_base.admin_user.roles'))
+                    ->label(__('green::admin-auth.admin-user.roles'))
                     ->relationship('roles', 'name')
                     ->options(AdminRole::getOptions())->multiple()
                     ->placeholder('')
@@ -94,7 +94,7 @@ class AdminGroupResource extends Resource
             ->columns([
                 // 名前
                 Tables\Columns\TextColumn::make('name')
-                    ->label(__('green::admin_base.admin_group.name'))
+                    ->label(__('green::admin-auth.admin-group.name'))
                     ->extraAttributes(fn($record) => ['style' => 'text-indent:'.$record->depth.'em'])
                     ->sortable()->searchable()->toggleable(),
 
@@ -103,10 +103,10 @@ class AdminGroupResource extends Resource
                     ->label(Plugin::get()->getUserModelLabel())
                     ->circular()->overlap(5)->limit(5)->limitedRemainingText()
                     ->toggleable(),
-                
+
                 // 割り当てられたロール
                 Tables\Columns\TextColumn::make('roles.name')
-                    ->label(__('green::admin_base.admin_group.roles'))
+                    ->label(__('green::admin-auth.admin-group.roles'))
                     ->toggleable(),
             ])
             ->filters([

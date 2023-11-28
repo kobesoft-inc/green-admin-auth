@@ -37,7 +37,7 @@ class NodeParent implements ValidationRule
             $class = $this->record::class;
             $parent = $class::find($value);
             if ($this->record->isAncestorOf($parent) || $this->record->id == $parent->id) {
-                $fail(__('green::admin_base.validations.node_parent'));
+                $fail(__('green::admin-auth.validations.node-parent'));
             }
         }
     }

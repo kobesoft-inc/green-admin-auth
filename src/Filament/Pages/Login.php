@@ -94,7 +94,7 @@ class Login extends \Filament\Pages\Auth\Login
     /**
      * フォーム入力から認証情報を取得する
      *
-     * @param  array<string, mixed>  $data
+     * @param array<string, mixed> $data
      * @return array<string, mixed>
      */
     protected function getCredentialsFromFormData(array $data): array

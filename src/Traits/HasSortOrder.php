@@ -38,6 +38,6 @@ trait HasSortOrder
      */
     static public function getSortOrder(): string
     {
-        return defined(static::class.'::SORT_ORDER') ? static::SORT_ORDER : 'sort_order';
+        return defined(static::class . '::SORT_ORDER') ? static::SORT_ORDER : 'sort_order';
     }
 }

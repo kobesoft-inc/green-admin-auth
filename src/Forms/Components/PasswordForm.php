@@ -71,7 +71,6 @@ class PasswordForm extends Forms\Components\Group
             ]);
     }
 
-
     /**
      * パスワードの生成・有効期限設定・メール送信の処理を行う
      *

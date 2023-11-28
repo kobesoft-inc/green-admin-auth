@@ -13,7 +13,7 @@ class LogAdminLogin
     /**
      * インスタンスを初期化する
      *
-     * @param  Request  $request
+     * @param Request $request
      */
     public function __construct(protected Request $request)
     {
@@ -22,7 +22,7 @@ class LogAdminLogin
     /**
      * イベントの処理
      *
-     * @param  Login  $login
+     * @param Login $login
      * @return void
      */
     public function handle(Login $login): void
@@ -41,8 +41,8 @@ class LogAdminLogin
             'admin_user_id' => $login->user->id,
             'languages' => join(',', $agent->languages($this->request->header('Accept-Language'))),
             'device' => $agent->device(),
-            'platform' => ($platform = $agent->platform()).' '.$agent->version($platform),
-            'browser' => ($browser = $agent->browser()).' '.$agent->version($browser),
+            'platform' => ($platform = $agent->platform()) . ' ' . $agent->version($platform),
+            'browser' => ($browser = $agent->browser()) . ' ' . $agent->version($browser),
             'ip_address' => $this->request->getClientIp(),
         ]);
     }

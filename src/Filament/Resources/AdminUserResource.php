@@ -53,7 +53,7 @@ class AdminUserResource extends Resource
     /**
      * フォームを構築
      *
-     * @param  Form  $form
+     * @param Form $form
      * @return Form
      */
     public static function form(Form $form): Form
@@ -119,7 +119,7 @@ class AdminUserResource extends Resource
     /**
      * テーブルを構築
      *
-     * @param  Table  $table
+     * @param Table $table
      * @return Table
      */
     public static function table(Table $table): Table
@@ -246,7 +246,7 @@ class AdminUserResource extends Resource
     /**
      * グループの選択肢を取得する
      *
-     * @param  bool  $html
+     * @param bool $html
      * @return array
      */
     private static function getGroupOptions(bool $html): array

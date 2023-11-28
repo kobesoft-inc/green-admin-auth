@@ -35,7 +35,6 @@ class PasswordExpired extends SimplePage
         if (!$this->getUserId()) {
             $this->redirectToLogin();
         }
-
         $this->form->fill();
     }
 
@@ -141,7 +140,7 @@ class PasswordExpired extends SimplePage
     }
 
     /**
-     * 全幅のフォームアクション？
+     * 全幅のフォームアクションを使用する
      *
      * @return bool
      */

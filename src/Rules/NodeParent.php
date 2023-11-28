@@ -12,20 +12,12 @@ use Illuminate\Database\Eloquent\Model;
 class NodeParent implements ValidationRule
 {
     /**
-     * 現在のレコード
-     *
-     * @var Model|null
-     */
-    private ?Model $record;
-
-    /**
      * インスタンスを初期化する
      *
-     * @param  Model|null  $record  現在のレコード
+     * @param Model|null $record 現在のレコード
      */
-    public function __construct(?Model $record)
+    public function __construct(private ?Model $record)
     {
-        $this->record = $record;
     }
 
     /**

@@ -44,7 +44,7 @@ class AdminRoleResource extends Resource
     /**
      * フォームを構築
      *
-     * @param  Form  $form
+     * @param Form $form
      * @return Form
      */
     public static function form(Form $form): Form
@@ -64,7 +64,7 @@ class AdminRoleResource extends Resource
     /**
      * テーブルを構築
      *
-     * @param  Table  $table
+     * @param Table $table
      * @return Table
      */
     public static function table(Table $table): Table
@@ -118,7 +118,7 @@ class AdminRoleResource extends Resource
     /**
      * 削除できるか？
      *
-     * @param  Model  $record
+     * @param Model $record
      * @return bool
      */
     public static function canDelete(Model $record): bool
@@ -131,7 +131,7 @@ class AdminRoleResource extends Resource
     /**
      * パーミッションを選択するコンポーネントを生成する
      *
-     * @param  string  $name
+     * @param string $name
      * @return Component
      */
     private static function makePermissionsComponent(string $name): Forms\Components\Component

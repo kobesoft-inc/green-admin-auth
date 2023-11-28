@@ -91,7 +91,7 @@ class AdminUser extends \Illuminate\Foundation\Auth\User implements FilamentUser
                 // パスワードを変更し、有効期限を設定していない場合には、自動的に有効期限を設定する
                 $passwordDays = Plugin::get()->getPasswordDays();
                 $adminUser->password_expire_at = $passwordDays
-                    ? \Carbon\Carbon::now()->addDays($passwordDays) // 有効期限を設定
+                    ? now()->addDays($passwordDays) // 有効期限を設定
                     : null; // 有効期限無し
             }
         });
@@ -107,8 +107,8 @@ class AdminUser extends \Illuminate\Foundation\Auth\User implements FilamentUser
     /**
      * 指定されたグループ以下に所属するユーザーだけのスコープ
      *
-     * @param  Builder  $query
-     * @param  \Illuminate\Support\Collection  $groups
+     * @param Builder $query
+     * @param \Illuminate\Support\Collection $groups
      * @return void
      */
     public function scopeInGroups(Builder $query, \Illuminate\Support\Collection $groups): void
@@ -212,7 +212,7 @@ class AdminUser extends \Illuminate\Foundation\Auth\User implements FilamentUser
     /**
      * このユーザーが指定されたパーミッションを持っているか？
      *
-     * @param  string  $permission  パーミッションの識別子(通常はクラス名)
+     * @param string $permission パーミッションの識別子(通常はクラス名)
      * @return bool
      */
     public function hasPermission(string $permission): bool

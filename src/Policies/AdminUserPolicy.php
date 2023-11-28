@@ -16,7 +16,7 @@ class AdminUserPolicy
     /**
      * ユーザーの一覧表示ができるか？
      *
-     * @param  AdminUser  $user  作業者のユーザー
+     * @param AdminUser $user 作業者のユーザー
      * @return bool
      */
     public function viewAny(AdminUser $user): bool
@@ -28,8 +28,8 @@ class AdminUserPolicy
     /**
      * ユーザーの削除ができるか？
      *
-     * @param  AdminUser  $user  作業者のユーザー
-     * @param  AdminUser  $model  対象のユーザー
+     * @param AdminUser $user 作業者のユーザー
+     * @param AdminUser $model 対象のユーザー
      * @return bool
      */
     public function delete(AdminUser $user, AdminUser $model): bool
@@ -42,8 +42,8 @@ class AdminUserPolicy
     /**
      * ユーザーの停止ができるか？
      *
-     * @param  AdminUser  $user  作業者のユーザー
-     * @param  AdminUser  $model  対象のユーザー
+     * @param AdminUser $user 作業者のユーザー
+     * @param AdminUser $model 対象のユーザー
      * @return bool
      */
     public function suspend(AdminUser $user, AdminUser $model): bool
@@ -55,8 +55,8 @@ class AdminUserPolicy
     /**
      * ユーザーのパスワードリセットができるか？
      *
-     * @param  AdminUser  $user  作業者のユーザー
-     * @param  AdminUser  $model  対象のユーザー
+     * @param AdminUser $user 作業者のユーザー
+     * @param AdminUser $model 対象のユーザー
      * @return bool
      */
     public function resetPassword(AdminUser $user, AdminUser $model): bool

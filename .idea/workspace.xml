@@ -6,7 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="7f38e551-3e6d-42c7-8e29-fb1cd9c022f0" name="変更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/tables/columns/avatar-column.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tables/columns/avatar-column.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Filament/Pages/PasswordExpired.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Filament/Pages/PasswordExpired.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Forms/Components/PasswordForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Forms/Components/PasswordForm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mail/PasswordReset.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mail/PasswordReset.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/AdminUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/AdminUser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Rules/NodeParent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rules/NodeParent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServiceProvider.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,22 +142,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "feature/admin-users-0.2",
-    "last_opened_file_path": "/Users/user/Works/green-admin-auth",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/admin-users-0.2&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/user/Works/green-admin-auth&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -167,7 +173,7 @@
       <updated>1700356131995</updated>
       <workItem from="1701157130275" duration="1503000" />
       <workItem from="1701162097732" duration="564000" />
-      <workItem from="1701165353974" duration="4682000" />
+      <workItem from="1701165353974" duration="6321000" />
     </task>
     <servers />
   </component>

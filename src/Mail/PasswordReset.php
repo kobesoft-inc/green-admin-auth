@@ -24,8 +24,8 @@ class PasswordReset extends Mailable
     public function __construct(
         public ?string $email,
         public ?string $username,
-        public string $password,
-        public string $login
+        public string  $password,
+        public string  $login
     )
     {
     }

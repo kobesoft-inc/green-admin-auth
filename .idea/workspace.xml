@@ -6,13 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="7f38e551-3e6d-42c7-8e29-fb1cd9c022f0" name="変更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/tables/columns/avatar-column.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tables/columns/avatar-column.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Filament/Pages/PasswordExpired.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Filament/Pages/PasswordExpired.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Forms/Components/PasswordForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Forms/Components/PasswordForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Mail/PasswordReset.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mail/PasswordReset.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/AdminUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/AdminUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Rules/NodeParent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rules/NodeParent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lang/ja/admin-auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/lang/ja/admin-auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Filament/Resources/AdminGroupResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Filament/Resources/AdminGroupResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Permissions/DeleteAdminUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Permissions/DeleteAdminUser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Permissions/EditAdminUserRole.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Permissions/EditAdminUserRole.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Permissions/ManageAdminGroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Permissions/ManageAdminGroup.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Permissions/ManageAdminUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Permissions/ManageAdminUser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Permissions/ManageAdminUserInGroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Permissions/ManageAdminUserInGroup.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Permissions/ResetAdminUserPassword.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Permissions/ResetAdminUserPassword.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Traits/HasCustomizeAdminAuth.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Traits/HasCustomizeAdminAuth.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +175,7 @@
       <updated>1700356131995</updated>
       <workItem from="1701157130275" duration="1503000" />
       <workItem from="1701162097732" duration="564000" />
-      <workItem from="1701165353974" duration="6321000" />
+      <workItem from="1701165353974" duration="8118000" />
     </task>
     <servers />
   </component>

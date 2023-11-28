@@ -353,4 +353,17 @@ trait HasCustomizeAdminAuth
         $this->passwordDays = $passwordDays;
         return $this;
     }
+
+    /**
+     * 翻訳用の単語を取得する
+     *
+     * @return array
+     */
+    public function getTranslationWords(): array
+    {
+        return [
+            'user' => $this->getUserModelLabel(),
+            'group' => $this->getGroupModelLabel(),
+        ];
+    }
 }

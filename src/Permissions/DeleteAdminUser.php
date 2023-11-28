@@ -3,6 +3,7 @@
 namespace Green\AdminAuth\Permissions;
 
 use Green\AdminAuth\Permissions\Permission;
+use Green\AdminAuth\Plugin;
 
 class DeleteAdminUser extends Permission
 {
@@ -23,6 +24,9 @@ class DeleteAdminUser extends Permission
      */
     static public function getLabel(): string
     {
-        return __('green::admin-auth.permissions.admin.delete-admin-user');
+        return __(
+            'green::admin-auth.permissions.admin.delete-admin-user',
+            Plugin::get()->getTranslationWords()
+        );
     }
 }

@@ -3,6 +3,7 @@
 namespace Green\AdminAuth\Permissions;
 
 use Green\AdminAuth\Permissions\Permission;
+use Green\AdminAuth\Plugin;
 
 class ManageAdminUser extends Permission
 {
@@ -23,6 +24,9 @@ class ManageAdminUser extends Permission
      */
     static public function getLabel(): string
     {
-        return __('green::admin-auth.permissions.admin.manage-admin-user');
+        return __(
+            'green::admin-auth.permissions.admin.manage-admin-user',
+            Plugin::get()->getTranslationWords()
+        );
     }
 }

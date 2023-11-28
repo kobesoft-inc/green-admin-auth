@@ -3,6 +3,7 @@
 namespace Green\AdminAuth\Permissions;
 
 use Green\AdminAuth\Permissions\Permission;
+use Green\AdminAuth\Plugin;
 
 class ResetAdminUserPassword extends Permission
 {
@@ -23,6 +24,9 @@ class ResetAdminUserPassword extends Permission
      */
     static public function getLabel(): string
     {
-        return __('green::admin-auth.permissions.admin.reset-admin-user-password');
+        return __(
+            'green::admin-auth.permissions.admin.reset-admin-user-password',
+            Plugin::get()->getTranslationWords()
+        );
     }
 }

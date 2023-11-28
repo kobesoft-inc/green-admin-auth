@@ -85,6 +85,7 @@ class AdminRoleResource extends Resource
                 // 割り当てられたグループ
                 Tables\Columns\TextColumn::make('groups.name')
                     ->label(Plugin::get()->getGroupModelLabel())
+                    ->badge()
                     ->toggleable()
                     ->hidden(Plugin::get()->isGroupDisabled()),
             ])

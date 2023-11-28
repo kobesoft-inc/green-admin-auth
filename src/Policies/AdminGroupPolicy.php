@@ -1,10 +1,10 @@
 <?php
 
-namespace Green\AdminBase\Policies;
+namespace Green\AdminAuth\Policies;
 
-use Green\AdminBase\Models\AdminUser;
-use Green\AdminBase\Permissions\ManageAdminGroup;
-use Green\AdminBase\Plugin;
+use Green\AdminAuth\Models\AdminUser;
+use Green\AdminAuth\Permissions\ManageAdminGroup;
+use Green\AdminAuth\Plugin;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AdminGroupPolicy

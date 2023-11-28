@@ -1,8 +1,8 @@
 {
-  "name": "kobesoft/green-admin-base",
+  "name": "kobesoft/green-admin-auth",
   "autoload": {
     "psr-4": {
-      "Green\\AdminBase\\": "src/"
+      "Green\\AdminAuth\\": "src/"
     }
   },
   "require": {
@@ -16,7 +16,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Green\\AdminBase\\ServiceProvider"
+        "Green\\AdminAuth\\ServiceProvider"
       ]
     }
   }

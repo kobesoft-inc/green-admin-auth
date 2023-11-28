@@ -1,6 +1,6 @@
 <?php
 
-namespace Green\AdminBase\Filament\Pages;
+namespace Green\AdminAuth\Filament\Pages;
 
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
@@ -8,8 +8,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\SimplePage;
-use Green\AdminBase\Models\AdminUser;
-use Green\AdminBase\Plugin;
+use Green\AdminAuth\Models\AdminUser;
+use Green\AdminAuth\Plugin;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;

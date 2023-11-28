@@ -1,9 +1,9 @@
 <?php
 
-namespace Green\AdminBase\Permissions;
+namespace Green\AdminAuth\Permissions;
 
-use Green\AdminBase\Models\AdminUser;
-use Green\AdminBase\Permissions\Permission;
+use Green\AdminAuth\Models\AdminUser;
+use Green\AdminAuth\Permissions\Permission;
 use Illuminate\Support\Facades\Gate;
 
 class Super extends Permission

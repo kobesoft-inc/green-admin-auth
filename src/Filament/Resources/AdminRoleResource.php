@@ -1,6 +1,6 @@
 <?php
 
-namespace Green\AdminBase\Filament\Resources;
+namespace Green\AdminAuth\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Forms\Components\Component;
@@ -9,10 +9,10 @@ use Filament\Resources\Pages\PageRegistration;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Green\AdminBase\Facades\PermissionManager;
-use Green\AdminBase\Filament\Resources\AdminRoleResource\Pages\ListAdminRoles;
-use Green\AdminBase\Models\AdminRole;
-use Green\AdminBase\Plugin;
+use Green\AdminAuth\Facades\PermissionManager;
+use Green\AdminAuth\Filament\Resources\AdminRoleResource\Pages\ListAdminRoles;
+use Green\AdminAuth\Models\AdminRole;
+use Green\AdminAuth\Plugin;
 use Illuminate\Database\Eloquent\Model;
 
 class AdminRoleResource extends Resource

@@ -1,6 +1,6 @@
 <?php
 
-namespace Green\AdminBase\Models;
+namespace Green\AdminAuth\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

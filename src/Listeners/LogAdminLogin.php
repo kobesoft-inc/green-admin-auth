@@ -1,9 +1,9 @@
 <?php
 
-namespace Green\AdminBase\Listeners;
+namespace Green\AdminAuth\Listeners;
 
-use Green\AdminBase\Models\AdminLoginLog;
-use Green\AdminBase\Models\AdminUser;
+use Green\AdminAuth\Models\AdminLoginLog;
+use Green\AdminAuth\Models\AdminUser;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;

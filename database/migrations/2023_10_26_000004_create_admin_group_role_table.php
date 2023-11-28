@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('admin_group_role', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\Green\AdminBase\Models\AdminGroup::class)->constrained();
-            $table->foreignIdFor(\Green\AdminBase\Models\AdminRole::class)->constrained();
+            $table->foreignIdFor(\Green\AdminAuth\Models\AdminGroup::class)->constrained();
+            $table->foreignIdFor(\Green\AdminAuth\Models\AdminRole::class)->constrained();
         });
     }
 

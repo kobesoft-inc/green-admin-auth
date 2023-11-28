@@ -1,9 +1,9 @@
 <?php
 
-namespace Green\AdminBase\Policies;
+namespace Green\AdminAuth\Policies;
 
-use Green\AdminBase\Models\AdminUser;
-use Green\AdminBase\Permissions\ManageAdminRole;
+use Green\AdminAuth\Models\AdminUser;
+use Green\AdminAuth\Permissions\ManageAdminRole;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AdminRolePolicy

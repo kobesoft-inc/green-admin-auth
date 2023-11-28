@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('admin_login_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\Green\AdminBase\Models\AdminUser::class);
+            $table->foreignIdFor(\Green\AdminAuth\Models\AdminUser::class);
             $table->string('languages')->nullable();
             $table->string('device')->nullable();
             $table->string('platform')->nullable();

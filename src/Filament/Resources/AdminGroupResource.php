@@ -1,6 +1,6 @@
 <?php
 
-namespace Green\AdminBase\Filament\Resources;
+namespace Green\AdminAuth\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -8,11 +8,11 @@ use Filament\Resources\Pages\PageRegistration;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Green\AdminBase\Filament\Resources\AdminGroupResource\Pages\ListAdminGroups;
-use Green\AdminBase\Models\AdminGroup;
-use Green\AdminBase\Models\AdminRole;
-use Green\AdminBase\Plugin;
-use Green\AdminBase\Rules\NodeParent;
+use Green\AdminAuth\Filament\Resources\AdminGroupResource\Pages\ListAdminGroups;
+use Green\AdminAuth\Models\AdminGroup;
+use Green\AdminAuth\Models\AdminRole;
+use Green\AdminAuth\Plugin;
+use Green\AdminAuth\Rules\NodeParent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 

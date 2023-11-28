@@ -1,10 +1,10 @@
-# green-admin-base
+# green-admin-auth
 
 Copyright &copy; Kobesoft, Inc. All rights reserved.
 
 ## 概要
 
-これはGreen Engineの管理画面システムの基盤コンポーネントです。
+これはGreen Engineの管理画面システムの認証コンポーネントです。
 下記の機能を実装しています。
 
 - 管理者アカウントの管理
@@ -18,7 +18,7 @@ Copyright &copy; Kobesoft, Inc. All rights reserved.
 composerでインストール
 
 ```shell
-composer install kobesoft/green-admin-base
+composer install kobesoft/green-admin-auth
 ```
 
 Panelにプラグインとして追加する。
@@ -34,7 +34,7 @@ class AdminPanelProvider extends PanelProvider
             :
             :
             ->plugins([
-                \Green\AdminBase\Plugin::make()
+                \Green\AdminAuth\Plugin::make()
             ]);
     }
 }
@@ -78,7 +78,7 @@ class AdminPanelProvider extends PanelProvider
 ### 管理ユーザーの項目カスタマイズ
 
 ```php
-\Green\AdminBase\Plugin::make()
+\Green\AdminAuth\Plugin::make()
     // #1 管理ユーザーは複数のグループに所属できる
     // 複雑な構成が必要な場合に有効化する。 
     ->multipleGroups()
@@ -104,11 +104,11 @@ class AdminPanelProvider extends PanelProvider
     ->usernameDisabled()
 
     // #7 管理ユーザーのモデルを指定
-    // 管理ユーザーに追加の情報や機能を加える場合。\Green\AdminBase\Models\AdminUserを継承すること。
+    // 管理ユーザーに追加の情報や機能を加える場合。\Green\AdminAuth\Models\AdminUserを継承すること。
     ->userModel(MyAdminUserModel::class)
 
     // #8 管理グループのモデルを指定
-    // 管理グループに追加の情報や機能を加える場合。\Green\AdminBase\Models\AdminGroupを継承すること。
+    // 管理グループに追加の情報や機能を加える場合。\Green\AdminAuth\Models\AdminGroupを継承すること。
     ->userModel(MyAdminGroupModel::class)
 
     // #9 管理ユーザーの呼び方を指定

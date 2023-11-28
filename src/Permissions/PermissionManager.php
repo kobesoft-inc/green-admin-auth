@@ -1,6 +1,6 @@
 <?php
 
-namespace Green\AdminBase\Permissions;
+namespace Green\AdminAuth\Permissions;
 
 use Illuminate\Support\Collection;
 

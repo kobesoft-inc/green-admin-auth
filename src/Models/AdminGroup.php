@@ -1,8 +1,8 @@
 <?php
 
-namespace Green\AdminBase\Models;
+namespace Green\AdminAuth\Models;
 
-use Green\AdminBase\Traits\HasNodeOptions;
+use Green\AdminAuth\Traits\HasNodeOptions;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

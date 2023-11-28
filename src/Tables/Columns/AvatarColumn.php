@@ -1,6 +1,6 @@
 <?php
 
-namespace Green\AdminBase\Tables\Columns;
+namespace Green\AdminAuth\Tables\Columns;
 
 use Filament\Tables\Columns\Column;
 

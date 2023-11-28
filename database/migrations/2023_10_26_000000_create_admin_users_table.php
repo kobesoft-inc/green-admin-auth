@@ -25,7 +25,7 @@ return new class extends Migration
         });
 
         // 初期の管理ユーザーを作成
-        \Green\AdminBase\Models\AdminUser::create([
+        \Green\AdminAuth\Models\AdminUser::create([
             'name' => __('green::admin_base.admin_user.initial_user'),
             'username' => 'admin',
             'password' => 'admin',

@@ -1,6 +1,6 @@
 <?php
 
-namespace Green\AdminBase\Traits;
+namespace Green\AdminAuth\Traits;
 
 use Closure;
 

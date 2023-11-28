@@ -52,7 +52,7 @@ class AdminGroupResource extends Resource
     /**
      * フォームを構築
      *
-     * @param  Form  $form
+     * @param Form $form
      * @return Form
      */
     public static function form(Form $form): Form
@@ -85,7 +85,7 @@ class AdminGroupResource extends Resource
     /**
      * テーブルを構築
      *
-     * @param  Table  $table
+     * @param Table $table
      * @return Table
      */
     public static function table(Table $table): Table
@@ -95,7 +95,7 @@ class AdminGroupResource extends Resource
                 // 名前
                 Tables\Columns\TextColumn::make('name')
                     ->label(__('green::admin-auth.admin-group.name'))
-                    ->extraAttributes(fn($record) => ['style' => 'text-indent:'.$record->depth.'em'])
+                    ->extraAttributes(fn($record) => ['style' => 'text-indent:' . $record->depth . 'em'])
                     ->sortable()->searchable()->toggleable(),
 
                 // 割り当てられたユーザー
@@ -148,7 +148,7 @@ class AdminGroupResource extends Resource
     /**
      * 削除できるか？
      *
-     * @param  Model  $record
+     * @param Model $record
      * @return bool
      */
     public static function canDelete(Model $record): bool

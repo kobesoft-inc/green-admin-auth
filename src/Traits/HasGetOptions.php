@@ -14,7 +14,7 @@ trait HasGetOptions
     /**
      *  このモデルの選択肢を取得する
      *
-     * @param  Closure|null  $closure  条件を加えるためのクロージャ
+     * @param Closure|null $closure 条件を加えるためのクロージャ
      * @return array<string, string>
      */
     static public function getOptions(Closure $closure = null): array
@@ -23,10 +23,10 @@ trait HasGetOptions
         $idColumn = (new static())->primaryKey;
 
         // 選択肢のタイトルのカラム
-        $titleColumn = defined(static::class.'::TITLE') ? static::TITLE : 'name';
+        $titleColumn = defined(static::class . '::TITLE') ? static::TITLE : 'name';
 
         // 並び順のカラム
-        $orderColumn = defined(static::class.'::SORT_ORDER') ? static::SORT_ORDER : $idColumn;
+        $orderColumn = defined(static::class . '::SORT_ORDER') ? static::SORT_ORDER : $idColumn;
 
         // 選択肢を取得
         $query = static::query();

@@ -28,7 +28,7 @@ class Plugin implements \Filament\Contracts\Plugin
     /**
      * 登録処理
      *
-     * @param  Panel  $panel
+     * @param Panel $panel
      * @return void
      */
     public function register(Panel $panel): void
@@ -54,7 +54,7 @@ class Plugin implements \Filament\Contracts\Plugin
     /**
      * 初期起動処理
      *
-     * @param  Panel  $panel
+     * @param Panel $panel
      * @return void
      */
     public function boot(Panel $panel): void

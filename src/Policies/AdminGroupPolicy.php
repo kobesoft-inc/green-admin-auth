@@ -14,7 +14,7 @@ class AdminGroupPolicy
     /**
      * グループの一覧表示ができるか？
      *
-     * @param  AdminUser  $user
+     * @param AdminUser $user
      * @return bool
      */
     public function viewAny(AdminUser $user): bool

@@ -42,7 +42,7 @@ class PermissionManager
     /**
      * 登録済みのパーミッションを取得する
      *
-     * @param  string  $group  パーミッションのグループ
+     * @param string $group パーミッションのグループ
      * @return array 選択肢
      */
     public function getOptions(string $group): array

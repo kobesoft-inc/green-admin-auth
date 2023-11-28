@@ -22,7 +22,7 @@ class AvatarColumn extends Column
     /**
      * アバター画像を設定する
      *
-     * @param  string|\Closure|null  $avatar
+     * @param string|\Closure|null $avatar
      * @return AvatarColumn
      */
     public function avatar(string|\Closure|null $avatar): AvatarColumn

@@ -153,12 +153,14 @@ class AdminUserResource extends Resource
                 // 管理グループ
                 Tables\Columns\TextColumn::make('groups.name')
                     ->label(Plugin::get()->getGroupModelLabel())
+                    ->badge()
                     ->sortable()->toggleable()
                     ->hidden(Plugin::get()->isGroupDisabled()),
 
                 // 管理ロール
                 Tables\Columns\TextColumn::make('roles.name')
                     ->label(__('green::admin-auth.admin-user.roles'))
+                    ->badge()
                     ->sortable()->toggleable(),
 
                 // 最終ログイン

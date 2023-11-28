@@ -107,6 +107,7 @@ class AdminGroupResource extends Resource
                 // 割り当てられたロール
                 Tables\Columns\TextColumn::make('roles.name')
                     ->label(__('green::admin-auth.admin-group.roles'))
+                    ->badge()
                     ->toggleable(),
             ])
             ->filters([

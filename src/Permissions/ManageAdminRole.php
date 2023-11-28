@@ -13,7 +13,7 @@ class ManageAdminRole extends Permission
      */
     static public function getGroup(): string
     {
-        return __('green::admin_base.permissions.admin.group');
+        return __('green::admin-auth.permissions.admin.group');
     }
 
     /**
@@ -23,6 +23,6 @@ class ManageAdminRole extends Permission
      */
     static public function getLabel(): string
     {
-        return __('green::admin_base.permissions.admin.manage_admin_role');
+        return __('green::admin-auth.permissions.admin.manage-admin-role');
     }
 }

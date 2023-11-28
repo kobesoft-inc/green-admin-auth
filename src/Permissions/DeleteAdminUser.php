@@ -13,7 +13,7 @@ class DeleteAdminUser extends Permission
      */
     static public function getGroup(): string
     {
-        return __('green::admin_base.permissions.admin.group');
+        return __('green::admin-auth.permissions.admin.group');
     }
 
     /**
@@ -23,6 +23,6 @@ class DeleteAdminUser extends Permission
      */
     static public function getLabel(): string
     {
-        return __('green::admin_base.permissions.admin.delete_admin_user');
+        return __('green::admin-auth.permissions.admin.delete-admin-user');
     }
 }

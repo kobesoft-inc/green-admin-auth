@@ -21,7 +21,7 @@ return new class extends Migration
 
         // 初期のロールを作成
         \Green\AdminAuth\Models\AdminRole::create([
-            'name' => __('green::admin_base.admin_role.initial_role'),
+            'name' => __('green::admin-auth.admin-role.initial-role'),
             'permissions' => [\Green\AdminAuth\Permissions\Super::class],
             'sort_order' => 1,
         ]);

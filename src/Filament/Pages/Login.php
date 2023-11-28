@@ -52,7 +52,7 @@ class Login extends \Filament\Pages\Auth\Login
      */
     public function getHeading(): string|Htmlable
     {
-        return __('green::admin_base.pages.login.heading');
+        return __('green::admin-auth.pages.login.heading');
     }
 
     /**
@@ -81,13 +81,13 @@ class Login extends \Filament\Pages\Auth\Login
         $canLoginWithEmail = Plugin::get()->canLoginWithEmail();
         $canLoginWithUsername = Plugin::get()->canLoginWithUsername();
         if ($canLoginWithEmail && $canLoginWithUsername) {
-            return __('green::admin_base.pages.login.username_or_email');
+            return __('green::admin-auth.pages.login.username-or-email');
         } elseif ($canLoginWithUsername) {
-            return __('green::admin_base.pages.login.username');
+            return __('green::admin-auth.pages.login.username');
         } elseif ($canLoginWithEmail) {
-            return __('green::admin_base.pages.login.email');
+            return __('green::admin-auth.pages.login.email');
         } else {
-            throw new \RuntimeException('Please enable users_can_login_with_(username or email)');
+            throw new \RuntimeException('Please enable login with (username or email)');
         }
     }
 

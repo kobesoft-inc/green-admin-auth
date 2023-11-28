@@ -12,6 +12,7 @@ trait HasCustomizeAdminAuth
     private bool $loginWithUsername = true;
     private bool $emailDisabled = false;
     private bool $usernameDisabled = false;
+    private bool $avatarDisabled = false;
     private ?string $userModel = AdminUser::class;
     private ?string $userModelLabel = null;
     private bool $multipleGroups = false;
@@ -68,6 +69,28 @@ trait HasCustomizeAdminAuth
     }
 
     /**
+     * 管理ユーザーのアバター項目が無効化されているか取得する
+     *
+     * @return bool
+     */
+    public function isAvatarDisabled(): bool
+    {
+        return $this->avatarDisabled;
+    }
+
+    /**
+     * 管理ユーザーのアバター項目を無効化する
+     *
+     * @param bool $avatarDisabled
+     * @return Plugin
+     */
+    public function disableAvatar(bool $avatarDisabled = true): Plugin
+    {
+        $this->avatarDisabled = $avatarDisabled;
+        return $this;
+    }
+
+    /**
      * 管理ユーザーのメールアドレス項目が無効化されているか取得する
      *
      * @return bool
@@ -83,7 +106,7 @@ trait HasCustomizeAdminAuth
      * @param bool $emailDisabled
      * @return Plugin
      */
-    public function emailDisabled(bool $emailDisabled = true): Plugin
+    public function disableEmail(bool $emailDisabled = true): Plugin
     {
         $this->emailDisabled = $emailDisabled;
         return $this;
@@ -105,7 +128,7 @@ trait HasCustomizeAdminAuth
      * @param bool $usernameDisabled
      * @return Plugin
      */
-    public function usernameDisabled(bool $usernameDisabled = true): Plugin
+    public function disableUsername(bool $usernameDisabled = true): Plugin
     {
         $this->usernameDisabled = $usernameDisabled;
         return $this;
@@ -140,7 +163,7 @@ trait HasCustomizeAdminAuth
      */
     public function getUserModelLabel(): ?string
     {
-        return $this->userModelLabel ?? __('green::admin_base.admin_user.model');
+        return $this->userModelLabel ?? __('green::admin-auth.admin-user.model');
     }
 
     /**
@@ -215,7 +238,7 @@ trait HasCustomizeAdminAuth
      * @param bool $groupDisabled
      * @return Plugin
      */
-    public function groupDisabled(bool $groupDisabled = true): Plugin
+    public function disableGroup(bool $groupDisabled = true): Plugin
     {
         $this->groupDisabled = $groupDisabled;
         return $this;
@@ -250,7 +273,7 @@ trait HasCustomizeAdminAuth
      */
     public function getGroupModelLabel(): ?string
     {
-        return $this->groupModelLabel ?? __('green::admin_base.admin_group.model');
+        return $this->groupModelLabel ?? __('green::admin-auth.admin-group.model');
     }
 
     /**

@@ -13,7 +13,7 @@ class EditAdminUserRole extends Permission
      */
     static public function getGroup(): string
     {
-        return __('green::admin_base.permissions.admin.group');
+        return __('green::admin-auth.permissions.admin.group');
     }
 
     /**
@@ -23,6 +23,6 @@ class EditAdminUserRole extends Permission
      */
     static public function getLabel(): string
     {
-        return __('green::admin_base.permissions.admin.edit_admin_user_role');
+        return __('green::admin-auth.permissions.admin.edit-admin-user-role');
     }
 }

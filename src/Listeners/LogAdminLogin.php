@@ -10,16 +10,13 @@ use Jenssegers\Agent\Agent;
 
 class LogAdminLogin
 {
-    protected Request $request;
-
     /**
      * インスタンスを初期化する
      *
      * @param  Request  $request
      */
-    public function __construct(Request $request)
+    public function __construct(protected Request $request)
     {
-        $this->request = $request;
     }
 
     /**

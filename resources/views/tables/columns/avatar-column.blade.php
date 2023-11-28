@@ -5,12 +5,12 @@
 <div class="fi-ta-text gap-y-1 px-3 py-4">
     <div class="flex gap-1.5">
         @if($avatar)
-            <div class="w-9">
+            <div class="w-8">
                 <x-filament::avatar
                         :src="$avatar"
                         :attributes="
                     \Filament\Support\prepare_inherited_attributes($attributes)
-                        ->class(['fi-user-avatar rounded-full w-9'])
+                        ->class(['fi-user-avatar rounded-full w-8'])
                 "/>
             </div>
         @endif

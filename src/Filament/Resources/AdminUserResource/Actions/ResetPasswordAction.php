@@ -28,13 +28,13 @@ class ResetPasswordAction extends Action
     {
         parent::setUp();
 
-        $this->label(__('green::admin_base.admin_user.actions.reset_password'));
+        $this->label(__('green::admin-auth.admin-user.actions.reset-password'));
 
         $this->modalHeading($this->getLabel());
 
         $this->icon('bi-key');
 
-        $this->successNotificationTitle(__('green::admin_base.admin_user.actions.reset_password_succeed'));
+        $this->successNotificationTitle(__('green::admin-auth.admin-user.actions.reset-password-succeed'));
 
         $this->form([
             Forms\Components\TextInput::make('email')

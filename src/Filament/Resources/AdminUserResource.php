@@ -29,7 +29,7 @@ class AdminUserResource extends Resource
      */
     public static function getNavigationGroup(): ?string
     {
-        return __('green::admin_base.navigation_group');
+        return __('green::admin-auth.navigation-group');
     }
 
     /**
@@ -62,26 +62,27 @@ class AdminUserResource extends Resource
             ->schema([
                 // アバター
                 Forms\Components\FileUpload::make('avatar')
-                    ->label(__('green::admin_base.admin_user.avatar'))
+                    ->label(__('green::admin-auth.admin-user.avatar'))
                     ->hiddenLabel()
                     ->avatar()
-                    ->alignCenter(),
+                    ->alignCenter()
+                    ->hidden(Plugin::get()->isAvatarDisabled()),
 
                 // 名前
                 Forms\Components\TextInput::make('name')
-                    ->label(__('green::admin_base.admin_user.name'))
+                    ->label(__('green::admin-auth.admin-user.name'))
                     ->required()->maxLength(20),
 
                 // メール
                 Forms\Components\TextInput::make('email')
-                    ->label(__('green::admin_base.admin_user.email'))
+                    ->label(__('green::admin-auth.admin-user.email'))
                     ->required(Plugin::get()->isUsernameDisabled())
                     ->email()->maxLength(100)
                     ->hidden(Plugin::get()->isEmailDisabled()),
 
                 // ユーザー名
                 Forms\Components\TextInput::make('username')
-                    ->label(__('green::admin_base.admin_user.username'))
+                    ->label(__('green::admin-auth.admin-user.username'))
                     ->requiredWithout('email')
                     ->required(Plugin::get()->isEmailDisabled())
                     ->ascii()->alphaDash()
@@ -104,7 +105,7 @@ class AdminUserResource extends Resource
 
                 // ロール
                 Forms\Components\Select::make('roles')
-                    ->label(__('green::admin_base.admin_user.roles'))
+                    ->label(__('green::admin-auth.admin-user.roles'))
                     ->relationship('roles', 'name')
                     ->options(AdminRole::getOptions())
                     ->multiple(Plugin::get()->isMultipleRoles())
@@ -127,25 +128,25 @@ class AdminUserResource extends Resource
             ->columns([
                 // 名前
                 \Green\AdminAuth\Tables\Columns\AvatarColumn::make('name')
-                    ->label(__('green::admin_base.admin_user.name'))
+                    ->label(__('green::admin-auth.admin-user.name'))
                     ->avatar(fn($record) => $record->avatar_url)
                     ->sortable()->searchable()->toggleable(),
 
                 // メール
                 Tables\Columns\TextColumn::make('email')
-                    ->label(__('green::admin_base.admin_user.email'))
+                    ->label(__('green::admin-auth.admin-user.email'))
                     ->sortable()->searchable()->toggleable()
                     ->hidden(fn() => Plugin::get()->isEmailDisabled()),
 
                 // ユーザー名
                 Tables\Columns\TextColumn::make('username')
-                    ->label(__('green::admin_base.admin_user.username'))
+                    ->label(__('green::admin-auth.admin-user.username'))
                     ->sortable()->searchable()->toggleable()
                     ->hidden(fn() => Plugin::get()->isUsernameDisabled()),
 
                 // 状態
                 Tables\Columns\IconColumn::make('is_active')
-                    ->label(__('green::admin_base.admin_user.is_active'))
+                    ->label(__('green::admin-auth.admin-user.is-active'))
                     ->boolean()
                     ->sortable()->toggleable(),
 
@@ -157,24 +158,24 @@ class AdminUserResource extends Resource
 
                 // 管理ロール
                 Tables\Columns\TextColumn::make('roles.name')
-                    ->label(__('green::admin_base.admin_user.roles'))
+                    ->label(__('green::admin-auth.admin-user.roles'))
                     ->sortable()->toggleable(),
 
                 // 最終ログイン
                 Tables\Columns\TextColumn::make('login_logs_max_created_at')
-                    ->label(__('green::admin_base.admin_user.last_login_at'))
+                    ->label(__('green::admin-auth.admin-user.last-login-at'))
                     ->max('loginLogs', 'created_at')
                     ->since()
                     ->sortable()->toggleable(),
 
                 // 作成日時
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label(__('green::admin_base.admin_user.created_at'))
+                    ->label(__('green::admin-auth.admin-user.created-at'))
                     ->sortable()->toggleable()->toggledHiddenByDefault(),
 
                 // 更新日時
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__('green::admin_base.admin_user.updated_at'))
+                    ->label(__('green::admin-auth.admin-user.updated-at'))
                     ->sortable()->toggleable()->toggledHiddenByDefault(),
             ])
             ->filters([

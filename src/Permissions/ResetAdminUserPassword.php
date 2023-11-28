@@ -13,7 +13,7 @@ class ResetAdminUserPassword extends Permission
      */
     static public function getGroup(): string
     {
-        return __('green::admin_base.permissions.admin.group');
+        return __('green::admin-auth.permissions.admin.group');
     }
 
     /**
@@ -23,6 +23,6 @@ class ResetAdminUserPassword extends Permission
      */
     static public function getLabel(): string
     {
-        return __('green::admin_base.permissions.admin.reset_admin_user_password');
+        return __('green::admin-auth.permissions.admin.reset-admin-user-password');
     }
 }

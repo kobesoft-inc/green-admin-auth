@@ -22,7 +22,7 @@ class Plugin implements \Filament\Contracts\Plugin
      */
     public function getId(): string
     {
-        return 'AdminAuth';
+        return 'admin-auth';
     }
 
     /**

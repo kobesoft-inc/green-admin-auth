@@ -20,7 +20,7 @@ return new class extends Migration
 
         // 初期のグループを作成
         \Green\AdminAuth\Models\AdminGroup::create([
-            'name' => __('green::admin_base.admin_group.initial_group'),
+            'name' => __('green::admin-auth.admin-group.initial-group'),
         ]);
     }
 

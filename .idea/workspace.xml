@@ -5,39 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f38e551-3e6d-42c7-8e29-fb1cd9c022f0" name="変更" comment="">
-      <change afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2023_10_26_000000_create_admin_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2023_10_26_000000_create_admin_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2023_10_26_000001_create_admin_groups_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2023_10_26_000001_create_admin_groups_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2023_10_26_000002_create_admin_roles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2023_10_26_000002_create_admin_roles_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lang/ja/admin_base.php" beforeDir="false" afterPath="$PROJECT_DIR$/lang/ja/admin-auth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/emails/admin/password-reset.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/emails/admin/password-reset.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/tables/columns/avatar-column.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tables/columns/avatar-column.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Filament/Pages/Login.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Filament/Pages/Login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Filament/Pages/PasswordExpired.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Filament/Pages/PasswordExpired.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Filament/Resources/AdminGroupResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Filament/Resources/AdminGroupResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Filament/Resources/AdminRoleResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Filament/Resources/AdminRoleResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Filament/Resources/AdminUserResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Filament/Resources/AdminUserResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Filament/Resources/AdminUserResource/Actions/ResetPasswordAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Filament/Resources/AdminUserResource/Actions/ResetPasswordAction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Filament/Resources/AdminUserResource/Actions/ResumeAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Filament/Resources/AdminUserResource/Actions/ResumeAction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Filament/Resources/AdminUserResource/Actions/SuspendAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Filament/Resources/AdminUserResource/Actions/SuspendAction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Forms/Components/PasswordForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Forms/Components/PasswordForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Listeners/LogAdminLogin.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Listeners/LogAdminLogin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Mail/PasswordReset.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mail/PasswordReset.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/AdminUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/AdminUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Permissions/DeleteAdminUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Permissions/DeleteAdminUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Permissions/EditAdminUserRole.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Permissions/EditAdminUserRole.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Permissions/ManageAdminGroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Permissions/ManageAdminGroup.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Permissions/ManageAdminRole.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Permissions/ManageAdminRole.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Permissions/ManageAdminUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Permissions/ManageAdminUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Permissions/ManageAdminUserInGroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Permissions/ManageAdminUserInGroup.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Permissions/ResetAdminUserPassword.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Permissions/ResetAdminUserPassword.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Permissions/Super.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Permissions/Super.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Plugin.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Plugin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Rules/NodeParent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rules/NodeParent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Traits/HasCustomizeAdminAuth.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Traits/HasCustomizeAdminAuth.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +167,7 @@
       <updated>1700356131995</updated>
       <workItem from="1701157130275" duration="1503000" />
       <workItem from="1701162097732" duration="564000" />
-      <workItem from="1701165353974" duration="3429000" />
+      <workItem from="1701165353974" duration="4682000" />
     </task>
     <servers />
   </component>

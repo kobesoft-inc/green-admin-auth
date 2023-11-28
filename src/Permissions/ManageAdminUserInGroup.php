@@ -3,6 +3,7 @@
 namespace Green\AdminAuth\Permissions;
 
 use Green\AdminAuth\Permissions\Permission;
+use Green\AdminAuth\Plugin;
 
 class
 ManageAdminUserInGroup extends Permission
@@ -24,6 +25,9 @@ ManageAdminUserInGroup extends Permission
      */
     static public function getLabel(): string
     {
-        return __('green::admin-auth.permissions.admin.manage-admin-user-in-group');
+        return __(
+            'green::admin-auth.permissions.admin.manage-admin-user-in-group',
+            Plugin::get()->getTranslationWords()
+        );
     }
 }

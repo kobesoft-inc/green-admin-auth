@@ -3,6 +3,7 @@
 namespace Green\AdminAuth\Permissions;
 
 use Green\AdminAuth\Permissions\Permission;
+use Green\AdminAuth\Plugin;
 
 class EditAdminUserRole extends Permission
 {
@@ -23,6 +24,9 @@ class EditAdminUserRole extends Permission
      */
     static public function getLabel(): string
     {
-        return __('green::admin-auth.permissions.admin.edit-admin-user-role');
+        return __(
+            'green::admin-auth.permissions.admin.edit-admin-user-role',
+            Plugin::get()->getTranslationWords()
+        );
     }
 }

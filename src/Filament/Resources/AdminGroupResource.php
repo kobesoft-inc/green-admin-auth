@@ -66,7 +66,7 @@ class AdminGroupResource extends Resource
 
                 // 親のグループ
                 Forms\Components\Select::make('parent_id')
-                    ->label(__('green::admin-auth.admin-group.parent-id'))
+                    ->label(__('green::admin-auth.admin-group.parent-id', Plugin::get()->getTranslationWords()))
                     ->options(AdminGroup::getOptions())
                     ->native(false)->allowHtml(true)
                     ->rules([fn($record) => new NodeParent(record: $record)]),

@@ -3,13 +3,21 @@
 namespace Green\AdminAuth\Filament\Resources\AdminGroupResource\Pages;
 
 use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Pages\ManageRecords;
 use Green\AdminAuth\Filament\Resources\AdminGroupResource;
 
-class ListAdminGroups extends ListRecords
+/**
+ * グループの管理画面
+ */
+class ManageAdminGroups extends ManageRecords
 {
     protected static string $resource = AdminGroupResource::class;
 
+    /**
+     * ヘッダーのアクションを取得する
+     *
+     * @return array<Actions\Action>
+     */
     protected function getHeaderActions(): array
     {
         return [

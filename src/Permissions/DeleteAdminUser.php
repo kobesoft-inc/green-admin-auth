@@ -2,9 +2,11 @@
 
 namespace Green\AdminAuth\Permissions;
 
-use Green\AdminAuth\Permissions\Permission;
 use Green\AdminAuth\Plugin;
 
+/**
+ * 管理者ユーザーを削除する権限
+ */
 class DeleteAdminUser extends Permission
 {
     /**

@@ -6,6 +6,11 @@ use Green\AdminAuth\Models\AdminUser;
 use Green\AdminAuth\Permissions\ManageAdminRole;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
+/**
+ * ロールのポリシー
+ *
+ * @package Green\AdminAuth\Policies
+ */
 class AdminRolePolicy
 {
     use HandlesAuthorization;

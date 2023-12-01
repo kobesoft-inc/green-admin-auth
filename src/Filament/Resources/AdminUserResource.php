@@ -8,7 +8,7 @@ use Filament\Resources\Pages\PageRegistration;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Green\AdminAuth\Filament\Resources\AdminUserResource\Pages\ListAdminUsers;
+use Green\AdminAuth\Filament\Resources\AdminUserResource\Pages\ManageAdminUsers;
 use Green\AdminAuth\Models\AdminGroup;
 use Green\AdminAuth\Models\AdminRole;
 use Green\AdminAuth\Models\AdminUser;
@@ -17,6 +17,9 @@ use Green\AdminAuth\Permissions\ManageAdminUserInGroup;
 use Green\AdminAuth\Plugin;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * 管理ユーザーのリソース
+ */
 class AdminUserResource extends Resource
 {
     protected static ?string $navigationIcon = 'bi-person';
@@ -215,7 +218,7 @@ class AdminUserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListAdminUsers::route('/'),
+            'index' => ManageAdminUsers::route('/'),
         ];
     }
 

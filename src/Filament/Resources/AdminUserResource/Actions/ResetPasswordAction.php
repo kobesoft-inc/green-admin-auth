@@ -7,6 +7,9 @@ use Filament\Tables\Actions\Action;
 use Green\AdminAuth\Forms\Components\PasswordForm;
 use Green\AdminAuth\Models\AdminUser;
 
+/**
+ * 管理ユーザーのパスワードをリセットする
+ */
 class ResetPasswordAction extends Action
 {
     /**

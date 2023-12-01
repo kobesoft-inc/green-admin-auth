@@ -9,12 +9,17 @@ use Green\AdminAuth\Permissions\ManageAdminUserInGroup;
 use Green\AdminAuth\Permissions\ResetAdminUserPassword;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
+/**
+ * 管理ユーザーのポリシー
+ *
+ * @package Green\AdminAuth\Policies
+ */
 class AdminUserPolicy
 {
     use HandlesAuthorization;
 
     /**
-     * ユーザーの一覧表示ができるか？
+     * 管理ユーザーの一覧表示ができるか？
      *
      * @param AdminUser $user 作業者のユーザー
      * @return bool
@@ -26,7 +31,7 @@ class AdminUserPolicy
     }
 
     /**
-     * ユーザーの削除ができるか？
+     * 管理ユーザーの削除ができるか？
      *
      * @param AdminUser $user 作業者のユーザー
      * @param AdminUser $model 対象のユーザー
@@ -40,7 +45,7 @@ class AdminUserPolicy
     }
 
     /**
-     * ユーザーの停止ができるか？
+     * 管理ユーザーの停止ができるか？
      *
      * @param AdminUser $user 作業者のユーザー
      * @param AdminUser $model 対象のユーザー
@@ -53,7 +58,7 @@ class AdminUserPolicy
     }
 
     /**
-     * ユーザーのパスワードリセットができるか？
+     * 管理ユーザーのパスワードリセットができるか？
      *
      * @param AdminUser $user 作業者のユーザー
      * @param AdminUser $model 対象のユーザー

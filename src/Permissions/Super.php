@@ -2,10 +2,9 @@
 
 namespace Green\AdminAuth\Permissions;
 
-use Green\AdminAuth\Models\AdminUser;
-use Green\AdminAuth\Permissions\Permission;
-use Illuminate\Support\Facades\Gate;
-
+/**
+ * 特権の権限
+ */
 class Super extends Permission
 {
     /**

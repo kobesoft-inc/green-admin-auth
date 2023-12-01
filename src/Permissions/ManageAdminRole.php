@@ -2,8 +2,9 @@
 
 namespace Green\AdminAuth\Permissions;
 
-use Green\AdminAuth\Permissions\Permission;
-
+/**
+ * ロールを管理する権限
+ */
 class ManageAdminRole extends Permission
 {
     /**

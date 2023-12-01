@@ -6,6 +6,9 @@ use Green\AdminAuth\Models\AdminGroup;
 use Green\AdminAuth\Models\AdminUser;
 use Green\AdminAuth\Plugin;
 
+/**
+ * プラグインのカスタマイズ機能
+ */
 trait HasCustomizeAdminAuth
 {
     private bool $loginWithEmail = true;
@@ -23,6 +26,7 @@ trait HasCustomizeAdminAuth
     private int $generatedPasswordLength = 12;
     private int $passwordMinLength = 8;
     private int $passwordDays = 0;
+    private array $userTabs = [];
 
     /**
      * ユーザーがメールアドレスでログインできるかを取得する
@@ -289,6 +293,19 @@ trait HasCustomizeAdminAuth
     }
 
     /**
+     * 翻訳用の単語を取得する
+     *
+     * @return array
+     */
+    public function getTranslationWords(): array
+    {
+        return [
+            'user' => $this->getUserModelLabel(),
+            'group' => $this->getGroupModelLabel(),
+        ];
+    }
+
+    /**
      * 生成パスワードのルールを取得する
      *
      * @return int
@@ -355,15 +372,24 @@ trait HasCustomizeAdminAuth
     }
 
     /**
-     * 翻訳用の単語を取得する
+     * ユーザー管理ページのタブを取得する
      *
      * @return array
      */
-    public function getTranslationWords(): array
+    public function getUserTabs(): array
     {
-        return [
-            'user' => $this->getUserModelLabel(),
-            'group' => $this->getGroupModelLabel(),
-        ];
+        return $this->userTabs;
+    }
+
+    /**
+     * ユーザー管理ページのタブを設定する
+     *
+     * @param array $userTabs
+     * @return Plugin
+     */
+    public function userTabs(array $userTabs): Plugin
+    {
+        $this->userTabs = $userTabs;
+        return $this;
     }
 }

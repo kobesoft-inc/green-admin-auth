@@ -16,6 +16,9 @@ use Illuminate\Validation\ValidationException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
+/**
+ * パスワードの有効期限切れのページ
+ */
 class PasswordExpired extends SimplePage
 {
     const PASSWORD_EXPIRED_USER_ID = 'password-expired-user-id';

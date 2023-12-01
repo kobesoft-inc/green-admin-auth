@@ -10,6 +10,9 @@ use Green\AdminAuth\Plugin;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * ログインページ
+ */
 class Login extends \Filament\Pages\Auth\Login
 {
     protected static string $view = 'green::filament.pages.login';

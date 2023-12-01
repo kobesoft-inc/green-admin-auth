@@ -4,6 +4,11 @@ namespace Green\AdminAuth\Tables\Columns;
 
 use Filament\Tables\Columns\Column;
 
+/**
+ * アバター画像を表示するカラム
+ *
+ * @package Green\AdminAuth\Tables\Columns
+ */
 class AvatarColumn extends Column
 {
     protected string $view = 'green::tables.columns.avatar-column';

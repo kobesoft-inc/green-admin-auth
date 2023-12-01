@@ -10,11 +10,14 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Green\AdminAuth\Facades\PermissionManager;
-use Green\AdminAuth\Filament\Resources\AdminRoleResource\Pages\ListAdminRoles;
+use Green\AdminAuth\Filament\Resources\AdminRoleResource\Pages\ManageAdminRoles;
 use Green\AdminAuth\Models\AdminRole;
 use Green\AdminAuth\Plugin;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * ロールのリソース
+ */
 class AdminRoleResource extends Resource
 {
     protected static ?string $model = AdminRole::class;
@@ -112,7 +115,7 @@ class AdminRoleResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListAdminRoles::route('/'),
+            'index' => ManageAdminRoles::route('/'),
         ];
     }
 

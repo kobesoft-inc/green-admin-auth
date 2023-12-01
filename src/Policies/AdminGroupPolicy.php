@@ -7,6 +7,11 @@ use Green\AdminAuth\Permissions\ManageAdminGroup;
 use Green\AdminAuth\Plugin;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
+/**
+ * グループのポリシー
+ *
+ * @package Green\AdminAuth\Policies
+ */
 class AdminGroupPolicy
 {
     use HandlesAuthorization;

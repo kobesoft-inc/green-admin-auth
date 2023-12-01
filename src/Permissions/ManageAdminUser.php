@@ -2,9 +2,11 @@
 
 namespace Green\AdminAuth\Permissions;
 
-use Green\AdminAuth\Permissions\Permission;
 use Green\AdminAuth\Plugin;
 
+/**
+ * 管理者ユーザーを管理する権限
+ */
 class ManageAdminUser extends Permission
 {
     /**

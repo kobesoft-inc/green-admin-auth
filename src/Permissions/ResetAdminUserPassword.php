@@ -2,9 +2,11 @@
 
 namespace Green\AdminAuth\Permissions;
 
-use Green\AdminAuth\Permissions\Permission;
 use Green\AdminAuth\Plugin;
 
+/**
+ * パスワードをリセットする権限
+ */
 class ResetAdminUserPassword extends Permission
 {
     /**

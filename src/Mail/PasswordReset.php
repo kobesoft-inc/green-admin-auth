@@ -9,6 +9,9 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * パスワードリセットメール
+ */
 class PasswordReset extends Mailable
 {
     use Queueable, SerializesModels;

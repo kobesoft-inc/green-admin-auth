@@ -8,6 +8,9 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
 
+/**
+ * 管理ユーザーのログインを記録する
+ */
 class LogAdminLogin
 {
     /**

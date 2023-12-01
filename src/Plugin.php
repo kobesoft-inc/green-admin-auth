@@ -11,6 +11,11 @@ use Green\AdminAuth\Filament\Resources\AdminUserResource;
 use Green\AdminAuth\Traits\HasCustomizeAdminAuth;
 use Illuminate\Support\Facades\Route;
 
+/**
+ * 管理画面の認証機能のプラグイン
+ *
+ * @package Green\AdminAuth
+ */
 class Plugin implements \Filament\Contracts\Plugin
 {
     use HasCustomizeAdminAuth;

@@ -3,13 +3,21 @@
 namespace Green\AdminAuth\Filament\Resources\AdminRoleResource\Pages;
 
 use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Pages\ManageRecords;
 use Green\AdminAuth\Filament\Resources\AdminRoleResource;
 
-class ListAdminRoles extends ListRecords
+/**
+ * ロールの管理画面
+ */
+class ManageAdminRoles extends ManageRecords
 {
     protected static string $resource = AdminRoleResource::class;
 
+    /**
+     * ヘッダーのアクションを取得する
+     *
+     * @return array<Actions\Action>
+     */
     protected function getHeaderActions(): array
     {
         return [

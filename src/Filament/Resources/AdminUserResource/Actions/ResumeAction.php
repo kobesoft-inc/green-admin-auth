@@ -4,6 +4,9 @@ namespace Green\AdminAuth\Filament\Resources\AdminUserResource\Actions;
 
 use Filament\Tables\Actions\Action;
 
+/**
+ * 管理ユーザーを再開する
+ */
 class ResumeAction extends Action
 {
     /**

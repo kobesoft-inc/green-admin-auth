@@ -13,6 +13,7 @@ use Green\AdminAuth\Models\AdminGroup;
 use Green\AdminAuth\Models\AdminRole;
 use Green\AdminAuth\Plugin;
 use Green\AdminAuth\Rules\NodeParent;
+use Green\ResourceModule\Facades\ModuleRegistry;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -60,7 +61,7 @@ class AdminGroupResource extends Resource
      */
     public static function form(Form $form): Form
     {
-        return $form
+        $form = $form
             ->schema([
                 // 名前
                 Forms\Components\TextInput::make('name')
@@ -83,6 +84,7 @@ class AdminGroupResource extends Resource
                     ->native(false),
             ])
             ->columns(1);
+        return ModuleRegistry::apply(static::class, $form);
     }
 
     /**
@@ -93,7 +95,7 @@ class AdminGroupResource extends Resource
      */
     public static function table(Table $table): Table
     {
-        return $table
+        $table = $table
             ->columns([
                 // 名前
                 Tables\Columns\TextColumn::make('name')
@@ -125,6 +127,7 @@ class AdminGroupResource extends Resource
                     Tables\Actions\DeleteAction::make(),
                 ])
             ]);
+        return ModuleRegistry::apply(static::class, $table);
     }
 
     /**

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dcc3107eaaaef7db8e1c5ca9b7d20a21",
+    "content-hash": "00634f21a0a398ecc039b3a28e4a6330",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1992,6 +1992,45 @@
                 "source": "https://github.com/kirschbaum-development/eloquent-power-joins/tree/3.3.3"
             },
             "time": "2023-10-31T18:01:18+00:00"
+        },
+        {
+            "name": "kobesoft/green-resource-module",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:kobesoft-inc/green-resource-module.git",
+                "reference": "c3375f961dfd70f225a4fc6e03aa05bdf007b08f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kobesoft-inc/green-resource-module/zipball/c3375f961dfd70f225a4fc6e03aa05bdf007b08f",
+                "reference": "c3375f961dfd70f225a4fc6e03aa05bdf007b08f",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^3.0-stable",
+                "laravel/framework": "^10.10",
+                "php": "^8.1"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Green\\ResourceModule\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Green\\ResourceModule\\": "src/"
+                }
+            },
+            "support": {
+                "source": "https://github.com/kobesoft-inc/green-resource-module/tree/main",
+                "issues": "https://github.com/kobesoft-inc/green-resource-module/issues"
+            },
+            "time": "2023-12-01T05:21:06+00:00"
         },
         {
             "name": "laravel/framework",
@@ -7111,10 +7150,14 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "kobesoft/green-resource-module": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": "^8.1"
+    },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }

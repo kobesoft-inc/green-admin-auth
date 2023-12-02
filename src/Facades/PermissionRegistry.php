@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static getGroups(): Collection
  * @method static getOptions(string $group): array
  */
-class PermissionManager extends Facade
+class PermissionRegistry extends Facade
 {
     /**
      * コンポーネントの登録名を取得
@@ -20,6 +20,6 @@ class PermissionManager extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return \Green\AdminAuth\Permissions\PermissionManager::class;
+        return \Green\AdminAuth\Services\PermissionRegistry::class;
     }
 }

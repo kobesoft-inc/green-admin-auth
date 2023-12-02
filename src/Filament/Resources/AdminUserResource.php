@@ -15,6 +15,7 @@ use Green\AdminAuth\Models\AdminUser;
 use Green\AdminAuth\Permissions\ManageAdminUser;
 use Green\AdminAuth\Permissions\ManageAdminUserInGroup;
 use Green\AdminAuth\Plugin;
+use Green\ResourceModule\Facades\ModuleRegistry;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -61,7 +62,7 @@ class AdminUserResource extends Resource
      */
     public static function form(Form $form): Form
     {
-        return $form
+        $form = $form
             ->schema([
                 // アバター
                 Forms\Components\FileUpload::make('avatar')
@@ -117,6 +118,7 @@ class AdminUserResource extends Resource
                     ->visible(auth()->user()->hasPermission(\Green\AdminAuth\Permissions\EditAdminUserRole::class)),
             ])
             ->columns(1);
+        return ModuleRegistry::apply(static::class, $form);
     }
 
     /**
@@ -127,7 +129,7 @@ class AdminUserResource extends Resource
      */
     public static function table(Table $table): Table
     {
-        return $table
+        $table = $table
             ->columns([
                 // 名前
                 \Green\AdminAuth\Tables\Columns\AvatarColumn::make('name')
@@ -208,6 +210,7 @@ class AdminUserResource extends Resource
                     Tables\Actions\DeleteAction::make(),
                 ]),
             ]);
+        return ModuleRegistry::apply(static::class, $table);
     }
 
     /**

@@ -9,10 +9,11 @@ use Filament\Resources\Pages\PageRegistration;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Green\AdminAuth\Facades\PermissionManager;
+use Green\AdminAuth\Facades\PermissionRegistry;
 use Green\AdminAuth\Filament\Resources\AdminRoleResource\Pages\ManageAdminRoles;
 use Green\AdminAuth\Models\AdminRole;
 use Green\AdminAuth\Plugin;
+use Green\ResourceModule\Facades\ModuleRegistry;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -52,7 +53,7 @@ class AdminRoleResource extends Resource
      */
     public static function form(Form $form): Form
     {
-        return $form
+        $form = $form
             ->schema([
                 // 名前
                 Forms\Components\TextInput::make('name')
@@ -62,6 +63,7 @@ class AdminRoleResource extends Resource
                 self::makePermissionsComponent('permissions'),
             ])
             ->columns(1);
+        return ModuleRegistry::apply(static::class, $form);
     }
 
     /**
@@ -72,7 +74,7 @@ class AdminRoleResource extends Resource
      */
     public static function table(Table $table): Table
     {
-        return $table
+        $table = $table
             ->columns([
                 // 名前
                 Tables\Columns\TextColumn::make('name')
@@ -105,6 +107,7 @@ class AdminRoleResource extends Resource
             ])
             ->reorderable('sort_order')
             ->defaultSort('sort_order');
+        return ModuleRegistry::apply(static::class, $table);
     }
 
     /**
@@ -141,11 +144,11 @@ class AdminRoleResource extends Resource
     private static function makePermissionsComponent(string $name): Forms\Components\Component
     {
         return Forms\Components\Group::make(
-            PermissionManager::getGroups()
+            PermissionRegistry::getGroups()
                 ->map(function (string $group) use ($name) {
                     return Forms\Components\CheckboxList::make($name)
                         ->label($group)
-                        ->options(PermissionManager::getOptions($group))
+                        ->options(PermissionRegistry::getOptions($group))
                         ->columns(2)->gridDirection('row');
                 })
                 ->toArray()

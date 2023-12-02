@@ -1,10 +1,10 @@
 <?php
 
-namespace Green\AdminAuth\Permissions;
+namespace Green\AdminAuth\Services;
 
 use Illuminate\Support\Collection;
 
-class PermissionManager
+class PermissionRegistry
 {
     protected Collection $permissions;
 

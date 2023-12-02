@@ -2,7 +2,7 @@
 
 namespace Green\AdminAuth;
 
-use Green\AdminAuth\Facades\PermissionManager;
+use Green\AdminAuth\Facades\PermissionRegistry;
 use Green\AdminAuth\Filament\Pages\PasswordExpired;
 use Green\AdminAuth\Listeners\LogAdminLogin;
 use Green\AdminAuth\Permissions;
@@ -24,7 +24,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(PermissionManager::class);
+        $this->app->bind(PermissionRegistry::class);
     }
 
     /**
@@ -43,7 +43,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         Event::listen(Login::class, LogAdminLogin::class);
 
         // 権限の登録
-        PermissionManager::register([
+        PermissionRegistry::register([
             Permissions\Super::class,
             Permissions\ManageAdminUser::class,
             Permissions\ManageAdminUserInGroup::class,

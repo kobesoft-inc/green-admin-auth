@@ -12,7 +12,8 @@
         "kalnoy/nestedset": "^6.0",
         "jenssegers/agent": "^2.6",
         "davidhsianturi/blade-bootstrap-icons": "^1.4",
-        "phpsa/filament-password-reveal": "^2.0"
+        "phpsa/filament-password-reveal": "^2.0",
+        "kobesoft/green-resource-module": "dev-main"
     },
     "extra": {
         "laravel": {
@@ -20,5 +21,11 @@
                 "Green\\AdminAuth\\ServiceProvider"
             ]
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/kobesoft-inc/green-resource-module"
+        }
+    ]
 }

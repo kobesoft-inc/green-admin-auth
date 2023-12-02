@@ -86,7 +86,7 @@ class MyServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        Permission::register([
+        PermissionRegistry::register([
             MyPermission::class
         ]);
     }
@@ -96,7 +96,7 @@ class MyServiceProvider extends ServiceProvider
 権限を下記のようにチェックします。
 
 ```php
-if ($adminUser->hasPermission(MyPermission::class)) {
+if (!$adminUser->hasPermission(MyPermission::class)) {
     abort(403);
 }
 ```

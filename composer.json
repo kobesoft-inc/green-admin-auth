@@ -22,10 +22,10 @@
             ]
         }
     },
-    "repositories": [
-        {
+    "repositories": {
+        "kobesoft/green-resource-module": {
             "type": "vcs",
             "url": "https://github.com/kobesoft-inc/green-resource-module"
         }
-    ]
+    }
 }

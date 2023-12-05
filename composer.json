@@ -13,7 +13,7 @@
         "jenssegers/agent": "^2.6",
         "davidhsianturi/blade-bootstrap-icons": "^1.4",
         "phpsa/filament-password-reveal": "^2.0",
-        "kobesoft/green-resource-module": "dev-main"
+        "kobesoft/green-resource-module": "^0.1.0"
     },
     "extra": {
         "laravel": {

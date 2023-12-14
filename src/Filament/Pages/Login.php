@@ -124,6 +124,6 @@ class Login extends \Filament\Pages\Auth\Login
      */
     public function redirectToPasswordExpired(): mixed
     {
-        return redirect()->route("filament." . filament()->getId() . ".password-expired");
+        return redirect()->route("filament." . filament()->getCurrentPanel()->getId() . ".password-expired");
     }
 }

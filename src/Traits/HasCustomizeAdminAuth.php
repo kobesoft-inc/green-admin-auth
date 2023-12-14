@@ -27,6 +27,7 @@ trait HasCustomizeAdminAuth
     private int $passwordMinLength = 8;
     private int $passwordDays = 0;
     private array $userTabs = [];
+    private ?string $navigationGroup = null;
 
     /**
      * ユーザーがメールアドレスでログインできるかを取得する
@@ -390,6 +391,28 @@ trait HasCustomizeAdminAuth
     public function userTabs(array $userTabs): Plugin
     {
         $this->userTabs = $userTabs;
+        return $this;
+    }
+
+    /**
+     * ナビゲーショングループを取得する
+     *
+     * @return string|null
+     */
+    public function getNavigationGroup(): ?string
+    {
+        return $this->navigationGroup ?? __('green::admin-auth.navigation-group');
+    }
+
+    /**
+     * ナビゲーショングループを設定する
+     *
+     * @param string|null $navigationGroup
+     * @return Plugin
+     */
+    public function navigationGroup(?string $navigationGroup): Plugin
+    {
+        $this->navigationGroup = $navigationGroup;
         return $this;
     }
 }

@@ -7,6 +7,7 @@ use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Green\AdminAuth\Models\AdminUser;
 use Green\AdminAuth\Plugin;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -41,7 +42,7 @@ class Login extends \Filament\Pages\Auth\Login
             Filament::auth()->logout();
 
             // パスワード有効期限切れのページにリダイレクトする
-            return redirect('/admin/password-expired');
+            return $this->redirectToPasswordExpired();
         }
 
         // ログインOK
@@ -114,5 +115,15 @@ class Login extends \Filament\Pages\Auth\Login
             'password' => $data['password'],
             'is_active' => true,
         ];
+    }
+
+    /**
+     * パスワード有効期限切れのページにリダイレクトする
+     *
+     * @return mixed
+     */
+    public function redirectToPasswordExpired(): mixed
+    {
+        return redirect()->route("filament." . filament()->getId() . ".password-expired");
     }
 }

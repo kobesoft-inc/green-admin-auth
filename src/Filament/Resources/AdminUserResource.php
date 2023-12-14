@@ -33,7 +33,7 @@ class AdminUserResource extends Resource
      */
     public static function getNavigationGroup(): ?string
     {
-        return __('green::admin-auth.navigation-group');
+        return Plugin::get()->getNavigationGroup();
     }
 
     /**

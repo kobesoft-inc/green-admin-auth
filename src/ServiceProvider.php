@@ -5,7 +5,6 @@ namespace Green\AdminAuth;
 use Green\AdminAuth\Facades\PermissionRegistry;
 use Green\AdminAuth\Filament\Pages\PasswordExpired;
 use Green\AdminAuth\Listeners\LogAdminLogin;
-use Green\AdminAuth\Permissions;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Event;
 use Livewire\Livewire;

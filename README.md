@@ -101,7 +101,7 @@ if (!$adminUser->hasPermission(MyPermission::class)) {
 }
 ```
 
-####    
+####     
 
 ## ロールベースのアクセス制御（RBAC）
 
@@ -179,4 +179,69 @@ if (!$adminUser->hasPermission(MyPermission::class)) {
     ->groupModelLabel('部署')
 ```
 
+## SSO認証機能
 
+### 概要
+
+Microsoft EntraID、Google Cloud Identity PlatformのSSO認証サービスと連携することができます。
+
+### Microsoft Entra IDの連携
+
+Microsoft EntraIDの連携を行うには、下記の手順を行います。
+
+- https://portal.azure.com/ にログインします。
+- Microsoft Entra IDを開き、アプリの登録を行います。
+- リダイレクトURIとしては、https://<ドメイン>/admin/auth/azure/callback を指定します。
+- アプリの登録が完了したら、クライアントID、シークレットキー、テナントIDを控えておきます。
+
+```php
+\Green\AdminAuth\Plugin::make()
+    ->idProvider(
+        \Green\AdminAuth\IdProviders\MicrosoftEntraId::make()
+            ->clientId('<クライアントID>')
+            ->clientSecret('<シークレットキー>')
+            ->tenant('<テナントID>')
+    )
+```
+
+### Google Cloud Identityの連携
+
+Google Cloud Identityの連携を行うには、下記の手順を行います。
+
+- https://cloud.google.com/ にログインします。
+- プロジェクトを作成し、APIとサービスを開きます。
+- OAuth同意画面を登録します。
+- 認証情報をクリックし、認証情報を作成、OAuth クライアントIDを作成します。
+- アプリの種類は、ウェブアプリケーションを選択します。
+- リダイレクトURIとしては、https://<ドメイン>/admin/auth/google/callback を指定します。
+- アプリの登録が完了したら、クライアントID、シークレットキーを控えておきます。
+
+```php
+\Green\AdminAuth\Plugin::make()
+    ->idProvider(
+        \Green\AdminAuth\IdProviders\MicrosoftEntraId::make()
+            ->clientId('<クライアントID>')
+            ->clientSecret('<シークレットキー>')
+    )
+```
+
+### IdPのカスタマイズ
+```php
+\Green\AdminAuth\Plugin::make()
+    ->idProvider(
+        \Green\AdminAuth\IdProviders\MicrosoftEntraId::make()
+            :
+            :
+            // 初めてログインしたときにユーザーを自動作成する
+            ->createUser()
+            // ログイン時にユーザー情報を更新する
+            ->updateUser()
+            // ログイン時にユーザー情報を更新する処理を定義する。
+            ->userMapper(function (AdminUser $user, \Laravel\Socialite\Two\User $socialiteUser): AdminUser {
+                return $user->fill([
+                    'name' => $socialiteUser->getName(),
+                    'email' => $socialiteUser->getEmail(),
+                ]);
+            })
+    )
+```

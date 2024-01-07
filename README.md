@@ -237,7 +237,7 @@ Google Cloud Identityの連携を行うには、下記の手順を行います�
             // ログイン時にユーザー情報を更新する
             ->updateUser()
             // ログイン時にユーザー情報を更新する処理を定義する。
-            ->mapUser(function (AdminUser $user, \Laravel\Socialite\Two\User $socialiteUser): AdminUser {
+            ->userMapper(function (AdminUser $user, \Laravel\Socialite\Two\User $socialiteUser): AdminUser {
                 return $user->fill([
                     'name' => $socialiteUser->getName(),
                     'email' => $socialiteUser->getEmail(),

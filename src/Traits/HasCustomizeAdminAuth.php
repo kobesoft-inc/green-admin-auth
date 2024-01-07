@@ -2,9 +2,13 @@
 
 namespace Green\AdminAuth\Traits;
 
+use Green\AdminAuth\IdProviders\IdProvider;
 use Green\AdminAuth\Models\AdminGroup;
 use Green\AdminAuth\Models\AdminUser;
 use Green\AdminAuth\Plugin;
+use Green\AdminAuth\Policies\AdminGroupPolicy;
+use Green\AdminAuth\Policies\AdminUserPolicy;
+use Illuminate\Support\Facades\Gate;
 
 /**
  * プラグインのカスタマイズ機能
@@ -28,6 +32,7 @@ trait HasCustomizeAdminAuth
     private int $passwordDays = 0;
     private array $userTabs = [];
     private ?string $navigationGroup = null;
+    private array $idProviders = [];
 
     /**
      * ユーザーがメールアドレスでログインできるかを取得する
@@ -157,6 +162,7 @@ trait HasCustomizeAdminAuth
      */
     public function userModel(?string $userModel): Plugin
     {
+        Gate::policy($userModel, AdminUserPolicy::class); // ポリシーの登録
         $this->userModel = $userModel;
         return $this;
     }
@@ -267,6 +273,7 @@ trait HasCustomizeAdminAuth
      */
     public function groupModel(?string $groupModel): Plugin
     {
+        Gate::policy($groupModel, AdminGroupPolicy::class); // ポリシーの登録
         $this->groupModel = $groupModel;
         return $this;
     }
@@ -413,6 +420,39 @@ trait HasCustomizeAdminAuth
     public function navigationGroup(?string $navigationGroup): Plugin
     {
         $this->navigationGroup = $navigationGroup;
+        return $this;
+    }
+
+    /**
+     * IdPを全て取得する
+     *
+     * @return array
+     */
+    public function getIdProviders(): array
+    {
+        return $this->idProviders;
+    }
+
+    /**
+     * 特定のIdPを取得する
+     *
+     * @param string $driver
+     * @return IdProvider
+     */
+    public function getIdProvider(string $driver): IdProvider
+    {
+        return collect($this->idProviders)->first(fn($idProvider) => $idProvider->getDriver() === $driver);
+    }
+
+    /**
+     * IdPを追加する
+     *
+     * @param IdProvider $idProvider
+     * @return Plugin
+     */
+    public function idProvider(IdProvider $idProvider): Plugin
+    {
+        $this->idProviders[] = $idProvider;
         return $this;
     }
 }

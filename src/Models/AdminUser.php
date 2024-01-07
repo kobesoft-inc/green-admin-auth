@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 /**
  * 管理ユーザー
  *
+ * @property int $id
  * @property string $name
  * @property string $email
  * @property string $username

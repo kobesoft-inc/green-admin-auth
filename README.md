@@ -187,13 +187,14 @@ Microsoft EntraID、Google Cloud Identity PlatformのSSO認証サービスと連
 
 ### Microsoft Entra IDの連携
 
-Microsoft EntraIDの連携を行うには、下記の手順を行います。
+Microsoft Entra IDの連携を行うには、下記の手順を行います。
 
 - https://portal.azure.com/ にログインします。
 - Microsoft Entra IDを開き、アプリの登録を行います。
 - リダイレクトURIとしては、https://<ドメイン>/admin/auth/azure/callback を指定します。
 - アプリの登録が完了したら、クライアントID、シークレットキー、テナントIDを控えておきます。
 
+\Green\AdminAuth\Pluginの作成時にMicrosoft Entra IDのIDプロバイダーを指定します。
 ```php
 \Green\AdminAuth\Plugin::make()
     ->idProvider(
@@ -202,6 +203,16 @@ Microsoft EntraIDの連携を行うには、下記の手順を行います。
             ->clientSecret('<シークレットキー>')
             ->tenant('<テナントID>')
     )
+```
+
+EventServiceProviderに追加します。
+```php
+protected $listen = [
+    :
+    \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+        \SocialiteProviders\Azure\AzureExtendSocialite::class . '@handle',
+    ],
+];
 ```
 
 ### Google Cloud Identityの連携
@@ -216,6 +227,7 @@ Google Cloud Identityの連携を行うには、下記の手順を行います�
 - リダイレクトURIとしては、https://<ドメイン>/admin/auth/google/callback を指定します。
 - アプリの登録が完了したら、クライアントID、シークレットキーを控えておきます。
 
+\Green\AdminAuth\Pluginの作成時にGoogleのIDプロバイダーを指定します。
 ```php
 \Green\AdminAuth\Plugin::make()
     ->idProvider(
@@ -223,6 +235,16 @@ Google Cloud Identityの連携を行うには、下記の手順を行います�
             ->clientId('<クライアントID>')
             ->clientSecret('<シークレットキー>')
     )
+```
+
+EventServiceProviderに追加します。
+```php
+protected $listen = [
+    :
+    \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+        \SocialiteProviders\Google\GoogleExtendSocialite::class . '@handle',
+    ],
+];
 ```
 
 ### IdPのカスタマイズ

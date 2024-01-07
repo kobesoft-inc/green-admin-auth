@@ -8,6 +8,7 @@ use Green\AdminAuth\Filament\Pages\PasswordExpired;
 use Green\AdminAuth\Filament\Resources\AdminGroupResource;
 use Green\AdminAuth\Filament\Resources\AdminRoleResource;
 use Green\AdminAuth\Filament\Resources\AdminUserResource;
+use Green\AdminAuth\Http\Controllers\SocialiteController;
 use Green\AdminAuth\Traits\HasCustomizeAdminAuth;
 use Illuminate\Support\Facades\Route;
 
@@ -51,7 +52,12 @@ class Plugin implements \Filament\Contracts\Plugin
                 if ($routes) {
                     $routes($panel);
                 }
-                Route::get('/password-expired', PasswordExpired::class)->name('password-expired');
+                Route::get('/password-expired', PasswordExpired::class)
+                    ->name('password-expired');
+                Route::get('/login/{driver}', [SocialiteController::class, 'redirect'])
+                    ->name('auth.sso-redirect');
+                Route::get('/login/{driver}/callback', [SocialiteController::class, 'callback'])
+                    ->name('auth.sso-callback');
             })
             ->login(Login::class);
     }

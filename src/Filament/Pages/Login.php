@@ -126,4 +126,13 @@ class Login extends \Filament\Pages\Auth\Login
     {
         return redirect()->route("filament." . filament()->getCurrentPanel()->getId() . ".password-expired");
     }
+
+    protected function getIdProviderActions(): array
+    {
+        $actions = [];
+        foreach (Plugin::get()->getIdProviders() as $provider) {
+            $actions[] = $provider->getLoginAction();
+        }
+        return $actions;
+    }
 }

@@ -50,8 +50,9 @@ class SocialiteController
 
         // ユーザー情報を更新する
         if ($provider->shouldUpdateUser()) {
-            $this->updateAdminUser($adminUser, $provider);
-            $this->updateAvatar($adminUser, $adminAuth, $provider);
+            $adminUser = $provider->fillUser($adminUser);
+            $adminUser = $this->updateAvatar($adminUser, $adminAuth, $provider);
+            $adminUser->save();
         }
 
         // 認証情報を保存する
@@ -111,27 +112,14 @@ class SocialiteController
         }
         if ($provider->shouldCreateUser()) {
             // 新規ユーザーを作成する
-            return AdminUser::create(array_merge(
-                $provider->mapUserData($provider->user()->user),
-                ['is_active' => true]
-            ));
+            $adminUser = new AdminUser([
+                'name' => $socialiteUser->getName(),
+                'email' => $socialiteUser->getEmail(),
+                'is_active' => true,
+            ]);
+            return $provider->fillUser($adminUser);
         }
         return null; // ログインできない
-    }
-
-    /**
-     * 管理ユーザーを更新する
-     *
-     * @param AdminUser $adminUser
-     * @param IdProvider $provider
-     * @return void
-     * @throws Exception
-     */
-    private function updateAdminUser(AdminUser $adminUser, IdProvider $provider): void
-    {
-        $socialiteUser = $provider->user();
-        $adminUser->fill($provider->mapUserData($provider->user()->user));
-        $adminUser->save();
     }
 
     /**
@@ -140,19 +128,19 @@ class SocialiteController
      * @param AdminUser $adminUser
      * @param AdminAuth $adminAuth
      * @param IdProvider $provider
-     * @return void
+     * @return AdminUser
      */
-    private function updateAvatar(AdminUser $adminUser, AdminAuth $adminAuth, IdProvider $provider): void
+    private function updateAvatar(AdminUser $adminUser, AdminAuth $adminAuth, IdProvider $provider): AdminUser
     {
         // アバターを更新すべきか？
         if (!$adminAuth->isDirty('avatar_hash') || $adminAuth->avatar_hash === null) {
-            return;
+            return $adminUser;
         }
 
         // アバターをダウンロードして、更新する
         $contents = $provider->getAvatarData();
         $adminUser->avatar = 'admin-users/avatars/' . md5($contents);
         Storage::disk('public')->put($adminUser->avatar, $contents);
-        $adminUser->save();
+        return $adminUser;
     }
 }

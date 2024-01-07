@@ -88,7 +88,7 @@ class MicrosoftEntraId extends IdProvider
         if ($response->status() === 404) {
             return null;
         }
-        return $response->throw()->json()['@odata.mediaEtag'];
+        return md5($response->throw()->json()['@odata.mediaEtag']);
     }
 
     /**

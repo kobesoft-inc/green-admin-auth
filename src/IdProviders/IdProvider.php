@@ -6,9 +6,11 @@ use Closure;
 use Exception;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
+use Green\AdminAuth\Models\AdminUser;
 use Laravel\Socialite\Contracts\Provider;
 use Laravel\Socialite\Facades\Socialite;
 use SocialiteProviders\Manager\Config;
+use SocialiteProviders\Manager\OAuth2\User;
 
 abstract class IdProvider
 {
@@ -20,7 +22,7 @@ abstract class IdProvider
     protected array $scopes = [];
     protected bool $createUser = false;
     protected bool $updateUser = true;
-    protected ?Closure $userDataMapping = null;
+    protected ?Closure $userMapper = null;
 
     /**
      * インスタンスを生成する
@@ -146,7 +148,7 @@ abstract class IdProvider
     }
 
     /**
-     * Socialiteのインスタンスを生成する
+     * Socialiteの認証プロバイダーを取得する
      *
      * @return Provider
      * @throws Exception
@@ -166,7 +168,7 @@ abstract class IdProvider
     }
 
     /**
-     * Socialiteのインスタンスを取得する
+     * Socialiteの認証ユーザーを取得する
      * @throws Exception
      */
     public function user(): \Laravel\Socialite\Contracts\User
@@ -221,24 +223,30 @@ abstract class IdProvider
     /**
      * ユーザーデータのマッピング処理を実行する
      *
-     * @param array $data
-     * @return array
+     * @param AdminUser $adminUser
+     * @return AdminUser
+     * @throws Exception
      */
-    public function mapUserData(array $data): array
+    public function fillUser(AdminUser $adminUser): AdminUser
     {
-        return $this->userDataMapping
-            ? ($this->userDataMapping)($data)
-            : ['name' => $data['name'], 'email' => $data['email']];
+        $socialiteUser = $this->user();
+        $adminUser->fill([
+            'name' => $socialiteUser->getName(),
+            'email' => $socialiteUser->getEmail(),
+        ]);
+        return ($fn = $this->userMapper)
+            ? $fn($adminUser, $socialiteUser)
+            : $adminUser;
     }
 
     /**
      * ユーザーデータのマッピング処理を設定する
      *
-     * @param Closure|null $userDataMapping
+     * @param Closure|null $userMapper
      * @return void
      */
-    public function userDataMapping(?Closure $userDataMapping): void
+    public function userMapper(?Closure $userMapper): void
     {
-        $this->userDataMapping = $userDataMapping;
+        $this->userMapper = $userMapper;
     }
 }

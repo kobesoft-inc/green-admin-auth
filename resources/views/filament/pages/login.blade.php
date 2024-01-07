@@ -17,16 +17,19 @@
             :full-width="$this->hasFullWidthFormActions()"
         />
 
-        <div class="my-2 flex items-center">
-            <div class="flex-1 border-t border-neutral-300 dark:border-neutral-700"></div>
-            <p class="px-4 text-sm text-center dark:text-white">
-                {{ __('green::admin-auth.pages.login.or') }}
-            </p>
-            <div class="flex-1 border-t border-neutral-300 dark:border-neutral-700"></div>
-        </div>
-        @foreach ($this->getIdProviderActions() as $action)
-            {{ $action }}
-        @endforeach
+        @php($idProviderActions = $this->getIdProviderActions())
+        @if($idProviderActions)
+            <div class="my-2 flex items-center">
+                <div class="flex-1 border-t border-neutral-300 dark:border-neutral-700"></div>
+                <p class="px-4 text-sm text-center dark:text-white">
+                    {{ __('green::admin-auth.pages.login.or') }}
+                </p>
+                <div class="flex-1 border-t border-neutral-300 dark:border-neutral-700"></div>
+            </div>
+            @foreach ($idProviderActions as $action)
+                {{ $action }}
+            @endforeach
+        @endif
 
     </x-filament-panels::form>
 

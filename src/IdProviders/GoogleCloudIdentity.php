@@ -58,7 +58,7 @@ class GoogleCloudIdentity extends IdProvider
      */
     public function getAvatarHash(): ?string
     {
-        return $this->user()->getAvatar();
+        return md5($this->getAvatarData());
     }
 
     /**

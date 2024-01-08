@@ -21,7 +21,7 @@ return [
             'username-or-email' => 'ユーザー名またはメールアドレス',
             'or' => 'または',
             'login-with-google' => 'Googleでログイン',
-            'login-with-microsoft' => 'Microsoftでログイン',
+            'login-with-microsoft' => 'Microsoftアカウントでログイン',
         ],
         'password-expired' => [
             'heading' => 'パスワード変更',

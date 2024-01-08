@@ -41,8 +41,8 @@ class MicrosoftEntraId extends IdProvider
      */
     public function getLoginAction(): Action
     {
-        return Action::make('login-with-microsoft-entraid')
-            ->label('Microsoftアカウントでログイン')
+        return Action::make('login-with-microsoft')
+            ->label(__('green::admin-auth.pages.login.login-with-microsoft'))
             ->outlined()
             ->icon('bi-microsoft')
             ->url($this->redirectUrl());

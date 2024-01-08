@@ -29,7 +29,7 @@ class GoogleCloudIdentity extends IdProvider
     public function getLoginAction(): Action
     {
         return Action::make('login-with-google-cloud-identity')
-            ->label('Googleでログイン')
+            ->label(__('green::admin-auth.pages.login.login-with-google'))
             ->outlined()
             ->icon('bi-google')
             ->url($this->redirectUrl());

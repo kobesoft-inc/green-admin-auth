@@ -25,6 +25,13 @@ use Illuminate\Support\Carbon;
 class AdminOAuth extends Model
 {
     /**
+     * テーブル名
+     *
+     * @var string
+     */
+    protected $table = 'admin_oauths';
+
+    /**
      * 一括代入できる属性
      *
      * @var string[]

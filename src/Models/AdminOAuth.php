@@ -22,7 +22,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon $updated_at
  * @property AdminUser $user
  */
-class AdminAuth extends Model
+class AdminOAuth extends Model
 {
     /**
      * 一括代入できる属性

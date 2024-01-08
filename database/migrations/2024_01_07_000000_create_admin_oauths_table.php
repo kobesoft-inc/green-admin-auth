@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('admin_auths', function (Blueprint $table) {
+        Schema::create('admin_oauths', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\Green\AdminAuth\Models\AdminUser::class);
             $table->string('driver')->nullable();
@@ -29,6 +29,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('admin_auths');
+        Schema::dropIfExists('admin_oauths');
     }
 };

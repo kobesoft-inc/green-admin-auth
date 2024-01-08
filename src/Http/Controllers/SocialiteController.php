@@ -5,7 +5,7 @@ namespace Green\AdminAuth\Http\Controllers;
 use Exception;
 use Filament\Facades\Filament;
 use Green\AdminAuth\IdProviders\IdProvider;
-use Green\AdminAuth\Models\AdminAuth;
+use Green\AdminAuth\Models\AdminOAuth;
 use Green\AdminAuth\Models\AdminUser;
 use Green\AdminAuth\Plugin;
 use Illuminate\Support\Facades\Storage;
@@ -39,24 +39,24 @@ class SocialiteController
         $provider = Plugin::get()->getIdProvider($driver);
 
         // 認証情報を取得する
-        $adminAuth = $this->getAdminAuth($provider);
-        if ($adminAuth->exists) {
-            $adminUser = $adminAuth->user;
+        $adminOAuth = $this->getAdminOAuth($provider);
+        if ($adminOAuth->exists) {
+            $adminUser = $adminOAuth->user;
         } else {
             $adminUser = $this->getAdminUser($provider);
             abort_if(!$adminUser, 403, __('filament-panels::pages/auth/login.messages.failed'));
-            $adminAuth->admin_user_id = $adminUser->id;
+            $adminOAuth->admin_user_id = $adminUser->id;
         }
 
         // ユーザー情報を更新する
         if ($provider->shouldUpdateUser()) {
             $adminUser = $provider->fillUser($adminUser);
-            $adminUser = $this->updateAvatar($adminUser, $adminAuth, $provider);
+            $adminUser = $this->updateAvatar($adminUser, $adminOAuth, $provider);
             $adminUser->save();
         }
 
         // 認証情報を保存する
-        $adminAuth->save();
+        $adminOAuth->save();
 
         // ログインする
         Filament::auth()->login($adminUser);
@@ -72,17 +72,17 @@ class SocialiteController
      * 既存の認証情報があればそれを返し、なければ新規作成する
      *
      * @param IdProvider $provider 認証サービス
-     * @return AdminAuth|null
+     * @return AdminOAuth|null
      * @throws Exception
      */
-    private function getAdminAuth(IdProvider $provider): ?AdminAuth
+    private function getAdminOAuth(IdProvider $provider): ?AdminOAuth
     {
         $socialUser = $provider->user();
-        $adminAuth = AdminAuth::firstOrNew([
+        $adminOAuth = AdminOAuth::firstOrNew([
             'driver' => $provider->getDriver(),
             'uid' => $socialUser->getId(),
         ]);
-        $adminAuth->fill([
+        $adminOAuth->fill([
             'token' => $socialUser->token,
             'token_expires_at' => $socialUser->expiresIn ? now()->addSeconds($socialUser->expiresIn) : null,
             'refresh_token' => $socialUser->refreshToken,
@@ -90,7 +90,7 @@ class SocialiteController
             'avatar_hash' => $provider->getAvatarHash(),
             'data' => $socialUser->user,
         ]);
-        return $adminAuth;
+        return $adminOAuth;
     }
 
     /**
@@ -126,14 +126,14 @@ class SocialiteController
      * アバターを更新する
      *
      * @param AdminUser $adminUser
-     * @param AdminAuth $adminAuth
+     * @param AdminOAuth $adminOAuth
      * @param IdProvider $provider
      * @return AdminUser
      */
-    private function updateAvatar(AdminUser $adminUser, AdminAuth $adminAuth, IdProvider $provider): AdminUser
+    private function updateAvatar(AdminUser $adminUser, AdminOAuth $adminOAuth, IdProvider $provider): AdminUser
     {
         // アバターを更新すべきか？
-        if (!$adminAuth->isDirty('avatar_hash') || $adminAuth->avatar_hash === null) {
+        if (!$adminOAuth->isDirty('avatar_hash') || $adminOAuth->avatar_hash === null) {
             return $adminUser;
         }
 

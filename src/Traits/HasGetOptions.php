@@ -26,7 +26,11 @@ trait HasGetOptions
         $titleColumn = defined(static::class . '::TITLE') ? static::TITLE : 'name';
 
         // 並び順のカラム
-        $orderColumn = defined(static::class . '::SORT_ORDER') ? static::SORT_ORDER : $idColumn;
+        if (method_exists(static::class, 'getSortOrder')) {
+            $orderColumn = static::getSortOrder();
+        } else {
+            $orderColumn = $idColumn;
+        }
 
         // 選択肢を取得
         $query = static::query();

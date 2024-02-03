@@ -2,7 +2,8 @@
 
 namespace Green\AdminAuth\Models;
 
-use Green\AdminAuth\Traits\HasSortOrder;
+use Green\Traits\HasGetOptions;
+use Green\Traits\HasSortOrder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -16,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class AdminRole extends Model
 {
-    use HasSortOrder;
+    use HasSortOrder, HasGetOptions;
 
     /**
      * 一括代入できる属性

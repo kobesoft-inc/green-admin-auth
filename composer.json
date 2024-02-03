@@ -16,7 +16,8 @@
         "kobesoft/green-resource-module": "^0.1.0",
         "laravel/socialite": "^5.11",
         "socialiteproviders/microsoft-azure": "^5.1",
-        "socialiteproviders/google": "^4.1"
+        "socialiteproviders/google": "^4.1",
+        "kobesoft/green-common": "^1.0"
     },
     "extra": {
         "laravel": {
@@ -26,6 +27,10 @@
         }
     },
     "repositories": {
+        "kobesoft/green-common": {
+            "type": "vcs",
+            "url": "https://github.com/kobesoft-inc/green-common"
+        },
         "kobesoft/green-resource-module": {
             "type": "vcs",
             "url": "https://github.com/kobesoft-inc/green-resource-module"

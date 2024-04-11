@@ -56,7 +56,7 @@ class ResetPasswordAction extends Action
     }
 
     /**
-     * パネルのIDを設定する
+     * ログインのためのパネルのIDを設定する
      *
      * @param string $panelId
      * @return $this
@@ -68,7 +68,7 @@ class ResetPasswordAction extends Action
     }
 
     /**
-     * パネルのIDを取得する
+     * ログインのためのパネルのIDを取得する
      *
      * @return string|null
      */

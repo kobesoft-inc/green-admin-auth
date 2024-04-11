@@ -1,6 +1,6 @@
 <?php
 
-namespace Green\AdminAuth\Traits;
+namespace Green\AdminAuth\Concerns;
 
 use Green\AdminAuth\IdProviders\IdProvider;
 use Green\AdminAuth\Models\AdminGroup;

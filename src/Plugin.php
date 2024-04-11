@@ -9,7 +9,7 @@ use Green\AdminAuth\Filament\Resources\AdminGroupResource;
 use Green\AdminAuth\Filament\Resources\AdminRoleResource;
 use Green\AdminAuth\Filament\Resources\AdminUserResource;
 use Green\AdminAuth\Http\Controllers\SocialiteController;
-use Green\AdminAuth\Traits\HasCustomizeAdminAuth;
+use Green\AdminAuth\Concerns\HasCustomizeAdminAuth;
 use Illuminate\Support\Facades\Route;
 
 /**

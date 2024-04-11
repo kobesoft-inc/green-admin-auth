@@ -6,6 +6,7 @@ use Closure;
 use Filament\Forms;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Green\AdminAuth\Contracts\CanResetPassword;
 use Green\AdminAuth\Mail\PasswordReset;
 use Green\AdminAuth\Models\AdminUser;
 use Green\AdminAuth\Plugin;
@@ -75,10 +76,10 @@ class PasswordForm extends Forms\Components\Group
      * パスワードの生成・有効期限設定・メール送信の処理を行う
      *
      * @param array $data 入力データ
-     * @param AdminUser|null $adminUser モデル（作成済みの場合）
+     * @param object|null $user モデル（作成済みの場合）
      * @return array
      */
-    static public function process(array $data, ?AdminUser $adminUser): array
+    static public function process(array $data, ?object $user): array
     {
         // パスワードを生成する
         if (Arr::get($data, 'generate_password', false)) {
@@ -93,10 +94,10 @@ class PasswordForm extends Forms\Components\Group
 
         // パスワードをユーザーのメールに送信する
         if (Arr::get($data, 'send_password', false)) {
-            $email = $adminUser?->email ?? $data['email'];
+            $email = $user?->email ?? $data['email'];
             Mail::to($email)->send(new PasswordReset(
                 email: $email,
-                username: $adminUser?->username ?? $data['username'],
+                username: $user?->username ?? $data['username'],
                 password: $data['password'],
                 login: filament()->getCurrentPanel()->getLoginUrl()
             ));

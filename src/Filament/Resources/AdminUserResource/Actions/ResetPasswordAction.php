@@ -5,7 +5,7 @@ namespace Green\AdminAuth\Filament\Resources\AdminUserResource\Actions;
 use Filament\Forms;
 use Filament\Tables\Actions\Action;
 use Green\AdminAuth\Forms\Components\PasswordForm;
-use Green\AdminAuth\Models\AdminUser;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * 管理ユーザーのパスワードをリセットする
@@ -42,11 +42,11 @@ class ResetPasswordAction extends Action
         $this->form([
             Forms\Components\TextInput::make('email')
                 ->hidden()
-                ->default(fn(AdminUser $record) => $record->email),
+                ->default(fn(Model $record) => $record->email),
             PasswordForm::make(),
         ]);
 
-        $this->action(function (array $data, AdminUser $record) {
+        $this->action(function (array $data, Model $record) {
             $data = PasswordForm::process($data, $record);
             $record->fill($data)->save();
             $this->sendSuccessNotification();

@@ -6,10 +6,9 @@ use Closure;
 use Filament\Forms;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use Green\AdminAuth\Contracts\CanResetPassword;
 use Green\AdminAuth\Mail\PasswordReset;
-use Green\AdminAuth\Models\AdminUser;
 use Green\AdminAuth\Plugin;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -76,10 +75,10 @@ class PasswordForm extends Forms\Components\Group
      * パスワードの生成・有効期限設定・メール送信の処理を行う
      *
      * @param array $data 入力データ
-     * @param object|null $user モデル（作成済みの場合）
+     * @param Model|null $user モデル（作成済みの場合）
      * @return array
      */
-    static public function process(array $data, ?object $user): array
+    static public function process(array $data, ?Model $user): array
     {
         // パスワードを生成する
         if (Arr::get($data, 'generate_password', false)) {

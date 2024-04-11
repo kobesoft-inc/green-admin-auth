@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "51260795d71e6f2c2d32a69342cd2958",
+    "content-hash": "9c40179f28f03507b61f8f12869555fc",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -2503,16 +2503,16 @@
         },
         {
             "name": "kobesoft/green-support",
-            "version": "1.0.0",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kobesoft-inc/green-support.git",
-                "reference": "a595dc094aac270de868942c9b0f828e5f15bde2"
+                "reference": "1e94f79f5a479eaae4f4bf1c23c6830adc1f905e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kobesoft-inc/green-support/zipball/a595dc094aac270de868942c9b0f828e5f15bde2",
-                "reference": "a595dc094aac270de868942c9b0f828e5f15bde2",
+                "url": "https://api.github.com/repos/kobesoft-inc/green-support/zipball/1e94f79f5a479eaae4f4bf1c23c6830adc1f905e",
+                "reference": "1e94f79f5a479eaae4f4bf1c23c6830adc1f905e",
                 "shasum": ""
             },
             "require": {
@@ -2525,7 +2525,7 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "GreenSupportServiceProvider"
+                        "Green\\GreenSupportServiceProvider"
                     ]
                 }
             },
@@ -2535,10 +2535,10 @@
                 }
             },
             "support": {
-                "source": "https://github.com/kobesoft-inc/green-support/tree/1.0.0",
+                "source": "https://github.com/kobesoft-inc/green-support/tree/v1.0.3",
                 "issues": "https://github.com/kobesoft-inc/green-support/issues"
             },
-            "time": "2024-04-11T03:55:35+00:00"
+            "time": "2024-04-11T04:26:13+00:00"
         },
         {
             "name": "laravel/framework",

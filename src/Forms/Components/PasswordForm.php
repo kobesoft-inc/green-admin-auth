@@ -96,7 +96,7 @@ class PasswordForm extends Forms\Components\Group
             $email = $user?->email ?? $data['email'];
             Mail::to($email)->send(new PasswordReset(
                 email: $email,
-                username: $user?->username ?? $data['username'],
+                username: $user?->username ?? $data['username'] ?? null,
                 password: $data['password'],
                 login: filament()->getCurrentPanel()->getLoginUrl()
             ));

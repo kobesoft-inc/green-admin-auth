@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ResetPasswordAction extends Action
 {
+    protected ?string $panelId = null;
+
     /**
      * アクションの名前
      *
@@ -47,9 +49,31 @@ class ResetPasswordAction extends Action
         ]);
 
         $this->action(function (array $data, Model $record) {
-            $data = PasswordForm::process($data, $record);
+            $data = PasswordForm::process($data, $record, $this->getPanelId());
             $record->fill($data)->save();
             $this->sendSuccessNotification();
         });
+    }
+
+    /**
+     * パネルのIDを設定する
+     *
+     * @param string $panelId
+     * @return $this
+     */
+    public function panelId(string $panelId): self
+    {
+        $this->panelId = $panelId;
+        return $this;
+    }
+
+    /**
+     * パネルのIDを取得する
+     *
+     * @return string|null
+     */
+    public function getPanelId(): ?string
+    {
+        return $this->panelId;
     }
 }

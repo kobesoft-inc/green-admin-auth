@@ -76,9 +76,10 @@ class PasswordForm extends Forms\Components\Group
      *
      * @param array $data 入力データ
      * @param Model|null $user モデル（作成済みの場合）
+     * @param string|null $panelId パネルのID
      * @return array
      */
-    static public function process(array $data, ?Model $user): array
+    static public function process(array $data, ?Model $user, ?string $panelId = null): array
     {
         // パスワードを生成する
         if (Arr::get($data, 'generate_password', false)) {
@@ -98,10 +99,21 @@ class PasswordForm extends Forms\Components\Group
                 email: $email,
                 username: $user?->username ?? $data['username'] ?? null,
                 password: $data['password'],
-                login: filament()->getCurrentPanel()->getLoginUrl()
+                login: self::getLoginUrl($panelId)
             ));
         }
 
         return $data;
+    }
+
+    /**
+     * ログインURLを取得する
+     *
+     * @param string|null $panelId パネルのID
+     * @return string
+     */
+    static protected function getLoginUrl(?string $panelId): string
+    {
+        return ($panelId ? filament()->getPanel($panelId) : filament()->getCurrentPanel())->getLoginUrl();
     }
 }

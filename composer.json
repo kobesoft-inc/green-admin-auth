@@ -17,19 +17,19 @@
         "laravel/socialite": "^5.11",
         "socialiteproviders/microsoft-azure": "^5.1",
         "socialiteproviders/google": "^4.1",
-        "kobesoft/green-common": "^1.0"
+        "kobesoft/green-support": "^1.0"
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Green\\AdminAuth\\ServiceProvider"
+                "GreenAdminAuthServiceProvider"
             ]
         }
     },
     "repositories": {
-        "kobesoft/green-common": {
+        "kobesoft/green-support": {
             "type": "vcs",
-            "url": "https://github.com/kobesoft-inc/green-common"
+            "url": "https://github.com/kobesoft-inc/green-support"
         },
         "kobesoft/green-resource-module": {
             "type": "vcs",

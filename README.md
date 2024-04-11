@@ -195,6 +195,7 @@ Microsoft Entra IDの連携を行うには、下記の手順を行います。
 - アプリの登録が完了したら、クライアントID、シークレットキー、テナントIDを控えておきます。
 
 \Green\AdminAuth\Pluginの作成時にMicrosoft Entra IDのIDプロバイダーを指定します。
+
 ```php
 \Green\AdminAuth\Plugin::make()
     ->idProvider(
@@ -228,6 +229,7 @@ Google Cloud Identityの連携を行うには、下記の手順を行います�
 - アプリの登録が完了したら、クライアントID、シークレットキーを控えておきます。
 
 \Green\AdminAuth\Pluginの作成時にGoogleのIDプロバイダーを指定します。
+
 ```php
 \Green\AdminAuth\Plugin::make()
     ->idProvider(
@@ -248,6 +250,7 @@ protected $listen = [
 ```
 
 ### IdPのカスタマイズ
+
 ```php
 \Green\AdminAuth\Plugin::make()
     ->idProvider(

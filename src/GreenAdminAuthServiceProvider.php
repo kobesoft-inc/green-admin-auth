@@ -14,7 +14,7 @@ use Livewire\Livewire;
  *
  * @package Green\AdminAuth
  */
-class ServiceProvider extends \Illuminate\Support\ServiceProvider
+class GreenAdminAuthServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     /**
      * アプリケーションサービスを登録する

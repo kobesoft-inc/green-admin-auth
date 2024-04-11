@@ -260,11 +260,11 @@ class AdminUserResource extends Resource
     private static function getGroupOptions(bool $html): array
     {
         if (self::hasInGroupOnlyPermission()) {
-            return collect(AdminGroup::getOptions($html))
+            return collect(AdminGroup::getOptions(null, $html))
                 ->intersectByKeys(auth()->user()->groupsWithDescendants()->pluck('id')->flip())
                 ->toArray();
         } else {
-            return AdminGroup::getOptions($html);
+            return AdminGroup::getOptions(null, $html);
         }
     }
 }

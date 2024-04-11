@@ -162,7 +162,8 @@ trait HasCustomizeAdminAuth
      */
     public function userModel(?string $userModel): Plugin
     {
-        Gate::policy($userModel, AdminUserPolicy::class); // ポリシーの登録
+        Gate::policy(AdminUser::class, AdminUserPolicy::class);
+        Gate::policy($userModel, AdminUserPolicy::class);
         $this->userModel = $userModel;
         return $this;
     }
@@ -273,7 +274,7 @@ trait HasCustomizeAdminAuth
      */
     public function groupModel(?string $groupModel): Plugin
     {
-        Gate::policy($groupModel, AdminGroupPolicy::class); // ポリシーの登録
+        Gate::policy($groupModel, AdminGroupPolicy::class);
         $this->groupModel = $groupModel;
         return $this;
     }

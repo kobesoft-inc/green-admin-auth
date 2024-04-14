@@ -69,7 +69,7 @@ class Login extends \Filament\Pages\Auth\Login
         return TextInput::make('email')
             ->label($this->getEmailFormLabel())
             ->required()
-            ->email(!Plugin::get()->canLoginWithUsername())
+            ->email(!$this->canLoginWithUsername())
             ->autocomplete()
             ->autofocus()
             ->extraInputAttributes(['tabindex' => 1]);
@@ -82,8 +82,8 @@ class Login extends \Filament\Pages\Auth\Login
      */
     protected function getEmailFormLabel(): string
     {
-        $canLoginWithEmail = Plugin::get()->canLoginWithEmail();
-        $canLoginWithUsername = Plugin::get()->canLoginWithUsername();
+        $canLoginWithEmail = $this->canLoginWithEmail();
+        $canLoginWithUsername = $this->canLoginWithUsername();
         if ($canLoginWithEmail && $canLoginWithUsername) {
             return __('green::admin-auth.pages.login.username-or-email');
         } elseif ($canLoginWithUsername) {
@@ -105,16 +105,36 @@ class Login extends \Filament\Pages\Auth\Login
     {
         return [
             'email' => function (Builder $query) use ($data) {
-                if (Plugin::get()->canLoginWithEmail()) {
+                if ($this->canLoginWithEmail()) {
                     $query->orWhere('email', $data['email']);
                 }
-                if (Plugin::get()->canLoginWithUsername()) {
+                if ($this->canLoginWithUsername()) {
                     $query->orWhere('username', $data['email']);
                 }
             },
             'password' => $data['password'],
             'is_active' => true,
         ];
+    }
+
+    /**
+     * メールアドレスでログインできるか？
+     *
+     * @return bool メールアドレスでログインできる場合はtrue、それ以外はfalse
+     */
+    protected function canLoginWithEmail(): bool
+    {
+        return Plugin::get()->canLoginWithEmail();
+    }
+
+    /**
+     * ユーザー名でログインできるか？
+     *
+     * @return bool ユーザー名でログインできる場合はtrue、それ以外はfalse
+     */
+    protected function canLoginWithUsername(): bool
+    {
+        return Plugin::get()->canLoginWithUsername();
     }
 
     /**

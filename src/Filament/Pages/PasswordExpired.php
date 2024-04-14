@@ -24,6 +24,7 @@ class PasswordExpired extends SimplePage
     const PASSWORD_EXPIRED_USER_ID = 'password-expired-user-id';
 
     protected static string $view = 'green::filament.pages.password-expired';
+    protected static string $model = AdminUser::class;
     public ?array $data = [];
 
     /**
@@ -58,7 +59,7 @@ class PasswordExpired extends SimplePage
         $data = $this->form->getState();
 
         /** @var AdminUser $user */
-        $user = AdminUser::findOrFail($userId);
+        $user = (self::$model)::findOrFail($userId);
         if (!Hash::check($data['current_password'], $user->password)) {
             throw ValidationException::withMessages([
                 'data.current_password' => __('green::admin-auth.pages.password-expired.incorrect-password'),

@@ -2,12 +2,12 @@
 
 namespace Green\AdminAuth\Filament\Pages;
 
+use Exception;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Green\AdminAuth\Models\AdminUser;
 use Green\AdminAuth\Plugin;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -121,12 +121,18 @@ class Login extends \Filament\Pages\Auth\Login
      * パスワード有効期限切れのページにリダイレクトする
      *
      * @return mixed
+     * @throws Exception
      */
     public function redirectToPasswordExpired(): mixed
     {
         return redirect()->route("filament." . filament()->getCurrentPanel()->getId() . ".password-expired");
     }
 
+    /**
+     * IdPのログインアクションを取得する
+     *
+     * @return array
+     */
     protected function getIdProviderActions(): array
     {
         $actions = [];

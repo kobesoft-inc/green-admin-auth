@@ -82,6 +82,7 @@ class AdminUserResource extends Resource
                     ->label(__('green::admin-auth.admin-user.email'))
                     ->required(Plugin::get()->isUsernameDisabled())
                     ->email()->maxLength(100)
+                    ->unique('admin_users', 'email', fn(?AdminUser $record) => $record)
                     ->hidden(Plugin::get()->isEmailDisabled()),
 
                 // ユーザー名

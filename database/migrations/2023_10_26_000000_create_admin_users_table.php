@@ -13,14 +13,16 @@ return new class extends Migration {
         Schema::create('admin_users', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('email')->nullable()->unique();
-            $table->string('username')->nullable()->unique();
+            $table->string('email')->nullable();
+            $table->string('username')->nullable();
             $table->string('password')->nullable();
             $table->dateTime('password_expire_at')->nullable();
             $table->boolean('is_active')->default(true);
             $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->unique(['email', 'deleted_at']);
+            $table->unique(['username', 'deleted_at']);
         });
 
         // 初期の管理ユーザーを作成

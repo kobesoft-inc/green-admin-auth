@@ -40,12 +40,13 @@ class SocialiteController
 
         // 認証情報を取得する
         $adminOAuth = $this->getAdminOAuth($provider);
-        if ($adminOAuth->exists) {
+        if ($adminOAuth->exists && $adminOAuth->user !== null) {
             $adminUser = $adminOAuth->user;
         } else {
             $adminUser = $this->getAdminUser($provider);
             abort_if(!$adminUser, 403, __('filament-panels::pages/auth/login.messages.failed'));
             $adminOAuth->admin_user_id = $adminUser->id;
+            $adminOAuth->save();
         }
 
         // ユーザー情報を更新する
@@ -54,9 +55,6 @@ class SocialiteController
             $adminUser = $this->updateAvatar($adminUser, $adminOAuth, $provider);
             $adminUser->save();
         }
-
-        // 認証情報を保存する
-        $adminOAuth->save();
 
         // ログインする
         Filament::auth()->login($adminUser);
@@ -86,7 +84,6 @@ class SocialiteController
             'token' => $socialUser->token,
             'token_expires_at' => $socialUser->expiresIn ? now()->addSeconds($socialUser->expiresIn) : null,
             'refresh_token' => $socialUser->refreshToken,
-            'uid' => $socialUser->getId(),
             'avatar_hash' => $provider->getAvatarHash(),
             'data' => $socialUser->user,
         ]);
@@ -117,7 +114,9 @@ class SocialiteController
                 'email' => $socialiteUser->getEmail(),
                 'is_active' => true,
             ]);
-            return $provider->fillUser($adminUser);
+            $adminUser = $provider->fillUser($adminUser);
+            $adminUser->save();
+            return $adminUser;
         }
         return null; // ログインできない
     }

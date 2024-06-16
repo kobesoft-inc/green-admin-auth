@@ -18,6 +18,7 @@ use Green\AdminAuth\Permissions\ManageAdminUserInGroup;
 use Green\AdminAuth\Plugin;
 use Green\ResourceModule\Facades\ModuleRegistry;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\Rules\Unique;
 
 /**
@@ -189,7 +190,32 @@ class AdminUserResource extends Resource
                     ->sortable()->toggleable()->toggledHiddenByDefault(),
             ])
             ->filters([
-                //
+                // 部署でフィルタ
+                Tables\Filters\SelectFilter::make('groups')
+                    ->label(Plugin::get()->getGroupModelLabel())
+                    ->options(self::getGroupOptions(true))
+                    ->native(false)
+                    ->hidden(Plugin::get()->isGroupDisabled())
+                    ->query(function ($query, $data) {
+                        $query->when($data['value'], function ($query, $value) {
+                            $query->whereHas('groups', function ($query) use ($value) {
+                                $query->where('admin_groups.id', Arr::wrap($value));
+                            });
+                        });
+                    }),
+
+                // ロールでフィルタ
+                Tables\Filters\SelectFilter::make('roles')
+                    ->label(__('green::admin-auth.admin-user.roles'))
+                    ->options(AdminRole::getOptions())
+                    ->native(false)
+                    ->query(function ($query, $data) {
+                        $query->when($data['value'], function ($query, $value) {
+                            $query->whereHas('roles', function ($query) use ($value) {
+                                $query->where('admin_roles.id', Arr::wrap($value));
+                            });
+                        });
+                    }),
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([

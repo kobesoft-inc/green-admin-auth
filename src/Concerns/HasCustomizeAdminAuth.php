@@ -30,6 +30,7 @@ trait HasCustomizeAdminAuth
     private int $generatedPasswordLength = 12;
     private int $passwordMinLength = 8;
     private int $passwordDays = 0;
+    private bool $canChangePassword = true;
     private array $userTabs = [];
     private ?string $navigationGroup = null;
     private array $idProviders = [];
@@ -378,6 +379,23 @@ trait HasCustomizeAdminAuth
     {
         $this->passwordDays = $passwordDays;
         return $this;
+    }
+
+    /**
+     * パスワードを変更できるないようにする
+     */
+    public function disableChangePassword(bool $canChangePassword = true): Plugin
+    {
+        $this->canChangePassword = !$canChangePassword;
+        return $this;
+    }
+
+    /**
+     * パスワードを変更できるか取得する
+     */
+    public function canChangePassword(): bool
+    {
+        return $this->canChangePassword;
     }
 
     /**

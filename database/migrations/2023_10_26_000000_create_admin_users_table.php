@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
             $table->unique(['email', 'deleted_at']);
             $table->unique(['username', 'deleted_at']);
         });

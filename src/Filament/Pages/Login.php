@@ -6,6 +6,7 @@ use Exception;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Green\AdminAuth\Models\AdminUser;
 use Green\AdminAuth\Plugin;
 use Illuminate\Contracts\Support\Htmlable;
@@ -22,13 +23,19 @@ class Login extends \Filament\Pages\Auth\Login
      * ログイン処理を行う
      *
      * @return mixed
+     * @throws Exception
      */
     public function login(): mixed
     {
         // 通常のログイン処理
-        $loginResponse = parent::authenticate();
-        if ($loginResponse === null) {
-            return null;
+        try {
+            $loginResponse = parent::authenticate();
+            if ($loginResponse === null) {
+                return null;
+            }
+        } catch (Exception $e) {
+            $this->form->fill([]); // 入力をクリアする
+            throw $e;
         }
 
         // パスワードの有効期限が切れている場合の処理

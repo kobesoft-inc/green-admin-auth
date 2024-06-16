@@ -4,6 +4,7 @@ namespace Green\AdminAuth\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Pages\PageRegistration;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -17,6 +18,7 @@ use Green\AdminAuth\Permissions\ManageAdminUserInGroup;
 use Green\AdminAuth\Plugin;
 use Green\ResourceModule\Facades\ModuleRegistry;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Validation\Rules\Unique;
 
 /**
  * 管理ユーザーのリソース
@@ -82,7 +84,7 @@ class AdminUserResource extends Resource
                     ->label(__('green::admin-auth.admin-user.email'))
                     ->required(Plugin::get()->isUsernameDisabled())
                     ->email()->maxLength(100)
-                    ->unique('admin_users', 'email', fn(?AdminUser $record) => $record)
+                    ->unique(ignoreRecord: true, modifyRuleUsing: fn(Unique $rule) => $rule->whereNull('deleted_at'))
                     ->hidden(Plugin::get()->isEmailDisabled()),
 
                 // ユーザー名
@@ -91,7 +93,7 @@ class AdminUserResource extends Resource
                     ->requiredWithout('email')
                     ->required(Plugin::get()->isEmailDisabled())
                     ->ascii()->alphaDash()
-                    ->unique('admin_users', 'username', fn(?AdminUser $record) => $record)
+                    ->unique(ignoreRecord: true, modifyRuleUsing: fn(Unique $rule) => $rule->whereNull('deleted_at'))
                     ->hidden(Plugin::get()->isUsernameDisabled()),
 
                 // パスワード
@@ -105,7 +107,7 @@ class AdminUserResource extends Resource
                     ->options(self::getGroupOptions(true))
                     ->multiple(Plugin::get()->isMultipleGroups())
                     ->allowHtml()->native(false)->placeholder('')
-                    ->requiredWithout('roles')
+                    ->required(fn(Get $get) => !filled($get('roles')))
                     ->hidden(Plugin::get()->isGroupDisabled()),
 
                 // ロール

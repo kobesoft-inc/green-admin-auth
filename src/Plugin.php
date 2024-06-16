@@ -2,7 +2,9 @@
 
 namespace Green\AdminAuth;
 
+use Filament\Navigation\MenuItem;
 use Filament\Panel;
+use Green\AdminAuth\Filament\Pages\ChangePassword;
 use Green\AdminAuth\Filament\Pages\Login;
 use Green\AdminAuth\Filament\Pages\PasswordExpired;
 use Green\AdminAuth\Filament\Resources\AdminGroupResource;
@@ -47,6 +49,7 @@ class Plugin implements \Filament\Contracts\Plugin
                 AdminRoleResource::class,
             ])
             ->pages([
+                ChangePassword::class,
             ])
             ->routes(function ($panel) use ($routes) {
                 if ($routes) {
@@ -59,6 +62,13 @@ class Plugin implements \Filament\Contracts\Plugin
                 Route::get('/login/{driver}/callback', [SocialiteController::class, 'callback'])
                     ->name('auth.sso-callback');
             })
+            ->userMenuItems([
+                MenuItem::make()
+                    ->label(fn() => __('green::admin-auth.pages.change-password.heading'))
+                    ->icon('heroicon-o-lock-closed')
+                    ->url(fn() => $panel->route('pages.change-password'))
+                    ->visible(fn() => Plugin::get()->canChangePassword()),
+            ])
             ->login(Login::class);
     }
 

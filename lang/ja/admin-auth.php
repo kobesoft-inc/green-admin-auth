@@ -31,6 +31,14 @@ return [
             'change-password' => 'パスワードを変更',
             'incorrect-password' => 'パスワードが違います',
             'password-changed' => 'パスワードを変更しました',
+        ],
+        'change-password' => [
+            'heading' => 'パスワード変更',
+            'current-password' => '現在のパスワード',
+            'new-password' => '新しいパスワード',
+            'change-password' => 'パスワードを変更',
+            'incorrect-password' => 'パスワードが違います',
+            'password-changed' => 'パスワードを変更しました',
         ]
     ],
 

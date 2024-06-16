@@ -99,9 +99,7 @@ class MyServiceProvider extends ServiceProvider
 if (!$adminUser->hasPermission(MyPermission::class)) {
     abort(403);
 }
-```
-
-####     
+```   
 
 ## ロールベースのアクセス制御（RBAC）
 
@@ -207,6 +205,7 @@ Microsoft Entra IDの連携を行うには、下記の手順を行います。
 ```
 
 EventServiceProviderに追加します。
+
 ```php
 protected $listen = [
     :
@@ -240,6 +239,7 @@ Google Cloud Identityの連携を行うには、下記の手順を行います�
 ```
 
 EventServiceProviderに追加します。
+
 ```php
 protected $listen = [
     :
@@ -269,4 +269,29 @@ protected $listen = [
                 ]);
             })
     )
+```
+
+## パスワード
+
+### パスワードの有効期限
+
+パスワードの有効期限を設定するには、下記の手順を行います。
+
+```php
+\Green\AdminAuth\Plugin::make()
+    ->passwordDays(90)
+```
+
+### パスワードをユーザーが自分で変更できる機能を無効化
+
+```php
+\Green\AdminAuth\Plugin::make()
+    ->disableChangePassword()
+```
+
+### パスワードのルールをカスタマイズ
+
+```php
+\Green\AdminAuth\Plugin::make()
+    ->passwordMinLength(8)
 ```

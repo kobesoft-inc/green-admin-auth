@@ -8,6 +8,7 @@ use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
+use Filament\Pages\Page;
 use Filament\Pages\SimplePage;
 use Green\AdminAuth\Models\AdminUser;
 use Green\AdminAuth\Plugin;
@@ -18,13 +19,13 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
 /**
- * パスワードの有効期限切れのページ
+ * パスワードの変更のページ
  */
-class PasswordExpired extends SimplePage
+class ChangePassword extends Page
 {
-    const PASSWORD_EXPIRED_USER_ID = 'password-expired-user-id';
-
-    protected static string $view = 'green::filament.pages.password-expired';
+    protected static string $view = 'green::filament.pages.change-password';
+    protected static bool $shouldRegisterNavigation = false;
+    protected ?string $heading = null;
     public ?array $data = [];
 
     /**
@@ -36,10 +37,6 @@ class PasswordExpired extends SimplePage
      */
     public function mount(): void
     {
-        if (!$this->getUserId()) {
-            $this->redirectToLogin();
-        }
-        $this->form->fill();
     }
 
     /**
@@ -50,17 +47,15 @@ class PasswordExpired extends SimplePage
      * @throws NotFoundExceptionInterface
      * @throws ValidationException
      */
-    public function changePassword(): mixed
+    public function changePassword(): void
     {
-        if (!($userId = $this->getUserId())) {
-            return $this->redirectToLogin();
-        }
-
         $data = $this->form->getState();
 
+        // 入力をクリアする
+        $this->form->fill([]);
+
         /** @var AdminUser $user */
-        $model = Filament::auth()->getProvider()->getModel();
-        $user = ($model)::findOrFail($userId);
+        $user = auth()->user();
         if (!Hash::check($data['current_password'], $user->password)) {
             throw ValidationException::withMessages([
                 'data.current_password' => __('green::admin-auth.pages.password-expired.incorrect-password'),
@@ -71,18 +66,8 @@ class PasswordExpired extends SimplePage
         $user->password = $data['new_password'];
         $user->save();
 
-        // パスワードの有効期限切れのセッションを開放
-        session()->forget(self::PASSWORD_EXPIRED_USER_ID);
-        session()->regenerate();
-
-        // 通知を表示
-        Notification::make()
-            ->title(__('green::admin-auth.pages.password-expired.password-changed'))
-            ->success()
-            ->send();
-
-        // ログイン画面に遷移する
-        return $this->redirectToLogin();
+        // ホーム画面にリダイレクトする
+        $this->redirect(Filament::getHomeUrl());
     }
 
     /**
@@ -112,22 +97,10 @@ class PasswordExpired extends SimplePage
 
     /**
      * 見出し
-     *
-     * @return string|Htmlable
      */
     public function getHeading(): string|Htmlable
     {
-        return __('green::admin-auth.pages.password-expired.heading');
-    }
-
-    /**
-     * 小見出し
-     *
-     * @return string|Htmlable
-     */
-    public function getSubheading(): string|Htmlable
-    {
-        return __('green::admin-auth.pages.password-expired.subheading');
+        return '';
     }
 
     /**
@@ -138,9 +111,9 @@ class PasswordExpired extends SimplePage
     protected function getFormActions(): array
     {
         return [
-            Action::make('password-expired')
+            Action::make('change-password')
                 ->label(__('green::admin-auth.pages.password-expired.change-password'))
-                ->submit('password-expired'),
+                ->submit('change-password'),
         ];
     }
 
@@ -152,25 +125,5 @@ class PasswordExpired extends SimplePage
     protected function hasFullWidthFormActions(): bool
     {
         return true;
-    }
-
-    /**
-     * ログインしようとしたユーザーIDを取得する
-     *
-     * @return int|null
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
-    protected function getUserId(): ?int
-    {
-        return session()->get(self::PASSWORD_EXPIRED_USER_ID, null);
-    }
-
-    /**
-     * ログインページにリダイレクトする
-     */
-    protected function redirectToLogin(): mixed
-    {
-        return redirect(filament()->getCurrentPanel()->getLoginUrl());
     }
 }

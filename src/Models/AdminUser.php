@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
@@ -33,6 +34,8 @@ use Illuminate\Support\Facades\Storage;
  */
 class AdminUser extends \Illuminate\Foundation\Auth\User implements FilamentUser
 {
+    use SoftDeletes;
+
     /**
      * 一括代入できる属性
      *

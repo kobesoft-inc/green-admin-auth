@@ -9,8 +9,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\SimplePage;
+use Green\AdminAuth\Forms\Components\Password;
 use Green\AdminAuth\Models\AdminUser;
-use Green\AdminAuth\Plugin;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -101,11 +101,10 @@ class PasswordExpired extends SimplePage
                     ->password()->required(),
 
                 // 新しいパスワード
-                \Phpsa\FilamentPasswordReveal\Password::make('new_password')
+                Password::make('new_password')
                     ->label(__('green::admin-auth.pages.password-expired.new-password'))
-                    ->password()
                     ->different('current_password')
-                    ->required()->ascii()->minLength(Plugin::get()->getPasswordMinLength()),
+                    ->required(),
             ])
             ->statePath('data');
     }

@@ -29,6 +29,8 @@ trait HasCustomizeAdminAuth
     private ?string $groupModelLabel = null;
     private int $generatedPasswordLength = 12;
     private int $passwordMinLength = 8;
+    private bool $passwordMustUseSymbols = false;
+    private bool $passwordMustUseNumbers = false;
     private int $passwordDays = 0;
     private bool $canChangePassword = true;
     private array $userTabs = [];
@@ -356,6 +358,50 @@ trait HasCustomizeAdminAuth
     public function passwordMinLength(int $passwordMinLength): Plugin
     {
         $this->passwordMinLength = $passwordMinLength;
+        return $this;
+    }
+
+    /**
+     * パスワードに記号が必要かを取得する
+     *
+     * @return bool
+     */
+    public function getPasswordMustUseSymbols(): bool
+    {
+        return $this->passwordMustUseSymbols;
+    }
+
+    /**
+     * パスワードに記号が必要かを設定する
+     *
+     * @param bool $use
+     * @return Plugin
+     */
+    public function passwordMustUseSymbols(bool $use = true): Plugin
+    {
+        $this->passwordMustUseSymbols = $use;
+        return $this;
+    }
+
+    /**
+     * パスワードに数字が必要かを取得する
+     *
+     * @return bool
+     */
+    public function getPasswordMustUseNumbers(): bool
+    {
+        return $this->passwordMustUseNumbers;
+    }
+
+    /**
+     * パスワードに数字が必要かを設定する
+     *
+     * @param bool $use
+     * @return Plugin
+     */
+    public function passwordMustUseNumbers(bool $use = true): Plugin
+    {
+        $this->passwordMustUseNumbers = $use;
         return $this;
     }
 

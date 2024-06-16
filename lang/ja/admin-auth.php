@@ -10,6 +10,8 @@ return [
     'validations' => [
         'node-parent' => ':attribute の指定が不正です',
         'email-required' => '送信先メールアドレスが設定されていません',
+        'password-must-use-symbols' => 'パスワードは記号を含む必要があります',
+        'password-must-use-numbers' => 'パスワードは数字を含む必要があります',
     ],
 
     // ページ

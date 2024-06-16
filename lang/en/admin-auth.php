@@ -10,6 +10,8 @@ return [
     'validations' => [
         'node-parent' => 'Invalid specification for :attribute',
         'email-required' => 'Destination email address is not set',
+        'password-must-use-symbols' => 'The password must use symbols.',
+        'password-must-use-numbers' => 'The password must use numbers.',
     ],
 
     // Pages

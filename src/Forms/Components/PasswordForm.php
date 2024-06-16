@@ -44,12 +44,11 @@ class PasswordForm extends Forms\Components\Group
                     ->hidden(Plugin::get()->isEmailDisabled()),
 
                 // パスワード
-                \Phpsa\FilamentPasswordReveal\Password::make('password')
+                Password::make('password')
                     ->label(__('green::admin-auth.admin-user.password'))
-                    ->password()
                     ->showIcon('bi-eye')->hideIcon('bi-eye-slash')
                     ->visible(fn(Get $get): bool => !$get('generate_password') || Plugin::get()->isEmailDisabled())
-                    ->required()->ascii()->minLength(Plugin::get()->getPasswordMinLength()),
+                    ->required(),
 
                 // パスワードの変更を要求するか？
                 Forms\Components\Checkbox::make('force_password_change')

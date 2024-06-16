@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('platform')->nullable();
             $table->string('browser')->nullable();
             $table->string('ip_address')->nullable();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

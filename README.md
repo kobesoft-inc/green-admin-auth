@@ -293,5 +293,12 @@ protected $listen = [
 
 ```php
 \Green\AdminAuth\Plugin::make()
+    // パスワードは8文字以上
     ->passwordMinLength(8)
+    
+    // パスワードは数字を含む
+    ->passwordMustUseNumbers()
+    
+    // パスワードは大文字を含む
+    ->passwordMustUseSymbols()
 ```

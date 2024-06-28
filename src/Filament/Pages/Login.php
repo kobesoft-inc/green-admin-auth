@@ -8,7 +8,7 @@ use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Green\AdminAuth\Models\AdminUser;
-use Green\AdminAuth\Plugin;
+use Green\AdminAuth\GreenAdminAuthPlugin;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -131,7 +131,7 @@ class Login extends \Filament\Pages\Auth\Login
      */
     protected function canLoginWithEmail(): bool
     {
-        return Plugin::get()->canLoginWithEmail();
+        return GreenAdminAuthPlugin::get()->canLoginWithEmail();
     }
 
     /**
@@ -141,7 +141,7 @@ class Login extends \Filament\Pages\Auth\Login
      */
     protected function canLoginWithUsername(): bool
     {
-        return Plugin::get()->canLoginWithUsername();
+        return GreenAdminAuthPlugin::get()->canLoginWithUsername();
     }
 
     /**
@@ -163,7 +163,7 @@ class Login extends \Filament\Pages\Auth\Login
     protected function getIdProviderActions(): array
     {
         $actions = [];
-        foreach (Plugin::get()->getIdProviders() as $provider) {
+        foreach (GreenAdminAuthPlugin::get()->getIdProviders() as $provider) {
             $actions[] = $provider->getLoginAction();
         }
         return $actions;

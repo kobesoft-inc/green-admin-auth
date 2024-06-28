@@ -2,7 +2,7 @@
 
 namespace Green\AdminAuth\Permissions;
 
-use Green\AdminAuth\Plugin;
+use Green\AdminAuth\GreenAdminAuthPlugin;
 
 /**
  * パスワードをリセットする権限
@@ -28,7 +28,7 @@ class ResetAdminUserPassword extends Permission
     {
         return __(
             'green::admin-auth.permissions.admin.reset-admin-user-password',
-            Plugin::get()->getTranslationWords()
+            GreenAdminAuthPlugin::get()->getTranslationWords()
         );
     }
 }

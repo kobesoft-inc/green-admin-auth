@@ -7,7 +7,7 @@ use Filament\Facades\Filament;
 use Green\AdminAuth\IdProviders\IdProvider;
 use Green\AdminAuth\Models\AdminOAuth;
 use Green\AdminAuth\Models\AdminUser;
-use Green\AdminAuth\Plugin;
+use Green\AdminAuth\GreenAdminAuthPlugin;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -22,7 +22,7 @@ class SocialiteController
      */
     public function redirect(string $driver): RedirectResponse
     {
-        $provider = Plugin::get()->getIdProvider($driver);
+        $provider = GreenAdminAuthPlugin::get()->getIdProvider($driver);
         return $provider->redirect();
     }
 
@@ -36,7 +36,7 @@ class SocialiteController
     public function callback(string $driver): RedirectResponse
     {
         // 認証サービスを取得する
-        $provider = Plugin::get()->getIdProvider($driver);
+        $provider = GreenAdminAuthPlugin::get()->getIdProvider($driver);
 
         // 認証情報を取得する
         $adminOAuth = $this->getAdminOAuth($provider);

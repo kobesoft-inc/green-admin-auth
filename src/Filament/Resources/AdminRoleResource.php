@@ -12,7 +12,7 @@ use Filament\Tables\Table;
 use Green\AdminAuth\Facades\PermissionRegistry;
 use Green\AdminAuth\Filament\Resources\AdminRoleResource\Pages\ManageAdminRoles;
 use Green\AdminAuth\Models\AdminRole;
-use Green\AdminAuth\Plugin;
+use Green\AdminAuth\GreenAdminAuthPlugin;
 use Green\ResourceModule\Facades\ModuleRegistry;
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,7 +32,7 @@ class AdminRoleResource extends Resource
      */
     public static function getNavigationGroup(): ?string
     {
-        return Plugin::get()->getNavigationGroup();
+        return GreenAdminAuthPlugin::get()->getNavigationGroup();
     }
 
     /**
@@ -83,16 +83,16 @@ class AdminRoleResource extends Resource
 
                 // 割り当てられたユーザー
                 Tables\Columns\ImageColumn::make('users.avatar_url')
-                    ->label(Plugin::get()->getUserModelLabel())
+                    ->label(GreenAdminAuthPlugin::get()->getUserModelLabel())
                     ->circular()->overlap(5)->limit(5)->limitedRemainingText()
                     ->toggleable(),
 
                 // 割り当てられたグループ
                 Tables\Columns\TextColumn::make('groups.name')
-                    ->label(Plugin::get()->getGroupModelLabel())
+                    ->label(GreenAdminAuthPlugin::get()->getGroupModelLabel())
                     ->badge()
                     ->toggleable()
-                    ->hidden(Plugin::get()->isGroupDisabled()),
+                    ->hidden(GreenAdminAuthPlugin::get()->isGroupDisabled()),
             ])
             ->filters([
             ])

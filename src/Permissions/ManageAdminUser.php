@@ -2,7 +2,7 @@
 
 namespace Green\AdminAuth\Permissions;
 
-use Green\AdminAuth\Plugin;
+use Green\AdminAuth\GreenAdminAuthPlugin;
 
 /**
  * 管理者ユーザーを管理する権限
@@ -28,7 +28,7 @@ class ManageAdminUser extends Permission
     {
         return __(
             'green::admin-auth.permissions.admin.manage-admin-user',
-            Plugin::get()->getTranslationWords()
+            GreenAdminAuthPlugin::get()->getTranslationWords()
         );
     }
 }

@@ -11,7 +11,7 @@ use Filament\Tables\Table;
 use Green\AdminAuth\Filament\Resources\AdminGroupResource\Pages\ManageAdminGroups;
 use Green\AdminAuth\Models\AdminGroup;
 use Green\AdminAuth\Models\AdminRole;
-use Green\AdminAuth\Plugin;
+use Green\AdminAuth\GreenAdminAuthPlugin;
 use Green\AdminAuth\Rules\NodeParent;
 use Green\ResourceModule\Facades\ModuleRegistry;
 use Illuminate\Database\Eloquent\Builder;
@@ -32,7 +32,7 @@ class AdminGroupResource extends Resource
      */
     public static function getNavigationGroup(): ?string
     {
-        return Plugin::get()->getNavigationGroup();
+        return GreenAdminAuthPlugin::get()->getNavigationGroup();
     }
 
     /**
@@ -40,7 +40,7 @@ class AdminGroupResource extends Resource
      */
     public static function getModel(): string
     {
-        return Plugin::get()->getGroupModel();
+        return GreenAdminAuthPlugin::get()->getGroupModel();
     }
 
     /**
@@ -50,7 +50,7 @@ class AdminGroupResource extends Resource
      */
     public static function getModelLabel(): string
     {
-        return Plugin::get()->getGroupModelLabel();
+        return GreenAdminAuthPlugin::get()->getGroupModelLabel();
     }
 
     /**
@@ -70,7 +70,7 @@ class AdminGroupResource extends Resource
 
                 // 親のグループ
                 Forms\Components\Select::make('parent_id')
-                    ->label(__('green::admin-auth.admin-group.parent-id', Plugin::get()->getTranslationWords()))
+                    ->label(__('green::admin-auth.admin-group.parent-id', GreenAdminAuthPlugin::get()->getTranslationWords()))
                     ->options(AdminGroup::getOptions())
                     ->native(false)->allowHtml(true)
                     ->rules([fn($record) => new NodeParent(record: $record)]),
@@ -105,7 +105,7 @@ class AdminGroupResource extends Resource
 
                 // 割り当てられたユーザー
                 Tables\Columns\ImageColumn::make('users.avatar_url')
-                    ->label(Plugin::get()->getUserModelLabel())
+                    ->label(GreenAdminAuthPlugin::get()->getUserModelLabel())
                     ->circular()->overlap(5)->limit(5)->limitedRemainingText()
                     ->toggleable(),
 

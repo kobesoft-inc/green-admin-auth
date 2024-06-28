@@ -15,7 +15,7 @@ use Green\AdminAuth\Models\AdminRole;
 use Green\AdminAuth\Models\AdminUser;
 use Green\AdminAuth\Permissions\ManageAdminUser;
 use Green\AdminAuth\Permissions\ManageAdminUserInGroup;
-use Green\AdminAuth\Plugin;
+use Green\AdminAuth\GreenAdminAuthPlugin;
 use Green\ResourceModule\Facades\ModuleRegistry;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
@@ -36,7 +36,7 @@ class AdminUserResource extends Resource
      */
     public static function getNavigationGroup(): ?string
     {
-        return Plugin::get()->getNavigationGroup();
+        return GreenAdminAuthPlugin::get()->getNavigationGroup();
     }
 
     /**
@@ -44,7 +44,7 @@ class AdminUserResource extends Resource
      */
     public static function getModel(): string
     {
-        return Plugin::get()->getUserModel();
+        return GreenAdminAuthPlugin::get()->getUserModel();
     }
 
     /**
@@ -54,7 +54,7 @@ class AdminUserResource extends Resource
      */
     public static function getModelLabel(): string
     {
-        return Plugin::get()->getUserModelLabel();
+        return GreenAdminAuthPlugin::get()->getUserModelLabel();
     }
 
     /**
@@ -73,7 +73,7 @@ class AdminUserResource extends Resource
                     ->hiddenLabel()
                     ->avatar()
                     ->alignCenter()
-                    ->hidden(Plugin::get()->isAvatarDisabled()),
+                    ->hidden(GreenAdminAuthPlugin::get()->isAvatarDisabled()),
 
                 // 名前
                 Forms\Components\TextInput::make('name')
@@ -83,19 +83,19 @@ class AdminUserResource extends Resource
                 // メール
                 Forms\Components\TextInput::make('email')
                     ->label(__('green::admin-auth.admin-user.email'))
-                    ->required(Plugin::get()->isUsernameDisabled())
+                    ->required(GreenAdminAuthPlugin::get()->isUsernameDisabled())
                     ->email()->maxLength(100)
                     ->unique(ignoreRecord: true, modifyRuleUsing: fn(Unique $rule) => $rule->whereNull('deleted_at'))
-                    ->hidden(Plugin::get()->isEmailDisabled()),
+                    ->hidden(GreenAdminAuthPlugin::get()->isEmailDisabled()),
 
                 // ユーザー名
                 Forms\Components\TextInput::make('username')
                     ->label(__('green::admin-auth.admin-user.username'))
                     ->requiredWithout('email')
-                    ->required(Plugin::get()->isEmailDisabled())
+                    ->required(GreenAdminAuthPlugin::get()->isEmailDisabled())
                     ->ascii()->alphaDash()
                     ->unique(ignoreRecord: true, modifyRuleUsing: fn(Unique $rule) => $rule->whereNull('deleted_at'))
-                    ->hidden(Plugin::get()->isUsernameDisabled()),
+                    ->hidden(GreenAdminAuthPlugin::get()->isUsernameDisabled()),
 
                 // パスワード
                 \Green\AdminAuth\Forms\Components\PasswordForm::make()
@@ -103,22 +103,22 @@ class AdminUserResource extends Resource
 
                 // グループ
                 Forms\Components\Select::make('groups')
-                    ->label(Plugin::get()->getGroupModelLabel())
+                    ->label(GreenAdminAuthPlugin::get()->getGroupModelLabel())
                     ->relationship('groups', 'name')
                     ->options(self::getGroupOptions(true))
-                    ->multiple(Plugin::get()->isMultipleGroups())
+                    ->multiple(GreenAdminAuthPlugin::get()->isMultipleGroups())
                     ->allowHtml()->native(false)->placeholder('')
                     ->required(fn(Get $get) => !filled($get('roles')))
-                    ->hidden(Plugin::get()->isGroupDisabled()),
+                    ->hidden(GreenAdminAuthPlugin::get()->isGroupDisabled()),
 
                 // ロール
                 Forms\Components\Select::make('roles')
                     ->label(__('green::admin-auth.admin-user.roles'))
                     ->relationship('roles', 'name')
                     ->options(AdminRole::getOptions())
-                    ->multiple(Plugin::get()->isMultipleRoles())
+                    ->multiple(GreenAdminAuthPlugin::get()->isMultipleRoles())
                     ->native(false)->placeholder('')
-                    ->required(Plugin::get()->isGroupDisabled())
+                    ->required(GreenAdminAuthPlugin::get()->isGroupDisabled())
                     ->visible(auth()->user()->hasPermission(\Green\AdminAuth\Permissions\EditAdminUserRole::class)),
             ])
             ->columns(1);
@@ -145,13 +145,13 @@ class AdminUserResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->label(__('green::admin-auth.admin-user.email'))
                     ->sortable()->searchable()->toggleable()
-                    ->hidden(fn() => Plugin::get()->isEmailDisabled()),
+                    ->hidden(fn() => GreenAdminAuthPlugin::get()->isEmailDisabled()),
 
                 // ユーザー名
                 Tables\Columns\TextColumn::make('username')
                     ->label(__('green::admin-auth.admin-user.username'))
                     ->sortable()->searchable()->toggleable()
-                    ->hidden(fn() => Plugin::get()->isUsernameDisabled()),
+                    ->hidden(fn() => GreenAdminAuthPlugin::get()->isUsernameDisabled()),
 
                 // 状態
                 Tables\Columns\IconColumn::make('is_active')
@@ -161,10 +161,10 @@ class AdminUserResource extends Resource
 
                 // 管理グループ
                 Tables\Columns\TextColumn::make('groups.name')
-                    ->label(Plugin::get()->getGroupModelLabel())
+                    ->label(GreenAdminAuthPlugin::get()->getGroupModelLabel())
                     ->badge()
                     ->sortable()->toggleable()
-                    ->hidden(Plugin::get()->isGroupDisabled()),
+                    ->hidden(GreenAdminAuthPlugin::get()->isGroupDisabled()),
 
                 // 管理ロール
                 Tables\Columns\TextColumn::make('roles.name')
@@ -192,10 +192,10 @@ class AdminUserResource extends Resource
             ->filters([
                 // 部署でフィルタ
                 Tables\Filters\SelectFilter::make('groups')
-                    ->label(Plugin::get()->getGroupModelLabel())
+                    ->label(GreenAdminAuthPlugin::get()->getGroupModelLabel())
                     ->options(self::getGroupOptions(true))
                     ->native(false)
-                    ->hidden(Plugin::get()->isGroupDisabled())
+                    ->hidden(GreenAdminAuthPlugin::get()->isGroupDisabled())
                     ->query(function ($query, $data) {
                         $query->when($data['value'], function ($query, $value) {
                             $query->whereHas('groups', function ($query) use ($value) {

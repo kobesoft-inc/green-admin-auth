@@ -2,7 +2,7 @@
 
 namespace Green\AdminAuth\Permissions;
 
-use Green\AdminAuth\Plugin;
+use Green\AdminAuth\GreenAdminAuthPlugin;
 
 /**
  * 管理者ユーザーを編集する権限
@@ -28,7 +28,7 @@ class EditAdminUserRole extends Permission
     {
         return __(
             'green::admin-auth.permissions.admin.edit-admin-user-role',
-            Plugin::get()->getTranslationWords()
+            GreenAdminAuthPlugin::get()->getTranslationWords()
         );
     }
 }

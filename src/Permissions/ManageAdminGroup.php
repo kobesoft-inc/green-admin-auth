@@ -2,7 +2,7 @@
 
 namespace Green\AdminAuth\Permissions;
 
-use Green\AdminAuth\Plugin;
+use Green\AdminAuth\GreenAdminAuthPlugin;
 
 /**
  * グループを管理する権限
@@ -28,7 +28,7 @@ class ManageAdminGroup extends Permission
     {
         return __(
             'green::admin-auth.permissions.admin.manage-admin-group',
-            Plugin::get()->getTranslationWords()
+            GreenAdminAuthPlugin::get()->getTranslationWords()
         );
     }
 }

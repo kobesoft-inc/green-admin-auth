@@ -34,7 +34,7 @@ class AdminPanelProvider extends PanelProvider
             :
             :
             ->plugins([
-                \Green\AdminAuth\Plugin::make()
+                \Green\AdminAuth\GreenAdminAuthPlugin::make()
             ]);
     }
 }
@@ -132,7 +132,7 @@ if (!$adminUser->hasPermission(MyPermission::class)) {
 ### 管理ユーザーの項目カスタマイズ
 
 ```php
-\Green\AdminAuth\Plugin::make()
+\Green\AdminAuth\GreenAdminAuthPlugin::make()
     // 管理ユーザーは複数のグループに所属できる
     // 複雑な構成が必要な場合に有効化する。 
     ->multipleGroups()
@@ -195,7 +195,7 @@ Microsoft Entra IDの連携を行うには、下記の手順を行います。
 \Green\AdminAuth\Pluginの作成時にMicrosoft Entra IDのIDプロバイダーを指定します。
 
 ```php
-\Green\AdminAuth\Plugin::make()
+\Green\AdminAuth\GreenAdminAuthPlugin::make()
     ->idProvider(
         \Green\AdminAuth\IdProviders\MicrosoftEntraId::make()
             ->clientId('<クライアントID>')
@@ -230,7 +230,7 @@ Google Cloud Identityの連携を行うには、下記の手順を行います�
 \Green\AdminAuth\Pluginの作成時にGoogleのIDプロバイダーを指定します。
 
 ```php
-\Green\AdminAuth\Plugin::make()
+\Green\AdminAuth\GreenAdminAuthPlugin::make()
     ->idProvider(
         \Green\AdminAuth\IdProviders\MicrosoftEntraId::make()
             ->clientId('<クライアントID>')
@@ -252,7 +252,7 @@ protected $listen = [
 ### IdPのカスタマイズ
 
 ```php
-\Green\AdminAuth\Plugin::make()
+\Green\AdminAuth\GreenAdminAuthPlugin::make()
     ->idProvider(
         \Green\AdminAuth\IdProviders\MicrosoftEntraId::make()
             :
@@ -278,21 +278,21 @@ protected $listen = [
 パスワードの有効期限を設定するには、下記の手順を行います。
 
 ```php
-\Green\AdminAuth\Plugin::make()
+\Green\AdminAuth\GreenAdminAuthPlugin::make()
     ->passwordDays(90)
 ```
 
 ### パスワードをユーザーが自分で変更できる機能を無効化
 
 ```php
-\Green\AdminAuth\Plugin::make()
+\Green\AdminAuth\GreenAdminAuthPlugin::make()
     ->disableChangePassword()
 ```
 
 ### パスワードのルールをカスタマイズ
 
 ```php
-\Green\AdminAuth\Plugin::make()
+\Green\AdminAuth\GreenAdminAuthPlugin::make()
     // パスワードは8文字以上
     ->passwordMinLength(8)
     

@@ -12,7 +12,7 @@ use Filament\Pages\Page;
 use Filament\Pages\SimplePage;
 use Green\AdminAuth\Forms\Components\Password;
 use Green\AdminAuth\Models\AdminUser;
-use Green\AdminAuth\Plugin;
+use Green\AdminAuth\GreenAdminAuthPlugin;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;

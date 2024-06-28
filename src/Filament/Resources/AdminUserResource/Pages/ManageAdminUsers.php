@@ -8,7 +8,7 @@ use Filament\Resources\Pages\ManageRecords;
 use Green\AdminAuth\Filament\Resources\AdminUserResource;
 use Green\AdminAuth\Forms\Components\PasswordForm;
 use Green\AdminAuth\Models\AdminUser;
-use Green\AdminAuth\Plugin;
+use Green\AdminAuth\GreenAdminAuthPlugin;
 
 /**
  * 管理ユーザーの一覧ページ
@@ -42,6 +42,6 @@ class ManageAdminUsers extends ManageRecords
      */
     public function getTabs(): array
     {
-        return Plugin::get()->getUserTabs();
+        return GreenAdminAuthPlugin::get()->getUserTabs();
     }
 }

@@ -4,7 +4,7 @@ namespace Green\AdminAuth\Models;
 
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
-use Green\AdminAuth\Plugin;
+use Green\AdminAuth\GreenAdminAuthPlugin;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -93,7 +93,7 @@ class AdminUser extends \Illuminate\Foundation\Auth\User implements FilamentUser
         static::saving(function (AdminUser $adminUser) {
             if ($adminUser->isDirty('password') && !$adminUser->isDirty('password_expire_at')) {
                 // パスワードを変更し、有効期限を設定していない場合には、自動的に有効期限を設定する
-                $passwordDays = Plugin::get()->getPasswordDays();
+                $passwordDays = GreenAdminAuthPlugin::get()->getPasswordDays();
                 $adminUser->password_expire_at = $passwordDays
                     ? now()->addDays($passwordDays) // 有効期限を設定
                     : null; // 有効期限無し

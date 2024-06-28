@@ -4,7 +4,7 @@ namespace Green\AdminAuth\Policies;
 
 use Green\AdminAuth\Models\AdminUser;
 use Green\AdminAuth\Permissions\ManageAdminGroup;
-use Green\AdminAuth\Plugin;
+use Green\AdminAuth\GreenAdminAuthPlugin;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 /**
@@ -25,6 +25,6 @@ class AdminGroupPolicy
     public function viewAny(AdminUser $user): bool
     {
         return $user->hasPermission(ManageAdminGroup::class)
-            && !Plugin::get()->isGroupDisabled();
+            && !GreenAdminAuthPlugin::get()->isGroupDisabled();
     }
 }

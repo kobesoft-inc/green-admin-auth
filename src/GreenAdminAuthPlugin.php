@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
  *
  * @package Green\AdminAuth
  */
-class Plugin implements \Filament\Contracts\Plugin
+class GreenAdminAuthPlugin implements \Filament\Contracts\Plugin
 {
     use HasCustomizeAdminAuth;
 
@@ -67,7 +67,7 @@ class Plugin implements \Filament\Contracts\Plugin
                     ->label(fn() => __('green::admin-auth.pages.change-password.heading'))
                     ->icon('heroicon-o-lock-closed')
                     ->url(fn() => $panel->route('pages.change-password'))
-                    ->visible(fn() => Plugin::get()->canChangePassword()),
+                    ->visible(fn() => GreenAdminAuthPlugin::get()->canChangePassword()),
             ])
             ->login(Login::class);
     }

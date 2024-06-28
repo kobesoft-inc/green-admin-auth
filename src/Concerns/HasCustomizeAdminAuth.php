@@ -5,7 +5,7 @@ namespace Green\AdminAuth\Concerns;
 use Green\AdminAuth\IdProviders\IdProvider;
 use Green\AdminAuth\Models\AdminGroup;
 use Green\AdminAuth\Models\AdminUser;
-use Green\AdminAuth\Plugin;
+use Green\AdminAuth\GreenAdminAuthPlugin;
 use Green\AdminAuth\Policies\AdminGroupPolicy;
 use Green\AdminAuth\Policies\AdminUserPolicy;
 use Illuminate\Support\Facades\Gate;
@@ -51,9 +51,9 @@ trait HasCustomizeAdminAuth
      * ユーザーがメールアドレスでログインできるかを設定する
      *
      * @param bool $loginWithEmail
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function loginWithEmail(bool $loginWithEmail): Plugin
+    public function loginWithEmail(bool $loginWithEmail): GreenAdminAuthPlugin
     {
         $this->loginWithEmail = $loginWithEmail;
         return $this;
@@ -73,9 +73,9 @@ trait HasCustomizeAdminAuth
      * ユーザーがユーザー名でログインできるかを設定する
      *
      * @param bool $loginWithUsername
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function loginWithUsername(bool $loginWithUsername): Plugin
+    public function loginWithUsername(bool $loginWithUsername): GreenAdminAuthPlugin
     {
         $this->loginWithUsername = $loginWithUsername;
         return $this;
@@ -95,9 +95,9 @@ trait HasCustomizeAdminAuth
      * 管理ユーザーのアバター項目を無効化する
      *
      * @param bool $avatarDisabled
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function disableAvatar(bool $avatarDisabled = true): Plugin
+    public function disableAvatar(bool $avatarDisabled = true): GreenAdminAuthPlugin
     {
         $this->avatarDisabled = $avatarDisabled;
         return $this;
@@ -117,9 +117,9 @@ trait HasCustomizeAdminAuth
      * 管理ユーザーのメールアドレス項目を無効化する
      *
      * @param bool $emailDisabled
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function disableEmail(bool $emailDisabled = true): Plugin
+    public function disableEmail(bool $emailDisabled = true): GreenAdminAuthPlugin
     {
         $this->emailDisabled = $emailDisabled;
         return $this;
@@ -139,9 +139,9 @@ trait HasCustomizeAdminAuth
      * 管理ユーザーのユーザー名を無効化する
      *
      * @param bool $usernameDisabled
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function disableUsername(bool $usernameDisabled = true): Plugin
+    public function disableUsername(bool $usernameDisabled = true): GreenAdminAuthPlugin
     {
         $this->usernameDisabled = $usernameDisabled;
         return $this;
@@ -161,9 +161,9 @@ trait HasCustomizeAdminAuth
      * 管理ユーザーのモデルを設定する
      *
      * @param string|null $userModel
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function userModel(?string $userModel): Plugin
+    public function userModel(?string $userModel): GreenAdminAuthPlugin
     {
         Gate::policy(AdminUser::class, AdminUserPolicy::class);
         Gate::policy($userModel, AdminUserPolicy::class);
@@ -185,9 +185,9 @@ trait HasCustomizeAdminAuth
      * 管理ユーザーの呼び方を設定する
      *
      * @param string|null $userModelLabel
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function userModelLabel(?string $userModelLabel): Plugin
+    public function userModelLabel(?string $userModelLabel): GreenAdminAuthPlugin
     {
         $this->userModelLabel = $userModelLabel;
         return $this;
@@ -207,9 +207,9 @@ trait HasCustomizeAdminAuth
      * ユーザーが複数のグループに所属するかを設定する
      *
      * @param bool $multipleGroups
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function multipleGroups(bool $multipleGroups = true): Plugin
+    public function multipleGroups(bool $multipleGroups = true): GreenAdminAuthPlugin
     {
         $this->multipleGroups = $multipleGroups;
         return $this;
@@ -229,9 +229,9 @@ trait HasCustomizeAdminAuth
      * ユーザーが複数のロールに所属するかを設定する
      *
      * @param bool $multipleRoles
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function multipleRoles(bool $multipleRoles): Plugin
+    public function multipleRoles(bool $multipleRoles): GreenAdminAuthPlugin
     {
         $this->multipleRoles = $multipleRoles;
         return $this;
@@ -251,9 +251,9 @@ trait HasCustomizeAdminAuth
      * グループ機能を無効化する
      *
      * @param bool $groupDisabled
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function disableGroup(bool $groupDisabled = true): Plugin
+    public function disableGroup(bool $groupDisabled = true): GreenAdminAuthPlugin
     {
         $this->groupDisabled = $groupDisabled;
         return $this;
@@ -273,9 +273,9 @@ trait HasCustomizeAdminAuth
      * 管理グループのモデルを設定する
      *
      * @param string|null $groupModel
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function groupModel(?string $groupModel): Plugin
+    public function groupModel(?string $groupModel): GreenAdminAuthPlugin
     {
         Gate::policy($groupModel, AdminGroupPolicy::class);
         $this->groupModel = $groupModel;
@@ -296,9 +296,9 @@ trait HasCustomizeAdminAuth
      * 管理グループの呼び方を設定する
      *
      * @param string|null $groupModelLabel
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function groupModelLabel(?string $groupModelLabel): Plugin
+    public function groupModelLabel(?string $groupModelLabel): GreenAdminAuthPlugin
     {
         $this->groupModelLabel = $groupModelLabel;
         return $this;
@@ -331,9 +331,9 @@ trait HasCustomizeAdminAuth
      * 生成パスワードのルールを設定する
      *
      * @param int $generatedPasswordLength
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function generatedPasswordLength(int $generatedPasswordLength): Plugin
+    public function generatedPasswordLength(int $generatedPasswordLength): GreenAdminAuthPlugin
     {
         $this->generatedPasswordLength = $generatedPasswordLength;
         return $this;
@@ -353,9 +353,9 @@ trait HasCustomizeAdminAuth
      * パスワードの最小の長さを設定する
      *
      * @param int $passwordMinLength
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function passwordMinLength(int $passwordMinLength): Plugin
+    public function passwordMinLength(int $passwordMinLength): GreenAdminAuthPlugin
     {
         $this->passwordMinLength = $passwordMinLength;
         return $this;
@@ -375,9 +375,9 @@ trait HasCustomizeAdminAuth
      * パスワードに記号が必要かを設定する
      *
      * @param bool $use
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function passwordMustUseSymbols(bool $use = true): Plugin
+    public function passwordMustUseSymbols(bool $use = true): GreenAdminAuthPlugin
     {
         $this->passwordMustUseSymbols = $use;
         return $this;
@@ -397,9 +397,9 @@ trait HasCustomizeAdminAuth
      * パスワードに数字が必要かを設定する
      *
      * @param bool $use
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function passwordMustUseNumbers(bool $use = true): Plugin
+    public function passwordMustUseNumbers(bool $use = true): GreenAdminAuthPlugin
     {
         $this->passwordMustUseNumbers = $use;
         return $this;
@@ -419,9 +419,9 @@ trait HasCustomizeAdminAuth
      * パスワードの有効日数を設定する
      *
      * @param int $passwordDays
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function passwordDays(int $passwordDays): Plugin
+    public function passwordDays(int $passwordDays): GreenAdminAuthPlugin
     {
         $this->passwordDays = $passwordDays;
         return $this;
@@ -430,7 +430,7 @@ trait HasCustomizeAdminAuth
     /**
      * パスワードを変更できるないようにする
      */
-    public function disableChangePassword(bool $canChangePassword = true): Plugin
+    public function disableChangePassword(bool $canChangePassword = true): GreenAdminAuthPlugin
     {
         $this->canChangePassword = !$canChangePassword;
         return $this;
@@ -458,9 +458,9 @@ trait HasCustomizeAdminAuth
      * ユーザー管理ページのタブを設定する
      *
      * @param array $userTabs
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function userTabs(array $userTabs): Plugin
+    public function userTabs(array $userTabs): GreenAdminAuthPlugin
     {
         $this->userTabs = $userTabs;
         return $this;
@@ -480,9 +480,9 @@ trait HasCustomizeAdminAuth
      * ナビゲーショングループを設定する
      *
      * @param string|null $navigationGroup
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function navigationGroup(?string $navigationGroup): Plugin
+    public function navigationGroup(?string $navigationGroup): GreenAdminAuthPlugin
     {
         $this->navigationGroup = $navigationGroup;
         return $this;
@@ -513,9 +513,9 @@ trait HasCustomizeAdminAuth
      * IdPを追加する
      *
      * @param IdProvider $idProvider
-     * @return Plugin
+     * @return GreenAdminAuthPlugin
      */
-    public function idProvider(IdProvider $idProvider): Plugin
+    public function idProvider(IdProvider $idProvider): GreenAdminAuthPlugin
     {
         $this->idProviders[] = $idProvider;
         return $this;

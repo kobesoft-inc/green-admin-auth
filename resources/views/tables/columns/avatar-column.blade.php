@@ -4,7 +4,7 @@
 @endphp
 <div class="fi-ta-text gap-y-1 px-3 py-4">
     <div class="flex gap-1.5">
-        @if($avatar && !\Green\AdminAuth\Plugin::get()->isAvatarDisabled())
+        @if($avatar && !\Green\AdminAuth\GreenAdminAuthPlugin::get()->isAvatarDisabled())
             <div class="w-8">
                 <x-filament::avatar
                     :src="$avatar"

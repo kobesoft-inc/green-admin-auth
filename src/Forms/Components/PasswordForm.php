@@ -7,7 +7,7 @@ use Filament\Forms;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Green\AdminAuth\Mail\PasswordReset;
-use Green\AdminAuth\Plugin;
+use Green\AdminAuth\GreenAdminAuthPlugin;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
@@ -41,13 +41,13 @@ class PasswordForm extends Forms\Components\Group
                             $set('send_password', true);
                         }
                     })
-                    ->hidden(Plugin::get()->isEmailDisabled()),
+                    ->hidden(GreenAdminAuthPlugin::get()->isEmailDisabled()),
 
                 // パスワード
                 Password::make('password')
                     ->label(__('green::admin-auth.admin-user.password'))
                     ->showIcon('bi-eye')->hideIcon('bi-eye-slash')
-                    ->visible(fn(Get $get): bool => !$get('generate_password') || Plugin::get()->isEmailDisabled())
+                    ->visible(fn(Get $get): bool => !$get('generate_password') || GreenAdminAuthPlugin::get()->isEmailDisabled())
                     ->required(),
 
                 // パスワードの変更を要求するか？
@@ -66,7 +66,7 @@ class PasswordForm extends Forms\Components\Group
                             $fail(__('green::admin-auth.validations.email-required'));
                         }
                     })
-                    ->hidden(Plugin::get()->isEmailDisabled()),
+                    ->hidden(GreenAdminAuthPlugin::get()->isEmailDisabled()),
             ]);
     }
 
@@ -82,7 +82,7 @@ class PasswordForm extends Forms\Components\Group
     {
         // パスワードを生成する
         if (Arr::get($data, 'generate_password', false)) {
-            $data['password'] = Str::password(Plugin::get()->getGeneratedPasswordLength());
+            $data['password'] = Str::password(GreenAdminAuthPlugin::get()->getGeneratedPasswordLength());
             $data['send_password'] = true;
         }
 

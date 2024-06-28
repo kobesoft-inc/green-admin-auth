@@ -2,7 +2,7 @@
 
 namespace Green\AdminAuth\Permissions;
 
-use Green\AdminAuth\Plugin;
+use Green\AdminAuth\GreenAdminAuthPlugin;
 
 /**
  * 管理者ユーザーを削除する権限
@@ -28,7 +28,7 @@ class DeleteAdminUser extends Permission
     {
         return __(
             'green::admin-auth.permissions.admin.delete-admin-user',
-            Plugin::get()->getTranslationWords()
+            GreenAdminAuthPlugin::get()->getTranslationWords()
         );
     }
 }

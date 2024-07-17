@@ -2,8 +2,8 @@
 
 namespace Green\AdminAuth\Models;
 
-use Green\Concerns\HasGetOptions;
-use Green\Concerns\HasSortOrder;
+use Green\Support\Concerns\HasGetOptions;
+use Green\Support\Concerns\HasSortOrder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 

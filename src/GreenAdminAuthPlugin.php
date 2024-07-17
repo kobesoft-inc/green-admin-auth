@@ -4,6 +4,7 @@ namespace Green\AdminAuth;
 
 use Filament\Navigation\MenuItem;
 use Filament\Panel;
+use Green\AdminAuth\AvatarProviders\MysteryManAvatarProvider;
 use Green\AdminAuth\Filament\Pages\ChangePassword;
 use Green\AdminAuth\Filament\Pages\Login;
 use Green\AdminAuth\Filament\Pages\PasswordExpired;
@@ -42,8 +43,11 @@ class GreenAdminAuthPlugin implements \Filament\Contracts\Plugin
     public function register(Panel $panel): void
     {
         $routes = $panel->getRoutes();
+        if ($this->isAvatarDisabled()) {
+            $panel->defaultAvatarProvider(MysteryManAvatarProvider::class);
+        }
         $panel
-            ->resources([
+            ->resources($this->isResourceDisabled() ? [] : [
                 AdminUserResource::class,
                 AdminGroupResource::class,
                 AdminRoleResource::class,

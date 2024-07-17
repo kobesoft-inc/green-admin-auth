@@ -36,6 +36,7 @@ trait HasCustomizeAdminAuth
     private array $userTabs = [];
     private ?string $navigationGroup = null;
     private array $idProviders = [];
+    private bool $resourceDisabled = false;
 
     /**
      * ユーザーがメールアドレスでログインできるかを取得する
@@ -485,6 +486,28 @@ trait HasCustomizeAdminAuth
     public function navigationGroup(?string $navigationGroup): GreenAdminAuthPlugin
     {
         $this->navigationGroup = $navigationGroup;
+        return $this;
+    }
+
+    /**
+     * ページが無効化されているかを取得する
+     *
+     * @return bool
+     */
+    public function isResourceDisabled(): bool
+    {
+        return $this->resourceDisabled;
+    }
+
+    /**
+     * ページを無効化する
+     *
+     * @param bool $isResourceDisabled
+     * @return GreenAdminAuthPlugin
+     */
+    public function disableResource(bool $isResourceDisabled = true): GreenAdminAuthPlugin
+    {
+        $this->resourceDisabled = $isResourceDisabled;
         return $this;
     }
 

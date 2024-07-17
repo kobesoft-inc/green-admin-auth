@@ -175,6 +175,10 @@ if (!$adminUser->hasPermission(MyPermission::class)) {
     // 管理グループの呼び方を指定
     // 運用の実情に合わせて指定
     ->groupModelLabel('部署')
+
+    // 管理ユーザー、グループ、ロールのページを無効化
+    // これらの機能を使わない場合。
+    ->disableResource()
 ```
 
 ## SSO認証機能

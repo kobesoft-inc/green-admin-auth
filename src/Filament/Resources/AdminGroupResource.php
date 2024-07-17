@@ -104,10 +104,17 @@ class AdminGroupResource extends Resource
                     ->sortable()->searchable()->toggleable(),
 
                 // 割り当てられたユーザー
-                Tables\Columns\ImageColumn::make('users.avatar_url')
-                    ->label(GreenAdminAuthPlugin::get()->getUserModelLabel())
-                    ->circular()->overlap(5)->limit(5)->limitedRemainingText()
-                    ->toggleable(),
+                GreenAdminAuthPlugin::get()->isAvatarDisabled()
+                    ?
+                    Tables\Columns\TextColumn::make('users.name')
+                        ->label(GreenAdminAuthPlugin::get()->getUserModelLabel())
+                        ->limit(20)
+                        ->toggleable()
+                    :
+                    Tables\Columns\ImageColumn::make('users.avatar_url')
+                        ->label(GreenAdminAuthPlugin::get()->getUserModelLabel())
+                        ->circular()->overlap(5)->limit(5)->limitedRemainingText()
+                        ->toggleable(),
 
                 // 割り当てられたロール
                 Tables\Columns\TextColumn::make('roles.name')

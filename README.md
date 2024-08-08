@@ -43,6 +43,41 @@ class AdminPanelProvider extends PanelProvider
 }
 ```
 
+テーブルの作成
+
+```shell
+sail artisan migrate
+```
+
+admin_usersの認証の設定
+
+```php
+
+    'guards' => [
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
++        'admin' => [
++            'driver' => 'session',
++            'provider' => 'admin_users',
++        ],
+    ],
+
+
+    'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
++        'admin_users' => [
++            'driver' => 'eloquent',
++            'model' => \Green\AdminAuth\Models\AdminUser::class,
++        ],
+
+```
+
+
 ## 権限
 
 ### 組み込み済みの権限

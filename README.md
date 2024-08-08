@@ -26,7 +26,7 @@ composer install kobesoft/green-admin-auth
 
 admin_usersの認証の設定
 
-```php
+```diff
 
     'guards' => [
         'web' => [

@@ -248,15 +248,7 @@ Microsoft Entra IDの連携を行うには、下記の手順を行います。
 ```
 
 EventServiceProviderに追加します。
-
-```php
-protected $listen = [
-    :
-    \SocialiteProviders\Manager\SocialiteWasCalled::class => [
-        \SocialiteProviders\Azure\AzureExtendSocialite::class . '@handle',
-    ],
-];
-```
+https://github.com/SocialiteProviders/Microsoft-Azure を参照してください。
 
 ### Google Cloud Identityの連携
 
@@ -282,15 +274,7 @@ Google Cloud Identityの連携を行うには、下記の手順を行います�
 ```
 
 EventServiceProviderに追加します。
-
-```php
-protected $listen = [
-    :
-    \SocialiteProviders\Manager\SocialiteWasCalled::class => [
-        \SocialiteProviders\Google\GoogleExtendSocialite::class . '@handle',
-    ],
-];
-```
+https://github.com/SocialiteProviders/Google-Plus を参照してください。
 
 ### IdPのカスタマイズ
 

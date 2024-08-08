@@ -24,31 +24,6 @@ composer config repositories.green-resource-module vcs https://github.com/kobeso
 composer install kobesoft/green-admin-auth
 ```
 
-Panelにプラグインとして追加する。
-
-```php
-
-class AdminPanelProvider extends PanelProvider
-{
-    public function panel(Panel $panel): Panel
-    {
-        return $panel
-            ->default()
-            :
-            :
-            ->plugins([
-                \Green\AdminAuth\GreenAdminAuthPlugin::make()
-            ]);
-    }
-}
-```
-
-テーブルの作成
-
-```shell
-sail artisan migrate
-```
-
 admin_usersの認証の設定
 
 ```php
@@ -75,6 +50,32 @@ admin_usersの認証の設定
 +            'model' => \Green\AdminAuth\Models\AdminUser::class,
 +        ],
 
+```
+
+Panelにプラグインとして追加する。
+
+```php
+
+class AdminPanelProvider extends PanelProvider
+{
+    public function panel(Panel $panel): Panel
+    {
+        return $panel
+            ->default()
+            ->authGuard('admin')
+            :
+            :
+            ->plugins([
+                \Green\AdminAuth\GreenAdminAuthPlugin::make()
+            ]);
+    }
+}
+```
+
+テーブルの作成
+
+```shell
+sail artisan migrate
 ```
 
 

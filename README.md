@@ -18,6 +18,7 @@ Copyright &copy; Kobesoft, Inc. All rights reserved.
 composerでインストール
 
 ```shell
+composer config repositories.github.com vcs https://github.com/kobesoft-inc/green-admin-auth
 composer install kobesoft/green-admin-auth
 ```
 

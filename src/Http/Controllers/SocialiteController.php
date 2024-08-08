@@ -140,8 +140,30 @@ class SocialiteController
 
         // アバターをダウンロードして、更新する
         $contents = $provider->getAvatarData();
-        $adminUser->avatar = 'admin-users/avatars/' . md5($contents);
-        Storage::disk('public')->put($adminUser->avatar, $contents);
+        if (($extension = $this->getAvatarExtension($contents)) !== null) {
+            $adminUser->avatar = 'admin-users/avatars/' . md5($contents) . '.' . $extension;
+            Storage::disk('public')->put($adminUser->avatar, $contents);
+        }
         return $adminUser;
+    }
+
+    /**
+     * アバターの拡張子を取得する
+     *
+     * @param string $contents アバターのデータ
+     * @return string 拡張子
+     */
+    private function getAvatarExtension(string $contents): ?string
+    {
+        $finfo = finfo_open();
+        $mimeType = finfo_buffer($finfo, $contents, FILEINFO_MIME_TYPE);
+        finfo_close($finfo);
+        return match ($mimeType) {
+            'image/jpeg' => 'jpg',
+            'image/png' => 'png',
+            'image/gif' => 'gif',
+            'image/webp' => 'webp',
+            default => null,
+        };
     }
 }

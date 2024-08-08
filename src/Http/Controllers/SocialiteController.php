@@ -46,15 +46,17 @@ class SocialiteController
             $adminUser = $this->getAdminUser($provider);
             abort_if(!$adminUser, 403, __('filament-panels::pages/auth/login.messages.failed'));
             $adminOAuth->admin_user_id = $adminUser->id;
-            $adminOAuth->save();
         }
 
         // ユーザー情報を更新する
         if ($provider->shouldUpdateUser()) {
             $adminUser = $provider->fillUser($adminUser);
             $adminUser = $this->updateAvatar($adminUser, $adminOAuth, $provider);
-            $adminUser->save();
         }
+
+        // 保存
+        $adminUser->save();
+        $adminOAuth->save();
 
         // ログインする
         Filament::auth()->login($adminUser);

@@ -88,7 +88,7 @@ class PasswordForm extends Forms\Components\Group
 
         // 次回ログイン時にパスワード変更を要求する
         if (Arr::get($data, 'force_password_change', false)) {
-            $data['password_expire_at'] = Carbon::now();
+            $data['password_expires_at'] = Carbon::now();
         }
 
         // パスワードをユーザーのメールに送信する

@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Storage;
  * @property string $email
  * @property string $username
  * @property string $password
- * @property Carbon $password_expire_at
+ * @property Carbon $password_expires_at
  * @property bool $is_active
  * @property string $avatar
  * @property string $avatar_url
@@ -46,7 +46,7 @@ class AdminUser extends \Illuminate\Foundation\Auth\User implements FilamentUser
         'email',
         'username',
         'password',
-        'password_expire_at',
+        'password_expires_at',
         'is_active',
         'avatar',
     ];
@@ -77,7 +77,7 @@ class AdminUser extends \Illuminate\Foundation\Auth\User implements FilamentUser
      */
     protected $casts = [
         'password' => 'hashed',
-        'password_expire_at' => 'datetime'
+        'password_expires_at' => 'datetime'
     ];
 
     /**
@@ -91,10 +91,10 @@ class AdminUser extends \Illuminate\Foundation\Auth\User implements FilamentUser
 
         // 保存時
         static::saving(function (AdminUser $adminUser) {
-            if ($adminUser->isDirty('password') && !$adminUser->isDirty('password_expire_at')) {
+            if ($adminUser->isDirty('password') && !$adminUser->isDirty('password_expires_at')) {
                 // パスワードを変更し、有効期限を設定していない場合には、自動的に有効期限を設定する
                 $passwordDays = GreenAdminAuthPlugin::get()->getPasswordDays();
-                $adminUser->password_expire_at = $passwordDays
+                $adminUser->password_expires_at = $passwordDays
                     ? now()->addDays($passwordDays) // 有効期限を設定
                     : null; // 有効期限無し
             }
@@ -232,8 +232,8 @@ class AdminUser extends \Illuminate\Foundation\Auth\User implements FilamentUser
      */
     public function isPasswordExpired(): bool
     {
-        return $this->password_expire_at !== null
-            && $this->password_expire_at->isPast();
+        return $this->password_expires_at !== null
+            && $this->password_expires_at->isPast();
     }
 
     /**

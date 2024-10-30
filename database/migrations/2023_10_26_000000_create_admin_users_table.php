@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('email')->nullable();
             $table->string('username')->nullable();
             $table->string('password')->nullable();
-            $table->dateTime('password_expire_at')->nullable();
+            $table->dateTime('password_expires_at')->nullable();
             $table->boolean('is_active')->default(true);
             $table->string('avatar')->nullable();
             $table->rememberToken();
@@ -31,7 +31,7 @@ return new class extends Migration {
             'name' => __('green::admin-auth.admin-user.initial-user'),
             'username' => 'admin',
             'password' => 'admin',
-            'password_expire_at' => \Illuminate\Support\Carbon::createFromTimestamp(0),
+            'password_expires_at' => \Illuminate\Support\Carbon::createFromTimestamp(0),
         ]);
     }
 

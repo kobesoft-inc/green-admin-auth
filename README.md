@@ -21,7 +21,7 @@ composerでインストール
 composer config repositories.green-admin-auth vcs https://github.com/kobesoft-inc/green-admin-auth
 composer config repositories.green-support vcs https://github.com/kobesoft-inc/green-support
 composer config repositories.green-resource-module vcs https://github.com/kobesoft-inc/green-resource-module
-composer install kobesoft/green-admin-auth
+composer require kobesoft/green-admin-auth
 ```
 
 admin_usersの認証の設定

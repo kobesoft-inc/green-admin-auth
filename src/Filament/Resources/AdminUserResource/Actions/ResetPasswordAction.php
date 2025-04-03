@@ -37,7 +37,7 @@ class ResetPasswordAction extends Action
 
         $this->modalHeading($this->getLabel());
 
-        $this->icon('heroicons-s-key');
+        $this->icon('heroicon-s-key');
 
         $this->successNotificationTitle(__('green::admin-auth.admin-user.actions.reset-password-succeed'));
 

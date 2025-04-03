@@ -35,7 +35,7 @@
             "type": "vcs",
             "url": "https://github.com/kobesoft-inc/green-resource-module"
         },
-        {
+        "davidhsianturi/blade-bootstrap-icons": {
             "type": "vcs",
             "url": "https://github.com/laravel-shift/blade-bootstrap-icons.git"
         }

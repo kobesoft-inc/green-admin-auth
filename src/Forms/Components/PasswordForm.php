@@ -46,7 +46,7 @@ class PasswordForm extends Forms\Components\Group
                 // パスワード
                 Password::make('password')
                     ->label(__('green::admin-auth.admin-user.password'))
-                    ->showIcon('bi-eye')->hideIcon('bi-eye-slash')
+                    ->showIcon('heroicons-s-eye')->hideIcon('heroicons-s-eye-slash')
                     ->visible(fn(Get $get): bool => !$get('generate_password') || GreenAdminAuthPlugin::get()->isEmailDisabled())
                     ->required(),
 

@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
 class AdminRoleResource extends Resource
 {
     protected static ?string $model = AdminRole::class;
-    protected static ?string $navigationIcon = 'bi-person-lock';
+    protected static ?string $navigationIcon = 'heroicons-s-lock-closed';
     protected static ?int $navigationSort = 1300;
 
     /**

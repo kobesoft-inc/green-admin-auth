@@ -44,7 +44,6 @@ class MicrosoftEntraId extends IdProvider
         return Action::make('login-with-microsoft')
             ->label(__('green::admin-auth.pages.login.login-with-microsoft'))
             ->outlined()
-            ->icon('bi-microsoft')
             ->url($this->redirectUrl());
     }
 

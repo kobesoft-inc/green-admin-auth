@@ -31,7 +31,6 @@ class GoogleCloudIdentity extends IdProvider
         return Action::make('login-with-google-cloud-identity')
             ->label(__('green::admin-auth.pages.login.login-with-google'))
             ->outlined()
-            ->icon('bi-google')
             ->url($this->redirectUrl());
     }
 

@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class AdminGroupResource extends Resource
 {
-    protected static ?string $navigationIcon = 'bi-people';
+    protected static ?string $navigationIcon = 'heroicons-s-users';
     protected static ?int $navigationSort = 1200;
 
     /**

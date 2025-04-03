@@ -26,7 +26,7 @@ use Illuminate\Validation\Rules\Unique;
  */
 class AdminUserResource extends Resource
 {
-    protected static ?string $navigationIcon = 'heroicons-s-user';
+    protected static ?string $navigationIcon = 'heroicon-s-user';
     protected static ?int $navigationSort = 1100;
 
     /**

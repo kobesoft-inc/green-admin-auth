@@ -16,7 +16,8 @@
         "kobesoft/green-support": "*",
         "laravel/socialite": "^5.11",
         "socialiteproviders/microsoft-azure": "^5.1",
-        "socialiteproviders/google": "^4.1"
+        "socialiteproviders/google": "^4.1",
+        "blade-ui-kit/blade-icons": "*"
     },
     "extra": {
         "laravel": {

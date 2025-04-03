@@ -11,7 +11,6 @@
         "laravel/framework": "*",
         "kalnoy/nestedset": "*",
         "jenssegers/agent": "*",
-        "davidhsianturi/blade-bootstrap-icons": "dev-l12-compatibility",
         "phpsa/filament-password-reveal": "^2.0",
         "kobesoft/green-resource-module": "*",
         "kobesoft/green-support": "*",
@@ -34,10 +33,6 @@
         "kobesoft/green-resource-module": {
             "type": "vcs",
             "url": "https://github.com/kobesoft-inc/green-resource-module"
-        },
-        "davidhsianturi/blade-bootstrap-icons": {
-            "type": "vcs",
-            "url": "https://github.com/laravel-shift/blade-bootstrap-icons.git"
         }
     },
     "config": {

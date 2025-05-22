@@ -22,7 +22,7 @@ trait HasRoles
      *
      * @return void
      */
-    public static function bootBelongsToRoles(): void
+    public static function bootHasRoles(): void
     {
         static::deleting(function (Model|ShouldHaveRoles $model) {
             $model->roles()->detach();

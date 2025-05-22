@@ -80,7 +80,7 @@ trait GuessesRelated
      */
     protected static function userGroupPivotTable(): string
     {
-        return Str::snake(static::userClass()) . '_group';
+        return Str::snake(class_basename(static::userClass())) . '_group';
     }
 
     /**
@@ -88,7 +88,7 @@ trait GuessesRelated
      */
     protected static function userRolePivotTable(): string
     {
-        return Str::snake(static::userClass()) . '_role';
+        return Str::snake(class_basename(static::userClass())) . '_role';
     }
 
     /**
@@ -96,7 +96,7 @@ trait GuessesRelated
      */
     protected static function groupRolePivotTable(): string
     {
-        return Str::snake(static::groupClass()) . '_role';
+        return Str::snake(class_basename(static::groupClass())) . '_role';
     }
 
     /**
@@ -104,7 +104,7 @@ trait GuessesRelated
      */
     protected static function userForeignKey(): string
     {
-        return Str::snake(static::userClass()) . '_id';
+        return Str::snake(class_basename(static::userClass())) . '_id';
     }
 
     /**
@@ -112,7 +112,7 @@ trait GuessesRelated
      */
     protected static function groupForeignKey(): string
     {
-        return Str::snake(static::groupClass()) . '_id';
+        return Str::snake(class_basename(static::groupClass())) . '_id';
     }
 
     /**
@@ -120,6 +120,6 @@ trait GuessesRelated
      */
     protected static function roleForeignKey(): string
     {
-        return Str::snake(static::roleClass()) . '_id';
+        return Str::snake(class_basename(static::roleClass())) . '_id';
     }
 }

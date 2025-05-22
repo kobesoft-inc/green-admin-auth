@@ -15,13 +15,13 @@ trait HasPasswordExpiration
     /**
      * 起動時の処理
      */
-    public function HasPasswordExpirationBooted(): void
+    public static function bootHasPasswordExpiration(): void
     {
         static::saving(function (Model|ShouldExpirePassword $model) {
-            if ($model->isDirty('password') && !$model->isDirty('password_expires_at')) {
+            if ($model->isDirty('password') && !$model->isDirty($model->passwordExpiresAtColumn())) {
                 // パスワードを変更し、有効期限を設定していない場合には、自動的に有効期限を設定する
                 $passwordDays = $model->defaultPasswordValidityInDays();
-                $model->{$model->passwordExpiresAtColumn()} = $passwordDays
+                $model->{$model->passwordExpiresAtColumn()} = $passwordDays !== null
                     ? now()->addDays($passwordDays) // 有効期限を設定
                     : null; // 有効期限無し
             }

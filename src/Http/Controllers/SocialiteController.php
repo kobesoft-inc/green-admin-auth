@@ -151,7 +151,7 @@ class SocialiteController
      * アバターの拡張子を取得する
      *
      * @param string $contents アバターのデータ
-     * @return string 拡張子
+     * @return string|null 拡張子
      */
     private function getAvatarExtension(string $contents): ?string
     {

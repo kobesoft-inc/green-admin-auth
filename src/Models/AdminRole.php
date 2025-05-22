@@ -2,10 +2,11 @@
 
 namespace Green\AdminAuth\Models;
 
+use Green\AdminAuth\Models\Role\Concerns\HasGroups;
+use Green\AdminAuth\Models\Role\Concerns\HasUsers;
 use Green\Support\Concerns\HasGetOptions;
 use Green\Support\Concerns\HasSortOrder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * 管理ロール
@@ -17,7 +18,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class AdminRole extends Model
 {
-    use HasSortOrder, HasGetOptions;
+    use HasSortOrder;
+    use HasGetOptions;
+    use HasUsers;
+    use HasGroups;
 
     /**
      * 一括代入できる属性
@@ -37,36 +41,6 @@ class AdminRole extends Model
     protected $casts = [
         'permissions' => 'json',
     ];
-
-    /**
-     * このロールが割り当てられた管理ユーザー
-     *
-     * @return BelongsToMany
-     */
-    public function users(): BelongsToMany
-    {
-        return $this->belongsToMany(
-            AdminUser::class,
-            'admin_user_role',
-            'admin_role_id',
-            'admin_user_id'
-        );
-    }
-
-    /**
-     * このロールが割り当てられたグループ
-     *
-     * @return BelongsToMany
-     */
-    public function groups(): BelongsToMany
-    {
-        return $this->belongsToMany(
-            AdminGroup::class,
-            'admin_group_role',
-            'admin_role_id',
-            'admin_group_id'
-        );
-    }
 
     /**
      * ロールの選択肢

@@ -5,9 +5,13 @@ namespace Green\AdminAuth\Rules;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Database\Eloquent\Model;
+use Kalnoy\Nestedset\NestedSet;
+use Kalnoy\Nestedset\NodeTrait;
 
 /**
  * NestedSetの親要素として適切か？
+ *
+ * @private Model|NodeTrait $record
  */
 class NodeParent implements ValidationRule
 {
@@ -16,12 +20,16 @@ class NodeParent implements ValidationRule
      *
      * @param Model|null $record 現在のレコード
      */
-    public function __construct(private ?Model $record)
+    public function __construct(private readonly Model|null $record)
     {
     }
 
     /**
      * 検証ルールを実行する
+     *
+     * @param string $attribute 検証する属性名
+     * @param mixed $value 検証する値
+     * @param Closure $fail 検証失敗時のコールバック
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {

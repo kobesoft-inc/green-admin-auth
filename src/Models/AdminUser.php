@@ -37,7 +37,8 @@ class AdminUser extends \Illuminate\Foundation\Auth\User implements
     User\Contracts\ShouldHaveUsername,
     User\Contracts\ShouldHaveAvatar,
     User\Contracts\CanBeSuspended,
-    User\Contracts\ShouldHavePermissions
+    User\Contracts\ShouldHavePermissions,
+    User\Contracts\ShouldLogLogin
 {
     use SoftDeletes;
     use User\Concerns\HasPasswordExpiration;
@@ -47,6 +48,7 @@ class AdminUser extends \Illuminate\Foundation\Auth\User implements
     use User\Concerns\HasAvatar;
     use User\Concerns\HasSuspension;
     use User\Concerns\HasPermissions;
+    use User\Concerns\LogLogins;
 
     /**
      * 一括代入できる属性
@@ -91,16 +93,6 @@ class AdminUser extends \Illuminate\Foundation\Auth\User implements
         'password' => 'hashed',
         'password_expires_at' => 'datetime'
     ];
-
-    /**
-     * ログイン履歴
-     *
-     * @return HasMany
-     */
-    public function loginLogs(): HasMany
-    {
-        return $this->hasMany(AdminLoginLog::class, 'admin_user_id');
-    }
 
     /**
      * パネルにアクセスできるか？

@@ -7,17 +7,11 @@ use Filament\Actions\ActionGroup;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-use Filament\Notifications\Notification;
 use Filament\Pages\Page;
-use Filament\Pages\SimplePage;
 use Green\AdminAuth\Forms\Components\Password;
-use Green\AdminAuth\Models\AdminUser;
-use Green\AdminAuth\GreenAdminAuthPlugin;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 
 /**
  * パスワードの変更のページ
@@ -41,7 +35,6 @@ class ChangePassword extends Page
         // 入力をクリアする
         $this->form->fill([]);
 
-        /** @var AdminUser $user */
         $user = auth()->user();
         if (!Hash::check($data['current_password'], $user->password)) {
             throw ValidationException::withMessages([

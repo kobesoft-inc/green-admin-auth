@@ -2,8 +2,7 @@
 
 namespace Green\AdminAuth\Listeners;
 
-use Green\AdminAuth\Models\AdminLoginLog;
-use Green\AdminAuth\Models\AdminUser;
+use Green\AdminAuth\Models\User\Contracts\ShouldLogLogin;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
@@ -30,8 +29,8 @@ class LogAdminLogin
      */
     public function handle(Login $login): void
     {
-        // 管理ユーザーのログインでなければ処理しない
-        if (!$login->user instanceof AdminUser) {
+        // ログイン記録をするユーザーでなければ処理しない
+        if (!$login->user instanceof ShouldLogLogin) {
             return;
         }
 
@@ -40,8 +39,7 @@ class LogAdminLogin
         $agent->setUserAgent($this->request->userAgent());
 
         // ログイン履歴を記録
-        AdminLoginLog::create([
-            'admin_user_id' => $login->user->id,
+        $login->user->loginLogs()->create([
             'languages' => join(',', $agent->languages($this->request->header('Accept-Language'))),
             'device' => $agent->device(),
             'platform' => ($platform = $agent->platform()) . ' ' . $agent->version($platform),

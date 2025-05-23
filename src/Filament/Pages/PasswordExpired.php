@@ -10,7 +10,6 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\SimplePage;
 use Green\AdminAuth\Forms\Components\Password;
-use Green\AdminAuth\Models\AdminUser;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -58,9 +57,7 @@ class PasswordExpired extends SimplePage
 
         $data = $this->form->getState();
 
-        /** @var AdminUser $user */
-        $model = Filament::auth()->getProvider()->getModel();
-        $user = ($model)::findOrFail($userId);
+        $user = Filament::auth()->getProvider()->retrieveById($userId);
         if (!Hash::check($data['current_password'], $user->password)) {
             throw ValidationException::withMessages([
                 'data.current_password' => __('green::admin-auth.pages.password-expired.incorrect-password'),

@@ -76,6 +76,14 @@ trait GuessesRelated
     }
 
     /**
+     * ログイン履歴クラスを取得
+     */
+    protected static function loginLogClass(): string
+    {
+        return self::relatedClass('LoginLog');
+    }
+
+    /**
      * ユーザーが所属するグループのピボットテーブル名を取得する
      */
     protected static function userGroupPivotTable(): string

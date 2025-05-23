@@ -6,11 +6,14 @@ use Exception;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
-use Green\AdminAuth\Models\AdminUser;
 use Green\AdminAuth\GreenAdminAuthPlugin;
+use Green\AdminAuth\Models\User\Contracts\ShouldExpirePassword;
+use Green\AdminAuth\Models\User\Contracts\ShouldHaveUsername;
+use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
+use RuntimeException;
 
 /**
  * ログインページ
@@ -39,9 +42,8 @@ class Login extends \Filament\Pages\Auth\Login
         }
 
         // パスワードの有効期限が切れている場合の処理
-        /** @var AdminUser $user */
         $user = Filament::auth()->user();
-        if ($user->isPasswordExpired()) {
+        if ($user instanceof ShouldExpirePassword && $user->isPasswordExpired()) {
             // セッションに、ログインしようとしたユーザーIDを設定する
             session()->put(PasswordExpired::PASSWORD_EXPIRED_USER_ID, $user->id);
 
@@ -98,7 +100,7 @@ class Login extends \Filament\Pages\Auth\Login
         } elseif ($canLoginWithEmail) {
             return __('green::admin-auth.pages.login.email');
         } else {
-            throw new \RuntimeException('Please enable login with (username or email)');
+            throw new RuntimeException('Please enable login with (username or email)');
         }
     }
 
@@ -125,13 +127,33 @@ class Login extends \Filament\Pages\Auth\Login
     }
 
     /**
+     * 現在のGuardのユーザーモデルのインスタンスを取得する
+     *
+     * @return string ユーザーモデルのクラス名
+     */
+    protected function getAuthProviderModel(): string
+    {
+        $guard = Auth::guard(\filament()->getAuthGuard());
+        $provider = $guard->getProvider();
+        if (!$provider instanceof EloquentUserProvider) {
+            throw new RuntimeException('The current provider is not an EloquentUserProvider.');
+        }
+        return $provider->getModel();
+    }
+
+    /**
      * メールアドレスでログインできるか？
      *
      * @return bool メールアドレスでログインできる場合はtrue、それ以外はfalse
      */
     protected function canLoginWithEmail(): bool
     {
-        return GreenAdminAuthPlugin::get()->canLoginWithEmail();
+        $class = $this->getAuthProviderModel();
+        if (is_subclass_of($class, ShouldHaveUsername::class)) {
+            return $class::canLoginWithEmail();
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -141,7 +163,12 @@ class Login extends \Filament\Pages\Auth\Login
      */
     protected function canLoginWithUsername(): bool
     {
-        return GreenAdminAuthPlugin::get()->canLoginWithUsername();
+        $class = $this->getAuthProviderModel();
+        if (is_subclass_of($class, ShouldHaveUsername::class)) {
+            return $class::canLoginWithUsername();
+        } else {
+            return false;
+        }
     }
 
     /**

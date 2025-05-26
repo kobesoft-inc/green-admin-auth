@@ -9,7 +9,12 @@ use Green\AdminAuth\Facades\IdProviderRegistry;
 use Green\AdminAuth\IdProviders\IdProvider;
 use Green\AdminAuth\Models\AdminOAuth;
 use Green\AdminAuth\Models\AdminUser;
+use Green\AdminAuth\Models\Base\BaseOAuth;
+use Green\AdminAuth\Models\User\Contracts\CanBeSuspended;
+use Illuminate\Auth\EloquentUserProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class SocialiteController
@@ -40,24 +45,24 @@ class SocialiteController
         $provider = IdProviderRegistry::get($driver, Filament::getAuthGuard());
 
         // 認証情報を取得する
-        $adminOAuth = $this->getAdminOAuth($provider);
-        if ($adminOAuth->exists && $adminOAuth->user !== null) {
-            $adminUser = $adminOAuth->user;
+        $oauth = $this->getOAuth($provider);
+        if ($oauth->exists && $oauth->user !== null) {
+            $adminUser = $oauth->user;
         } else {
-            $adminUser = $this->getAdminUser($provider);
+            $adminUser = $this->getUser($provider);
             abort_if(!$adminUser, 403, __('filament-panels::pages/auth/login.messages.failed'));
-            $adminOAuth->admin_user_id = $adminUser->id;
+            $oauth->admin_user_id = $adminUser->id;
         }
 
         // ユーザー情報を更新する
         if ($provider->shouldUpdateUser()) {
             $adminUser = $provider->fillUser($adminUser);
-            $adminUser = $this->updateAvatar($adminUser, $adminOAuth, $provider);
+            $adminUser = $this->updateAvatar($adminUser, $oauth, $provider);
         }
 
         // 保存
         $adminUser->save();
-        $adminOAuth->save();
+        $oauth->save();
 
         // ログインする
         Filament::auth()->login($adminUser);
@@ -73,24 +78,25 @@ class SocialiteController
      * 既存の認証情報があればそれを返し、なければ新規作成する
      *
      * @param IdProvider $provider 認証サービス
-     * @return AdminOAuth|null
+     * @return BaseOAuth|null 認証情報
      * @throws Exception
      */
-    private function getAdminOAuth(IdProvider $provider): ?AdminOAuth
+    private function getOAuth(IdProvider $provider): ?BaseOAuth
     {
+        $userClass = $this->getAuthProviderModel();
         $socialUser = $provider->user();
-        $adminOAuth = AdminOAuth::firstOrNew([
+        $oauth = ($userClass::oauthClass())::firstOrNew([
             'driver' => $provider->getDriver(),
             'uid' => $socialUser->getId(),
         ]);
-        $adminOAuth->fill([
+        $oauth->fill([
             'token' => $socialUser->token,
             'token_expires_at' => $socialUser->expiresIn ? now()->addSeconds($socialUser->expiresIn) : null,
             'refresh_token' => $socialUser->refreshToken,
             'avatar_hash' => $provider->getAvatarHash(),
             'data' => $socialUser->user,
         ]);
-        return $adminOAuth;
+        return $oauth;
     }
 
     /**
@@ -100,26 +106,26 @@ class SocialiteController
      * @return AdminUser|null 管理ユーザー
      * @throws Exception
      */
-    private function getAdminUser(IdProvider $provider): ?AdminUser
+    private function getUser(IdProvider $provider): ?AdminUser
     {
+        $userClass = $this->getAuthProviderModel();
         $socialiteUser = $provider->user();
-        $adminUser = AdminUser::where('email', $socialiteUser->getEmail())->first();
-        if ($adminUser && !$adminUser->is_active) {
+        $user = $userClass::where('email', $socialiteUser->getEmail())->first();
+        if ($user && $user instanceof CanBeSuspended && $user->isSuspended()) {
             return null; // ログインできない
         }
-        if ($adminUser) {
-            return $adminUser; // 既存のユーザー
+        if ($user) {
+            return $user; // 既存のユーザー
         }
         if ($provider->shouldCreateUser()) {
             // 新規ユーザーを作成する
-            $adminUser = new AdminUser([
+            $user = new $userClass([
                 'name' => $socialiteUser->getName(),
                 'email' => $socialiteUser->getEmail(),
-                'is_active' => true,
             ]);
-            $adminUser = $provider->fillUser($adminUser);
-            $adminUser->save();
-            return $adminUser;
+            $user = $provider->fillUser($user);
+            $user->save();
+            return $user;
         }
         return null; // ログインできない
     }
@@ -128,22 +134,22 @@ class SocialiteController
      * アバターを更新する
      *
      * @param HasAvatar $user
-     * @param AdminOAuth $adminOAuth
+     * @param BaseOAuth $oauth
      * @param IdProvider $provider
      * @return HasAvatar
      */
-    private function updateAvatar(HasAvatar $user, AdminOAuth $adminOAuth, IdProvider $provider): HasAvatar
+    private function updateAvatar(HasAvatar $user, BaseOAuth $oauth, IdProvider $provider): HasAvatar
     {
         // アバターを更新すべきか？
-        if (!$adminOAuth->isDirty('avatar_hash') || $adminOAuth->avatar_hash === null) {
+        if (!$oauth->isDirty('avatar_hash') || $oauth->avatar_hash === null) {
             return $user;
         }
 
         // アバターをダウンロードして、更新する
         $contents = $provider->getAvatarData();
         if (($extension = $this->getAvatarExtension($contents)) !== null) {
-            $user->avatar = 'admin-users/avatars/' . md5($contents) . '.' . $extension;
-            Storage::disk('public')->put($user->avatar, $contents);
+            $user->{$user->getAvatarColumn()} = 'admin-users/avatars/' . md5($contents) . '.' . $extension;
+            Storage::disk('public')->put($user->{$user->getAvatarColumn()}, $contents);
         }
         return $user;
     }
@@ -166,5 +172,20 @@ class SocialiteController
             'image/webp' => 'webp',
             default => null,
         };
+    }
+
+    /**
+     * 現在のGuardのユーザーモデルのインスタンスを取得する
+     *
+     * @return string ユーザーモデルのクラス名
+     */
+    protected function getAuthProviderModel(): string
+    {
+        $guard = Auth::guard(\filament()->getAuthGuard());
+        $provider = $guard->getProvider();
+        if (!$provider instanceof EloquentUserProvider) {
+            throw new RuntimeException('The current provider is not an EloquentUserProvider.');
+        }
+        return $provider->getModel();
     }
 }

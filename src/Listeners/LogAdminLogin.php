@@ -30,7 +30,7 @@ class LogAdminLogin
     public function handle(Login $login): void
     {
         // ログイン記録をするユーザーでなければ処理しない
-        if (!$login->user instanceof ShouldLogLogin) {
+        if (!($login->user instanceof ShouldLogLogin)) {
             return;
         }
 

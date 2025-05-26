@@ -2,6 +2,7 @@
 
 namespace Green\AdminAuth\Models\User\Concerns;
 
+use Green\AdminAuth\Models\User\Contracts\CanBeSuspended;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use RuntimeException;
@@ -13,6 +14,21 @@ use RuntimeException;
  */
 trait HasSuspension
 {
+    /**
+     * 起動時の処理
+     */
+    protected static function bootHasSuspension(): void
+    {
+        static::creating(function (CanBeSuspended $model) {
+            // 利用停止・利用停止日時のカラムが定義されていない場合、アクティブな状態にする
+            if ($model->suspendedAtColumn() && !isset($model->{$model->suspendedAtColumn()})) {
+                $model->{$model->suspendedAtColumn()} = null;
+            } elseif ($model->isActivateColumn() && !isset($model->{$model->isActivateColumn()})) {
+                $model->{$model->isActivateColumn()} = true;
+            }
+        });
+    }
+
     /**
      * ユーザーの利用停止をした日時のカラム名
      */
@@ -73,6 +89,18 @@ trait HasSuspension
                 } else {
                     return true;
                 }
+            }
+        );
+    }
+
+    /**
+     * 現在、利用停止中か？の属性
+     */
+    public function isSuspended(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return !$this->isActive;
             }
         );
     }

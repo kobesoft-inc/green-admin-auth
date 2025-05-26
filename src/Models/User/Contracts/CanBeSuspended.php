@@ -11,4 +11,6 @@ interface CanBeSuspended
     public function resume(): void;
 
     public function isActive(): Attribute;
+
+    public function isSuspended(): Attribute;
 }

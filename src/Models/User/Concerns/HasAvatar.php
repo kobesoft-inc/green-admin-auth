@@ -16,6 +16,16 @@ use Illuminate\Support\Facades\Storage;
 trait HasAvatar
 {
     /**
+     * アバター画像のカラム名
+     *
+     * @return string
+     */
+    public static function getAvatarColumn(): string
+    {
+        return 'avatar';
+    }
+
+    /**
      * アバター画像のURL
      *
      * @return Attribute
@@ -25,7 +35,7 @@ trait HasAvatar
         return Attribute::make(
             get: function () {
                 return $this->avatar
-                    ? Storage::disk('public')->url($this->avatar)
+                    ? Storage::disk('public')->url($this->{static::getAvatarColumn()})
                     : app(filament()->getDefaultAvatarProvider())->get($this);
             }
         );

@@ -6,7 +6,7 @@ use Exception;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
-use Green\AdminAuth\GreenAdminAuthPlugin;
+use Green\AdminAuth\Facades\IdProviderRegistry;
 use Green\AdminAuth\Models\User\Contracts\ShouldExpirePassword;
 use Green\AdminAuth\Models\User\Contracts\ShouldHaveUsername;
 use Illuminate\Auth\EloquentUserProvider;
@@ -190,7 +190,7 @@ class Login extends \Filament\Pages\Auth\Login
     protected function getIdProviderActions(): array
     {
         $actions = [];
-        foreach (GreenAdminAuthPlugin::get()->getIdProviders() as $provider) {
+        foreach (IdProviderRegistry::all(Filament::getAuthGuard()) as $provider) {
             $actions[] = $provider->getLoginAction();
         }
         return $actions;

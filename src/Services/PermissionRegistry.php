@@ -18,6 +18,8 @@ class PermissionRegistry
 
     /**
      * パーミッションを登録する
+     *
+     * @param string[] $permissions パーミッションのクラス名の配列
      */
     public function register(array $permissions): void
     {

@@ -4,10 +4,11 @@ namespace Green\AdminAuth\Http\Controllers;
 
 use Exception;
 use Filament\Facades\Filament;
+use Filament\Models\Contracts\HasAvatar;
+use Green\AdminAuth\Facades\IdProviderRegistry;
 use Green\AdminAuth\IdProviders\IdProvider;
 use Green\AdminAuth\Models\AdminOAuth;
 use Green\AdminAuth\Models\AdminUser;
-use Green\AdminAuth\GreenAdminAuthPlugin;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -22,7 +23,7 @@ class SocialiteController
      */
     public function redirect(string $driver): RedirectResponse
     {
-        $provider = GreenAdminAuthPlugin::get()->getIdProvider($driver);
+        $provider = IdProviderRegistry::get($driver, Filament::getAuthGuard());
         return $provider->redirect();
     }
 
@@ -36,7 +37,7 @@ class SocialiteController
     public function callback(string $driver): RedirectResponse
     {
         // 認証サービスを取得する
-        $provider = GreenAdminAuthPlugin::get()->getIdProvider($driver);
+        $provider = IdProviderRegistry::get($driver, Filament::getAuthGuard());
 
         // 認証情報を取得する
         $adminOAuth = $this->getAdminOAuth($provider);
@@ -126,25 +127,25 @@ class SocialiteController
     /**
      * アバターを更新する
      *
-     * @param AdminUser $adminUser
+     * @param HasAvatar $user
      * @param AdminOAuth $adminOAuth
      * @param IdProvider $provider
-     * @return AdminUser
+     * @return HasAvatar
      */
-    private function updateAvatar(AdminUser $adminUser, AdminOAuth $adminOAuth, IdProvider $provider): AdminUser
+    private function updateAvatar(HasAvatar $user, AdminOAuth $adminOAuth, IdProvider $provider): HasAvatar
     {
         // アバターを更新すべきか？
         if (!$adminOAuth->isDirty('avatar_hash') || $adminOAuth->avatar_hash === null) {
-            return $adminUser;
+            return $user;
         }
 
         // アバターをダウンロードして、更新する
         $contents = $provider->getAvatarData();
         if (($extension = $this->getAvatarExtension($contents)) !== null) {
-            $adminUser->avatar = 'admin-users/avatars/' . md5($contents) . '.' . $extension;
-            Storage::disk('public')->put($adminUser->avatar, $contents);
+            $user->avatar = 'admin-users/avatars/' . md5($contents) . '.' . $extension;
+            Storage::disk('public')->put($user->avatar, $contents);
         }
-        return $adminUser;
+        return $user;
     }
 
     /**

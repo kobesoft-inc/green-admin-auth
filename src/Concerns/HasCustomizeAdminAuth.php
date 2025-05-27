@@ -2,6 +2,8 @@
 
 namespace Green\AdminAuth\Concerns;
 
+use Filament\Facades\Filament;
+use Green\AdminAuth\Facades\IdProviderRegistry;
 use Green\AdminAuth\IdProviders\IdProvider;
 use Green\AdminAuth\Models\AdminGroup;
 use Green\AdminAuth\Models\AdminUser;
@@ -518,7 +520,7 @@ trait HasCustomizeAdminAuth
      */
     public function getIdProviders(): array
     {
-        return $this->idProviders;
+        return IdProviderRegistry::all();
     }
 
     /**
@@ -529,7 +531,7 @@ trait HasCustomizeAdminAuth
      */
     public function getIdProvider(string $driver): IdProvider
     {
-        return collect($this->idProviders)->first(fn($idProvider) => $idProvider->getDriver() === $driver);
+        return IdProviderRegistry::get($driver);
     }
 
     /**
@@ -540,7 +542,7 @@ trait HasCustomizeAdminAuth
      */
     public function idProvider(IdProvider $idProvider): GreenAdminAuthPlugin
     {
-        $this->idProviders[] = $idProvider;
+        IdProviderRegistry::register($idProvider);
         return $this;
     }
 }
